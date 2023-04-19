@@ -1,0 +1,44 @@
+name: CD
+ 
+on:
+  push:
+    branches: [ main ]
+ 
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '19.x'
+    - run: npm install
+    - run: npm run build
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.3.3
+      with:
+        server: 89.117.188.164
+        username: u440599207.github	
+        password: ${{ secrets.ftp_password }}
+
+    - name: Deploy to production
+      uses: appleboy/ssh-action@master
+      with:
+        username: u440599207
+        host: 89.117.188.164
+        password: ${{ secrets.ftp_password }}
+        port: 65002
+        script: |
+          cd /home/u440599207/domains/itsourov.com/public_html
+          php artisan down
+          # cp .env.example .env
+          # php artisan key:generate
+          # php -r "readfile('https://getcomposer.org/installer');" | php -c php.ini
+          php composer.phar install --no-interaction --prefer-dist --optimize-autoloader
+          php artisan cache:clear a
+          php artisan migrate:fresh --seed
+          php artisan storage:link
+          php artisan config:clear
+          php artisan optimize:clear
+          php artisan up
