@@ -14,11 +14,14 @@
     <script src="https://kit.fontawesome.com/20e055f620.js" crossorigin="anonymous"></script>
 
     <script>
+        console.log(localStorage.getItem('color-theme'));
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia(
                 '(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
+            console.log('doing dark');
         } else {
             document.documentElement.classList.remove('dark')
+            console.log('doing light');
         }
     </script>
 </head>
