@@ -2,9 +2,9 @@
 
     <section class="py-10 sm:py-16 ">
         <div class="container mx-auto px-2">
-            <x-card>
-                <article class="prose lg:prose-xl prose-zinc dark:prose-invert max-w-none">
-                    <h1>Privacy Policy for Sourov Tech</h1>
+            <x-card class="sm:p-4 md:p-8">
+                <article class="prose md:prose-lg prose-zinc dark:prose-invert max-w-none prose-a:text-blue-600">
+                    <h2><strong>Privacy Policy</strong></h2>
                     <p>At ITSourov, accessible from https://itsourov.com/, one of our main priorities is the privacy of
                         our visitors. This Privacy Policy document contains types of information that is collected and
                         recorded by ITSourov and how we use it.</p>
@@ -112,8 +112,6 @@
                         periodically for any changes. We will notify you of any changes by posting the new Privacy
                         Policy on this page. These changes are effective immediately, after they are posted on this
                         page.</p>
-                    <p>Our Privacy Policy was created with the help of the <a
-                            href="https://www.termsfeed.com/privacy-policy-generator/">Privacy Policy Generator</a>.</p>
                     <h2>Contact Us</h2>
                     <p>If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us.
                     </p>
