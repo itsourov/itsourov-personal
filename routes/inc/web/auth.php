@@ -26,7 +26,7 @@ Route::middleware('guest')->group(function () {
     Route::post('login', [LoginUserController::class, 'store']);
 
     Route::get('/auth/google/redirect', function () {
-        return Socialite::driver('google')->scopes(['https://www.googleapis.com/auth/drive'])->redirect();
+        return Socialite::driver('google')->redirect();
     })->name('auth.google.redirect');
 
     Route::get('/auth/google/callback', [GoogleLoginController::class, 'googleCallback']);
