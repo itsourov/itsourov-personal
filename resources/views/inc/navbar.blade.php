@@ -40,6 +40,9 @@
                 <x-nav-link :href="route('pages.contact')" :active="request()->routeIs('pages.contact')">
                     {{ __('Contact') }}
                 </x-nav-link>
+                <x-nav-link :href="route('pages.privacy-policy')" :active="request()->routeIs('pages.privacy-policy')">
+                    {{ __('Privacy policy') }}
+                </x-nav-link>
 
             </div>
 
@@ -133,7 +136,9 @@
                             <x-nav-link :href="route('pages.contact')" :active="request()->routeIs('pages.contact')">
                                 {{ __('Contact') }}
                             </x-nav-link>
-
+                            <x-nav-link :href="route('pages.privacy-policy')" :active="request()->routeIs('pages.privacy-policy')">
+                                {{ __('Privacy policy') }}
+                            </x-nav-link>
 
 
                         </div>
