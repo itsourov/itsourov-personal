@@ -33,9 +33,9 @@ class GoogleLoginController extends Controller
                     $new_user->markEmailAsVerified();
                 }
                 event(new Registered($new_user));
-                $new_user->addMediaFromUrl(str_replace('=s96-c', '', $googleUser->avatar))
-                    ->usingFileName($googleUser->name . '.png')
-                    ->toMediaCollection('profileImages', 'profile-image');
+                // $new_user->addMediaFromUrl(str_replace('=s96-c', '', $googleUser->avatar))
+                //     ->usingFileName($googleUser->name . '.png')
+                //     ->toMediaCollection('profileImages', 'profile-image');
 
                 return redirect()->intended(RouteServiceProvider::HOME)->with('message', 'You are now logged in!');
             } else {

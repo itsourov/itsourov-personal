@@ -1,4 +1,4 @@
-<section class="py-10 bg-white dark:bg-gray-800 border-t dark:border-gray-700  mt-auto sm:pt-16 lg:pt-24">
+<section class="py-6 bg-white dark:bg-gray-800 border-t dark:border-gray-700  mt-auto sm:pt-10">
     <div class="px-2 mx-auto container">
         <div class="grid grid-cols-2 md:col-span-3 lg:grid-cols-6 gap-y-16 gap-x-12">
             <div class="col-span-2 md:col-span-3 lg:col-span-2 lg:pr-8">
@@ -11,7 +11,7 @@
 
                 <ul class="flex items-center space-x-3 mt-9">
                     <li>
-                        <a href="#" title=""
+                        <a href="https://twitter.com/sourovbuzz" title=""
                             class="flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-7 h-7 hover:bg-blue-600 focus:bg-blue-600">
                             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                 fill="currentColor">
@@ -23,7 +23,7 @@
                     </li>
 
                     <li>
-                        <a href="#" title=""
+                        <a href="https://www.facebook.com/sourovb03/" title=""
                             class="flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-7 h-7 hover:bg-blue-600 focus:bg-blue-600">
                             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                 fill="currentColor">
@@ -35,7 +35,7 @@
                     </li>
 
                     <li>
-                        <a href="#" title=""
+                        <a href="https://www.instagram.com/sourovb03/" title=""
                             class="flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-7 h-7 hover:bg-blue-600 focus:bg-blue-600">
                             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                 fill="currentColor">
@@ -51,7 +51,7 @@
                     </li>
 
                     <li>
-                        <a href="#" title=""
+                        <a href="https://github.com/itsourov" title=""
                             class="flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-7 h-7 hover:bg-blue-600 focus:bg-blue-600">
                             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                 fill="currentColor">
@@ -107,7 +107,7 @@
 
                 <form action="#" method="POST" class="mt-6 space-y-3">
                     <div>
-                        <label for="email" class="sr-only">Email</label>
+                        <label for="email" class="sr-only">{{ __('Email') }}</label>
                         <x-input.text name="email" type="email" placeholder="{{ __('Enter your email') }}"
                             class="p-4" />
                     </div>
@@ -117,8 +117,8 @@
             </div>
         </div>
 
-        <hr class="mt-16 mb-10 border-gray-200" />
+        <hr class="mt-6 mb-6 border-gray-200 dark:border-gray-700" />
 
-        <p class="text-sm text-center text-gray-600">© Copyright 2021, All Rights Reserved by Postcraft</p>
+        <p class="text-sm text-center text-gray-600">{!! __('&copy; 2023 Itsourov. All rights reserved.') !!}</p>
     </div>
 </section>
