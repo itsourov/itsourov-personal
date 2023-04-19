@@ -1,4 +1,5 @@
- <div class=" bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-800  cursor-pointer hover:bg-gray-50">
+ <div
+     class=" bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-800  cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700">
      <button type="button" class="flex items-center justify-between w-full px-4 py-5 sm:p-6">
          <span class="flex text-lg font-semibold"> {{ $q }} </span>
 
