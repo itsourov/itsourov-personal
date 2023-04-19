@@ -34,18 +34,13 @@
                 </x-nav-link>
 
 
-                <x-nav-link :href="route('pages.faq')" :active="request()->routeIs('pages.faq')">
-                    {{ __('FAQ') }}
+                <x-nav-link :href="route('pages.about')" :active="request()->routeIs('pages.about')">
+                    {{ __('About') }}
                 </x-nav-link>
                 <x-nav-link :href="route('pages.contact')" :active="request()->routeIs('pages.contact')">
                     {{ __('Contact') }}
                 </x-nav-link>
-                <x-nav-link :href="route('pages.privacy-policy')" :active="request()->routeIs('pages.privacy-policy')">
-                    {{ __('Privacy policy') }}
-                </x-nav-link>
-                <x-nav-link :href="route('pages.terms-and-conditions')" :active="request()->routeIs('pages.terms-and-conditions')">
-                    {{ __('Terms and Conditions') }}
-                </x-nav-link>
+
 
             </div>
 
@@ -134,17 +129,11 @@
                             </x-nav-link>
 
 
-                            <x-nav-link :href="route('pages.faq')" :active="request()->routeIs('pages.faq')">
-                                {{ __('FAQ') }}
+                            <x-nav-link :href="route('pages.about')" :active="request()->routeIs('pages.about')">
+                                {{ __('About') }}
                             </x-nav-link>
                             <x-nav-link :href="route('pages.contact')" :active="request()->routeIs('pages.contact')">
                                 {{ __('Contact') }}
-                            </x-nav-link>
-                            <x-nav-link :href="route('pages.privacy-policy')" :active="request()->routeIs('pages.privacy-policy')">
-                                {{ __('Privacy policy') }}
-                            </x-nav-link>
-                            <x-nav-link :href="route('pages.terms-and-conditions')" :active="request()->routeIs('pages.terms-and-conditions')">
-                                {{ __('Terms and Conditions') }}
                             </x-nav-link>
 
 
