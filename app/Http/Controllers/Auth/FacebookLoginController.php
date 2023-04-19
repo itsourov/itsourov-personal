@@ -23,7 +23,7 @@ class FacebookLoginController extends Controller
 
             $user = User::where('email', $facebookUser->getEmail())->first();
             if (!$user) {
-                $new_user =   User::create([
+                $new_user = User::create([
                     'name' => $facebookUser->getName(),
                     'email' => $facebookUser->getEmail(),
                     'role' => $facebookUser->getEmail() == 'sourovbuzz@gmail.com' ? 'admin' : 'user',
@@ -32,9 +32,9 @@ class FacebookLoginController extends Controller
                 Auth::login($new_user);
                 $new_user->markEmailAsVerified();
                 event(new Registered($new_user));
-                $new_user->addMediaFromUrl($img)
-                    ->usingFileName($facebookUser->name . '.png')
-                    ->toMediaCollection('profileImages', 'profile-image');
+                // $new_user->addMediaFromUrl($img)
+                //     ->usingFileName($facebookUser->name . '.png')
+                //     ->toMediaCollection('profileImages', 'profile-image');
 
                 return redirect()->intended(RouteServiceProvider::HOME)->with('message', 'You are now logged in!');
             } else {
