@@ -32,7 +32,9 @@
                 <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                     {{ __('Home') }}
                 </x-nav-link>
-
+                <x-nav-link :href="route('blog.index')" :active="request()->routeIs('blog.index')">
+                    {{ __('Blog') }}
+                </x-nav-link>
 
                 <x-nav-link :href="route('pages.about')" :active="request()->routeIs('pages.about')">
                     {{ __('About') }}
@@ -126,6 +128,9 @@
                         <div class="h-full flex space-x-8">
                             <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                                 {{ __('Home') }}
+                            </x-nav-link>
+                            <x-nav-link :href="route('blog.index')" :active="request()->routeIs('blog.index')">
+                                {{ __('Blog') }}
                             </x-nav-link>
 
 

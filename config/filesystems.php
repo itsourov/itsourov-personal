@@ -56,10 +56,18 @@ return [
             'throw' => false,
         ],
 
-        'profile-image' => [
+        'profile-images' => [
             'driver' => 'local',
             'root' => storage_path('app/public/profile-image'),
             'url' => env('APP_URL') . '/storage/profile-image',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'post-thumbnails' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/post-thumbnails'),
+            'url' => env('APP_URL') . '/storage/post-thumbnails',
             'visibility' => 'public',
             'throw' => false,
         ],

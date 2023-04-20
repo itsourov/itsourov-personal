@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+
+Route::prefix('blog')->name('blog.')->group(function () {
+    Route::get('/', [PostController::class, 'index'])->name('index');
+    Route::get('/{post:slug}', [PostController::class, 'show'])->name('show');
+});
 
 require __DIR__ . '/inc/web/auth.php';
 require __DIR__ . '/inc/web/page.php';
