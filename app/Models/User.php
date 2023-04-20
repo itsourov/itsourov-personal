@@ -45,12 +45,5 @@ class User extends Authenticatable implements HasMedia
     ];
 
 
-    public function pp($size = null)
-    {
 
-
-
-        return $this->media();
-
-    }
 }

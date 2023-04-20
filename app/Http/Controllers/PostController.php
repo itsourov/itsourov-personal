@@ -14,6 +14,10 @@ class PostController extends Controller
     }
     public function show(Request $request, Post $post)
     {
-        return $post->loadMissing('user.media');
+        $post = $post->loadMissing(['media', 'user.media']);
+
+        $comments = $post->comments()->with('user.media')->paginate(20);
+        return view('blog.show', compact('post', 'comments'));
+
     }
 }

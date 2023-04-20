@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Database\Seeders\PostSeeder;
 use Database\Seeders\UserSeeder;
+use Database\Seeders\CommentSeeder;
 use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
@@ -26,5 +27,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(UserSeeder::class);
         $this->call(PostSeeder::class);
+        $this->call(CommentSeeder::class);
     }
 }
