@@ -16,6 +16,8 @@
     },
     "dependencies": {
         "@tailwindcss/aspect-ratio": "^0.4.2",
-        "alpinejs": "^3.12.0"
+        "alpinejs": "^3.12.0",
+        "photoswipe": "^5.3.7",
+        "spotlight.js": "^0.7.8"
     }
 }

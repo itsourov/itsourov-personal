@@ -6,3 +6,4 @@ Alpine.start()
 
 import './dark-mode.js';
 import 'flowbite';
+import 'spotlight.js';
