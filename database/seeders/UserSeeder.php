@@ -18,9 +18,7 @@ class UserSeeder extends Seeder
             $user->addMediaFromUrl(fake()->imageUrl())
 
                 ->toMediaCollection('profile-images', 'profile-images');
-            $user->addMediaFromUrl(fake()->imageUrl())
 
-                ->toMediaCollection('profile-images', 'profile-images');
         }
     }
 }

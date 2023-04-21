@@ -36,7 +36,7 @@
                 </div>
 
 
-                <div id="info-container" class="tab-content space-y-5" {!! $tabItem == 'info' ? '' : 'style="display: none"' !!}>
+                <div id="info-container" class=" space-y-5" {!! $tabItem == 'info' ? '' : 'style="display: none"' !!}>
 
 
                     <div>
@@ -52,15 +52,20 @@
                     <div>
                         <x-input.label :value="__('Featured Image')" required="false" />
                         <div class="flex mt-1 gap-2">
-                            <x-input.text wire:model="post.featured_image" type="url" class=" block w-full" />
-                            <button onclick="openFileManager('post.featured_image')"
+                            <x-input.text wire:model="featuredImageUrl" type="url" class=" block w-full"
+                                id="featuredImageUrl" />
+                            <button onclick="openFileManager('featuredImageUrl')"
                                 class="border border-gray-200 dark:border-gray-700 rounded-md bg-gray-50 dark:bg-gray-700 px-2">Select</button>
                         </div>
-
+                        @error('featuredImageUrl')
+                            <x-input.livewire-error>
+                                {{ $message }}
+                            </x-input.livewire-error>
+                        @enderror
                     </div>
 
                 </div>
-                <div id="content-container" class="tab-content" {!! $tabItem == 'content' ? '' : 'style="display: none"' !!}>
+                <div id="content-container" class="" {!! $tabItem == 'content' ? '' : 'style="display: none"' !!}>
                     <div class="space-y-6">
 
 
@@ -155,6 +160,31 @@
                     }
                 });
             }
+
+            $('#featuredImageUrl').elfinder({
+                // set your elFinder options here
+                customData: {
+                    _token: '<?= csrf_token() ?>'
+                },
+                url: '<?= URL::action('Barryvdh\Elfinder\ElfinderController@showConnector') ?>', // connector URL
+                dialog: {
+                    width: 900,
+                    modal: true,
+                    title: 'Select a file'
+                },
+                resizable: false,
+                commandsOptions: {
+                    getfile: {
+                        oncomplete: 'destroy',
+                        folders: true
+                    }
+                },
+                getFileCallback: function(file) {
+                    window.parent.processSelectedFile(file.path, 'featuredImageUrl');
+                    parent.jQuery.colorbox.close();
+                }
+            }).elfinder('instance');
         </script>
     @endpush
+
 </div>

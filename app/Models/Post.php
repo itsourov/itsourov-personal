@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use App\Models\User;
+use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Post extends Model implements HasMedia
 {
@@ -26,6 +28,24 @@ class Post extends Model implements HasMedia
         'slug',
         'content',
     ];
+
+    /**
+     * Register the conversions that should be performed.
+     *
+     * @return array
+     */
+    public function registerMediaConversions(Media $media = null): void
+    {
+
+        $this
+            ->addMediaConversion('preview')
+            ->fit(Manipulations::FIT_CROP, 300, 300)
+            ->nonQueued();
+
+
+    }
+
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -34,6 +54,7 @@ class Post extends Model implements HasMedia
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
+
 
 
 }

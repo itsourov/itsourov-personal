@@ -22,6 +22,7 @@ class GoogleLoginController extends Controller
 
             $user = User::where('email', $googleUser->getEmail())->first();
             if (!$user) {
+
                 $new_user = User::create([
                     'name' => $googleUser->getName(),
                     'email' => $googleUser->getEmail(),

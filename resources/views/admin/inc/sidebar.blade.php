@@ -51,9 +51,9 @@
                             <x-admin.sidebar-sub-menu-item :href="route('admin.posts.index')" :active="request()->routeIs('admin.posts.index')">
                                 View all Posts
                             </x-admin.sidebar-sub-menu-item>
-                            {{-- <x-admin.sidebar-sub-menu-item :href="route('admin.products.create')" :active="request()->routeIs('admin.products.create')">
-                                Add new Product
-                            </x-admin.sidebar-sub-menu-item> --}}
+                            <x-admin.sidebar-sub-menu-item :href="route('admin.posts.create')" :active="request()->routeIs('admin.posts.create')">
+                                Add new Posts
+                            </x-admin.sidebar-sub-menu-item>
                             {{-- <x-admin.sidebar-sub-menu-item :href="route('admin.movies.genres')" :active="request()->routeIs('admin.posts.categories')">
                                 Genres
                             </x-admin.sidebar-sub-menu-item> --}}
