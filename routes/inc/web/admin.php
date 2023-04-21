@@ -15,4 +15,5 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::get('/{post}', [PostController::class, 'edit'])->name('edit');
     });
 
+
 });

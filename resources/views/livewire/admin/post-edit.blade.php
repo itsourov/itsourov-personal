@@ -161,30 +161,17 @@
                 });
             }
 
-            $('#featuredImageUrl').elfinder({
-                // set your elFinder options here
-                customData: {
-                    _token: '<?= csrf_token() ?>'
-                },
-                url: '<?= URL::action('Barryvdh\Elfinder\ElfinderController@showConnector') ?>', // connector URL
-                dialog: {
-                    width: 900,
-                    modal: true,
-                    title: 'Select a file'
-                },
-                resizable: false,
-                commandsOptions: {
-                    getfile: {
-                        oncomplete: 'destroy',
-                        folders: true
-                    }
-                },
-                getFileCallback: function(file) {
-                    window.parent.processSelectedFile(file.path, 'featuredImageUrl');
-                    parent.jQuery.colorbox.close();
-                }
-            }).elfinder('instance');
+
+            function openFileManager(model) {
+                window.open('{{ route('elfinder.popup', 'a') }}?model=' + model, 'fm', 'width=1280,height=720');
+            }
+
+            // set file link
+            function standAloneFmSetLink($url, model) {
+
+
+                @this.set(model, $url);
+            }
         </script>
     @endpush
-
 </div>

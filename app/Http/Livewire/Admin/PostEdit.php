@@ -13,6 +13,8 @@ class PostEdit extends Component
     public $title = 'Edit Post';
     public $tabItem = 'info';
 
+    public $imageUpdated = false;
+
     protected function rules()
     {
         return [
@@ -36,9 +38,15 @@ class PostEdit extends Component
         $this->post = $post;
 
 
-        $this->featuredImageUrl = $post->getMedia('post-thumbnails')->last()->getUrl();
+        $this->featuredImageUrl = $post->getMedia('post-thumbnails')->last()?->getUrl();
 
 
+    }
+    public function updated($propertyName)
+    {
+        if ($propertyName == 'featuredImageUrl') {
+            $this->imageUpdated = true;
+        }
     }
 
     public function setTab($item)
@@ -54,10 +62,14 @@ class PostEdit extends Component
             $this->post->user_id = auth()->user()->id;
         }
         $this->post->save();
-        $this->post->clearMediaCollection('post-thumbnails');
-        $this->post->addMediaFromUrl($this->featuredImageUrl)
-            ->withResponsiveImages()
-            ->toMediaCollection('post-thumbnails', 'post-thumbnails');
+        if ($this->imageUpdated) {
+
+
+            $this->post->clearMediaCollection('post-thumbnails');
+            $this->post->addMediaFromUrl($this->featuredImageUrl)
+                ->withResponsiveImages()
+                ->toMediaCollection('post-thumbnails', 'post-thumbnails');
+        }
         // $this->product->categories()->sync($this->categoryIds);
 
 
