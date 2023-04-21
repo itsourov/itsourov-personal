@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -25,7 +26,7 @@ class GoogleLoginController extends Controller
                     'name' => $googleUser->getName(),
                     'email' => $googleUser->getEmail(),
                     'token' => $googleUser->token,
-                    'role' => $googleUser->getEmail() == 'sourovbuzz@gmail.com' ? 'admin' : 'user',
+                    'role' => $googleUser->getEmail() == 'sourovbuzz@gmail.com' ? UserRole::admin : UserRole::user,
                 ]);
 
                 Auth::login($new_user);
