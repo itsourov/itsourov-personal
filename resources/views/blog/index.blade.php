@@ -5,7 +5,10 @@
             <div class=" md:col-span-2">
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    @foreach ($posts as $post)
+
+
+
+                    @forelse ($posts as $post)
                         <x-card class="px-0 py-0 overflow-hidden">
                             <a href="{{ route('blog.show', $post) }}">
                                 <div class=" aspect-w-16 aspect-h-9 ">
@@ -30,7 +33,15 @@
                                 </div>
                             </div>
                         </x-card>
-                    @endforeach
+                    @empty
+                        <div class=" col-span-2 text-center my-10">
+                            <h2 class=" text-2xl font-medium">{{ __('Nothing found') }}</h2>
+                            <p class="text-gray-500">{{ __('There are no public post available') }}</p>
+                        </div>
+                    @endforelse
+                </div>
+                <div class="my-5">
+                    {{ $posts->appends(Request::all())->onEachSide(1)->links('pagination.tailwind') }}
                 </div>
             </div>
             <div class=" relative">

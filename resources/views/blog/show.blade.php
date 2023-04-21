@@ -22,18 +22,25 @@
                     </div>
 
                     <div class="flex  gap-2 flex-wrap">
-                        <button
-                            class="text-sm rounded-full py-2 border dark:border-gray-700 flex items-center gap-2 px-4 divide-x dark:divide-gray-700">
-                            <i class="fa-brands fa-facebook-f text-blue-500"></i>
+                        <a target="_blank"
+                            href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('blog.show', $post)) }}"
+                            class="fb-xfbml-parse-ignore">
+                            <button
+                                class="text-sm rounded-full py-2 border dark:border-gray-700 flex items-center gap-2 px-4 divide-x dark:divide-gray-700">
+                                <i class="fa-brands fa-facebook-f text-blue-500"></i>
 
-                            <p class="pl-2">Facebook</p>
-                        </button>
-                        <button
-                            class="text-sm rounded-full py-2 border dark:border-gray-700 flex items-center gap-2 px-4 divide-x dark:divide-gray-700">
-                            <i class="fa-brands fa-twitter text-blue-400"></i>
+                                <p class="pl-2">Facebook</p>
+                            </button>
+                        </a>
+                        <a target="_blank"
+                            href="http://twitter.com/share?text=text{{ urlencode($post->title) }}&url={{ urlencode(route('blog.show', $post)) }}">
+                            <button
+                                class="text-sm rounded-full py-2 border dark:border-gray-700 flex items-center gap-2 px-4 divide-x dark:divide-gray-700">
+                                <i class="fa-brands fa-twitter text-blue-400"></i>
 
-                            <p class="pl-2">Twitter</p>
-                        </button>
+                                <p class="pl-2">Twitter</p>
+                            </button>
+                        </a>
 
                     </div>
 
