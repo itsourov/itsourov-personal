@@ -7,36 +7,7 @@
                 <h3 class=" font-medium text-lg">{{ $title }}</h3>
             </div>
             <div>
-                @if ($errors->get('post.*'))
-                    <!-- This example requires Tailwind CSS v2.0+ -->
-                    <div class="rounded-md bg-red-50 p-4">
-                        <div class="flex">
-                            <div class="flex-shrink-0">
-                                <!-- Heroicon name: solid/x-circle -->
-                                <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                    fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                            <div class="ml-3">
-                                <h3 class="text-sm font-medium text-red-800">There were error in
-                                    {{ count($errors->get('post.*')) }} feild</h3>
-                                <div class="mt-2 text-sm text-red-700">
-                                    <ul role="list" class="list-disc pl-5 space-y-1">
-
-                                        @foreach ($errors->get('post.*') as $item)
-                                            @foreach ($item as $error)
-                                                <li>{{ App\Http\Helpers\Error::formatArrayError($error) }}</li>
-                                            @endforeach
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endif
+                <x-error-list :errors="$errors->get('post.*')" />
             </div>
 
 
@@ -89,13 +60,16 @@
                     </div>
 
                 </div>
-                <div id="content-container" class="tab-content" {!! $tabItem == 'description' ? '' : 'style="display: none"' !!}>
+                <div id="content-container" class="tab-content" {!! $tabItem == 'content' ? '' : 'style="display: none"' !!}>
                     <div class="space-y-6">
 
 
                         <div wire:ignore>
                             <x-input.label :value="__('Content')" required="true" />
-                            <textarea wire:model="post.content" class=" " id="post_content">{{ $post['content'] }}</textarea>
+                            <x-input.textarea wire:model="post.content" class=" mt-1 block w-full" id="post_content"
+                                rows="6">
+                                {{ $post['content'] }}</x-input.textarea>
+
                         </div>
                     </div>
                 </div>
@@ -104,36 +78,7 @@
 
             </div>
             <div>
-                @if ($errors->get('post.*'))
-                    <!-- This example requires Tailwind CSS v2.0+ -->
-                    <div class="rounded-md bg-red-50 p-4">
-                        <div class="flex">
-                            <div class="flex-shrink-0">
-                                <!-- Heroicon name: solid/x-circle -->
-                                <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                    fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                            <div class="ml-3">
-                                <h3 class="text-sm font-medium text-red-800">There were error in
-                                    {{ count($errors->get('post.*')) }} feild</h3>
-                                <div class="mt-2 text-sm text-red-700">
-                                    <ul role="list" class="list-disc pl-5 space-y-1">
-
-                                        @foreach ($errors->get('post.*') as $item)
-                                            @foreach ($item as $error)
-                                                <li>{{ App\Http\Helpers\Error::formatArrayError($error) }}</li>
-                                            @endforeach
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endif
+                <x-error-list :errors="$errors->get('post.*')" />
             </div>
             <x-button.primary wire:click="update">Update</x-button.primary>
 
@@ -148,4 +93,22 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+        <script>
+            tinymce.init({
+                selector: '#post_content',
+                plugins: 'anchor code autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+                setup: function(editor) {
+                    editor.on('init change', function() {
+                        editor.save();
+                    });
+                    editor.on('change', function(e) {
+                        @this.set('post.content', editor.getContent());
+                    });
+                }
+            });
+        </script>
+    @endpush
 </div>

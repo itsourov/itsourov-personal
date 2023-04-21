@@ -10,7 +10,7 @@ class PostEdit extends Component
     public Post $post;
 
     public $title = 'Edit Post';
-    public $tabItem = 'info';
+    public $tabItem = 'content';
 
     protected function rules()
     {
