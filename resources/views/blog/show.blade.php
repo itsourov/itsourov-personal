@@ -3,7 +3,7 @@
     <div class="container my-6  mx-auto gap-5 px-2  ">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 ">
             <div class=" md:col-span-2">
-                <x-card class="space-y-4">
+                <x-card class="space-y-4 md:p-4">
                     <h2 class="font-bold text-xl md:text-3xl">
                         {{ $post->title }}</h2>
                     <div class="flex flex-wrap justify-between text-xs text-gray-700 dark:text-gray-300">
@@ -12,11 +12,11 @@
                         <div class="space-x-2 whitespace-nowrap">
                             <div class="inline">
                                 <i class="fa-solid fa-eye fa-xs"></i>
-                                <span>11</span>
+                                <span>{{ $post->count }}</span>
                             </div>
                             <div class="inline">
                                 <i class="fa-solid fa-comments fa-xs"></i>
-                                <span>11</span>
+                                <span>{{ $post->comments_count }}</span>
                             </div>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
 
                     <hr class="mt-6 mb-6 border-gray-200 dark:border-gray-700">
                     <article>
-                        <div class="prose md:prose-lg prose-zinc dark:prose-invert max-w-none prose-a:text-blue-600 ">
+                        <div class="format md:format-lg  dark:format-invert max-w-none format-a:text-blue-600 ">
                             {!! $post->content !!}
                         </div>
                     </article>

@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('title');
+            $table->integer('count')->default(0);
             $table->string('slug')->unique();
             $table->text('content');
             $table->softDeletes();

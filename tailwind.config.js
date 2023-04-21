@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'class',
+
   content: [
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
@@ -35,6 +35,7 @@ module.exports = {
         'Noto Color Emoji'
       ],
       'sans': [
+        // 'SolaimanLipi',
         'Inter',
         'ui-sans-serif',
         'system-ui',
@@ -74,7 +75,9 @@ module.exports = {
 
   },
   plugins: [
-    require('@tailwindcss/typography'),
+    require('flowbite/plugin'),
+    require('@tailwindcss/aspect-ratio'),
+    require('flowbite-typography'),
 
   ],
 }

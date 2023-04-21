@@ -36,14 +36,13 @@
                     {{ __('Blog') }}
                 </x-nav-link>
 
+
                 <x-nav-link :href="route('pages.about')" :active="request()->routeIs('pages.about')">
                     {{ __('About') }}
                 </x-nav-link>
                 <x-nav-link :href="route('pages.contact')" :active="request()->routeIs('pages.contact')">
                     {{ __('Contact') }}
                 </x-nav-link>
-
-
             </div>
 
             <div class="border-t border-gray-200 dark:border-gray-700 py-6 px-4 space-y-4">
@@ -118,7 +117,6 @@
                     <div class="ml-4 flex lg:ml-0">
                         <a href="{{ route('home') }}">
                             <span class="sr-only">Workflow</span>
-                            {{-- //todo --}}
                             <img class="h-8 w-auto" src="{{ asset('images/logo.png') }}" alt="">
                         </a>
                     </div>
@@ -160,8 +158,8 @@
                                     </x-slot>
                                     <x-slot name="content">
 
-
-                                        {{-- <x-dropdown-link :href="route('my-account.index')">
+                                        {{-- 
+                                        <x-dropdown-link :href="route('my-account.index')">
                                             {{ __('Dashboard') }}
                                         </x-dropdown-link>
 
@@ -260,6 +258,6 @@
             </div>
         </nav>
     </header>
-
+    {{-- <x-cart-menu /> --}}
 
 </div>
