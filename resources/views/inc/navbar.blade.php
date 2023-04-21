@@ -49,15 +49,15 @@
 
                 @auth
 
-
-                    {{-- <x-nav-link :href="route('my-account.index')" :active="request()->routeIs('my-account')">
+                    {{-- 
+                    <x-nav-link :href="route('my-account.index')" :active="request()->routeIs('my-account')">
                         <i class="fa-solid fa-user mr-2"></i> {{ __('Dashboard') }}
-                    </x-nav-link>
-                    @if (auth()->user()->role == 'admin')
-                        <x-nav-link :href="route('admin.products.index')">
+                    </x-nav-link> --}}
+                    @admin
+                        <x-nav-link :href="route('admin.posts.index')">
                             <i class="fa-solid fa-lock mr-2"></i> {{ __('Admin Panel') }}
                         </x-nav-link>
-                    @endif --}}
+                    @endadmin
 
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}">
@@ -158,17 +158,19 @@
                                     </x-slot>
                                     <x-slot name="content">
 
-                                        {{-- 
-                                        <x-dropdown-link :href="route('my-account.index')">
+
+                                        {{-- <x-dropdown-link :href="route('my-account.index')">
                                             {{ __('Dashboard') }}
-                                        </x-dropdown-link>
+                                        </x-dropdown-link> --}}
 
 
-                                        @if (auth()->user()->role == 'admin')
-                                            <x-dropdown-link :href="route('admin.products.index')">
+
+                                        @admin
+                                            <x-dropdown-link :href="route('admin.posts.index')">
                                                 {{ __('Admin Panel') }}
                                             </x-dropdown-link>
-                                        @endif --}}
+                                        @endadmin
+
                                         <!-- Authentication -->
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf

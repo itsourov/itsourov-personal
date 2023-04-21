@@ -25,4 +25,5 @@ Route::prefix('blog')->name('blog.')->group(function () {
 });
 
 require __DIR__ . '/inc/web/auth.php';
+require __DIR__ . '/inc/web/admin.php';
 require __DIR__ . '/inc/web/page.php';
