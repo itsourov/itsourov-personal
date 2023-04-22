@@ -13,7 +13,6 @@
                         covering web development, software engineering, data science, and more. Plus, I offer digital
                         products and courses to help you expand your technical skills. Thanks for visiting, and let's
                         explore the world of technology together!
-                        ps: I will put my own image later. I dont have a suitable image RN.
                     </p>
 
                     <p class="mt-4 text-xl text-gray-600 dark:text-gray-300 md:mt-8">
@@ -34,8 +33,7 @@
                         alt="" />
 
                     <img class="relative w-full xl:max-w-lg xl:mx-auto 2xl:origin-bottom 2xl:scale-110"
-                        src="https://cdn.rareblocks.xyz/collection/celebration/images/team/1/business-woman.png"
-                        alt="" />
+                        src="{{ asset('images/sourov.webp') }}" alt="" />
                 </div>
             </div>
         </div>

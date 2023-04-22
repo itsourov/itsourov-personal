@@ -3,7 +3,7 @@
     <section class="py-10 sm:py-16 ">
         <div class="container mx-auto px-2">
             <x-card class="sm:p-4 md:p-8">
-                <article class="prose md:prose-lg prose-zinc dark:prose-invert max-w-none prose-a:text-blue-600">
+                <article class="format md:format-lg  dark:format-invert max-w-none format-a:text-blue-600 ">
                     <h2><strong>Privacy Policy</strong></h2>
                     <p>At ITSourov, accessible from https://itsourov.com/, one of our main priorities is the privacy of
                         our visitors. This Privacy Policy document contains types of information that is collected and
