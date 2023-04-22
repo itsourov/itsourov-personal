@@ -103,7 +103,7 @@
         <script>
             tinymce.init({
                 selector: '#post_content',
-                plugins: 'anchor code autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+                plugins: 'anchor  code autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
                 toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
                 setup: function(editor) {
                     editor.on('init change', function() {
@@ -112,9 +112,29 @@
                     editor.on('change', function(e) {
                         @this.set('post.content', editor.getContent());
                     });
+                    editor.on('ExecCommand', function(e) {
+                        if (e.command === 'mceUpdateImage') {
+                            const img = editor.selection.getNode();
+
+                            var link = document.createElement("a");
+                            link.href = img.src;
+                            link.className = 'spotlight';
+                            img.parentNode.insertBefore(link, img);
+
+                            // Move the image inside the link element
+                            link.appendChild(img);
+
+                        }
+                    });
+
                 },
                 file_picker_callback: elFinderBrowser,
+                extended_valid_elements: 'img[class|src|alt|title|width|loading=lazy]',
+
             });
+
+
+
 
             function elFinderBrowser(callback, value, meta) {
                 tinymce.activeEditor.windowManager.openUrl({
