@@ -3,12 +3,9 @@
 namespace App\Models;
 
 use App\Models\User;
-use Illuminate\Support\Str;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
-use RalphJSmit\Laravel\SEO\Support\HasSEO;
-use RalphJSmit\Laravel\SEO\Support\SEOData;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,7 +15,7 @@ class Post extends Model implements HasMedia
 {
     use HasFactory, SoftDeletes;
     use InteractsWithMedia;
-    use HasSEO;
+
 
     /**
      * The attributes that are mass assignable.
@@ -59,17 +56,7 @@ class Post extends Model implements HasMedia
         return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id')->with(['user.media', 'replies.user.media'])->withTrashed();
     }
 
-    public function getDynamicSEOData(): SEOData
-    {
 
-
-        // Override only the properties you want:
-        return new SEOData(
-            title: $this->title,
-            description: Str::words($this->content),
-            image: $this->getMedia('post-thumbnails')->last()?->getUrl(),
-        );
-    }
 
 
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use RalphJSmit\Laravel\SEO\Support\SEOData;
 
 class PostController extends Controller
 {
@@ -17,8 +18,16 @@ class PostController extends Controller
         $post = $post->loadMissing(['media', 'user.media'])->loadCount('comments');
         $post->update(['count' => $post->count + 1]);
 
-        // $comments = $post->comments()->with('user.media')->paginate(20);
-        return view('blog.show', compact('post', ));
+
+
+        $SEOData = new SEOData(
+            title: $post->title, image
+            : $post->media->last()->original_url,
+            description: $post->content, author
+            : $post->user->name,
+
+        );
+        return view('blog.show', compact('post', 'SEOData'));
 
     }
 

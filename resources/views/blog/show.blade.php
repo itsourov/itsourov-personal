@@ -1,6 +1,6 @@
 <x-app-layout>
     @section('seo')
-        {!! seo()->for($post) !!}
+        {!! seo($SEOData) !!}
     @endsection
     {{ Breadcrumbs::render('blog.article', $post->title) }}
     <div class="container my-6  mx-auto gap-5 px-2  ">
