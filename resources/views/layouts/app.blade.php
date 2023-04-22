@@ -15,7 +15,7 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+    @livewireStyles
     <script>
         console.log(localStorage.getItem('color-theme'));
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia(
@@ -37,6 +37,7 @@
     </main>
     @include('inc.footer')
 
+    @livewireScripts
     <script src="{{ asset('js/jquery-min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     @yield('scripts')

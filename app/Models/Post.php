@@ -52,7 +52,7 @@ class Post extends Model implements HasMedia
     }
     public function comments()
     {
-        return $this->morphMany(Comment::class, 'commentable');
+        return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id')->with(['user.media', 'replies.user.media'])->withTrashed();
     }
 
 

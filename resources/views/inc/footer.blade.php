@@ -108,11 +108,10 @@
                 <form action="#" method="POST" class="mt-6 space-y-3">
                     <div>
                         <label for="email" class="sr-only">{{ __('Email') }}</label>
-                        <x-input.text name="email" type="email" placeholder="{{ __('Enter your email') }}"
-                            class="p-4" />
+                        <x-input.text name="email" type="email" placeholder="{{ __('Enter your email') }}" />
                     </div>
 
-                    <x-button.primary class="py-3 px-4">Subscribe</x-button.primary>
+                    <x-button.primary class=" px-4">Subscribe</x-button.primary>
                 </form>
             </div>
         </div>

@@ -12,10 +12,12 @@ return new class extends Migration {
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
+            $table->integer('parent_id')->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->integer('commentable_id')->unsigned();
             $table->string('commentable_type');
             $table->text('comment');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

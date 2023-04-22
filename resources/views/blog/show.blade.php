@@ -59,6 +59,10 @@
                         </div>
                     </article>
                 </x-card>
+
+                @livewire('post.comment-section', ['post' => $post])
+
+
             </div>
 
             <div class=" relative">
