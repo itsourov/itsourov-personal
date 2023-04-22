@@ -18,7 +18,7 @@ class CommentSection extends Component
     use WithRateLimiting;
     public Post $post;
     public $replyBoxTexts = [];
-    public $commentBoxText = "asd";
+    public $commentBoxText = "";
 
     public $deleteCommentId;
 

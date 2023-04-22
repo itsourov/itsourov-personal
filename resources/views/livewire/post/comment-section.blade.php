@@ -175,7 +175,7 @@
 
 
                 document.addEventListener('scroll-to-element', function(params) {
-                    console.log(params);
+
                     let element = document.getElementById(params.detail.elementId);
                     if (element) {
                         element.scrollIntoView({
@@ -183,9 +183,6 @@
                         });
                     }
                 });
-            });
-            $('.replyButton').on('click', function() {
-                console.log(this);
             });
         </script>
     @endpush
