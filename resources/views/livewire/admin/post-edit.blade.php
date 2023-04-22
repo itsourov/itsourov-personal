@@ -114,7 +114,6 @@
                     });
                 },
                 file_picker_callback: elFinderBrowser,
-                image_dimensions: false,
             });
 
             function elFinderBrowser(callback, value, meta) {
