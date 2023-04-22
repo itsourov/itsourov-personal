@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Post;
 
+use Illuminate\Support\Facades\Gate;
 use App\Models\Post;
 use App\Models\Comment;
 use Livewire\Component;
@@ -42,6 +43,9 @@ class CommentSection extends Component
     }
     public function addComment()
     {
+        if (!auth()->user()) {
+            return redirect(route('login'));
+        }
         try {
             $this->rateLimit(10, 60 * 5);
         } catch (TooManyRequestsException $exception) {
@@ -64,6 +68,9 @@ class CommentSection extends Component
     }
     public function addReply($parentId)
     {
+        if (!auth()->user()) {
+            return redirect(route('login'));
+        }
         try {
             $this->rateLimit(10, 60 * 5);
         } catch (TooManyRequestsException $exception) {
@@ -95,6 +102,9 @@ class CommentSection extends Component
     }
     public function deleteComment()
     {
-        Comment::findOrFail($this->deleteCommentId)->delete();
+        $comment = Comment::findOrFail($this->deleteCommentId);
+        Gate::authorize('delete', $comment);
+
+        $comment->delete();
     }
 }

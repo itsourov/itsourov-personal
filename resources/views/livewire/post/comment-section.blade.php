@@ -48,10 +48,13 @@
                                 <p class="text-sm font-medium">{{ $comment->user->name }}</p>
                                 <p class="text-sm text-gray-500">{{ $comment->created_at->diffForHumans() }}</p>
                             </div>
-                            <button class="text-sm  hover:text-primary-500"
-                                wire:click="deleteCommentId({{ $comment->id }})"
-                                x-on:click="deleteModal = !deleteModal"><i
-                                    class="fa-solid fa-trash fa-xs mr-1"></i>{{ __('Delte') }}</button>
+                            @if ($comment->user->id == auth()->user()?->id)
+                                <button class="text-sm  hover:text-primary-500"
+                                    wire:click="deleteCommentId({{ $comment->id }})"
+                                    x-on:click="deleteModal = !deleteModal"><i
+                                        class="fa-solid fa-trash fa-xs mr-1"></i>{{ __('Delte') }}</button>
+                            @endif
+
                         </div>
                         <div>
                             <p>{{ $comment->comment }}</p>
