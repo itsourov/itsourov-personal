@@ -3,16 +3,23 @@
 namespace App\Http\Livewire\Post;
 
 use App\Models\Post;
-use Illuminate\Database\Eloquent\Collection;
+use App\Models\Comment;
 use Livewire\Component;
+use Carbon\CarbonInterval;
 use Livewire\WithPagination;
+use Illuminate\Validation\ValidationException;
+use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 class CommentSection extends Component
 {
     use WithPagination;
+    use WithRateLimiting;
     public Post $post;
     public $replyBoxTexts = [];
     public $commentBoxText = "asd";
+
+    public $deleteCommentId;
 
     public function render()
     {
@@ -35,26 +42,59 @@ class CommentSection extends Component
     }
     public function addComment()
     {
+        try {
+            $this->rateLimit(10, 60 * 5);
+        } catch (TooManyRequestsException $exception) {
+            $time = CarbonInterval::seconds($exception->secondsUntilAvailable)->cascade()->forHumans();
+            throw ValidationException::withMessages([
+
+                'commentBoxText' => "Slow down! Please wait {$time}",
+            ]);
+        }
         $this->validate();
+
+
         $this->post->comments()->create([
             'user_id' => auth()->user()->id,
             'comment' => $this->commentBoxText,
         ]);
         $this->resetPage();
         $this->commentBoxText = "";
+
     }
     public function addReply($parentId)
     {
+        try {
+            $this->rateLimit(10, 60 * 5);
+        } catch (TooManyRequestsException $exception) {
+            $time = CarbonInterval::seconds($exception->secondsUntilAvailable)->cascade()->forHumans();
+            throw ValidationException::withMessages([
+
+                'replyBoxTexts.' . $parentId => "Slow down! Please wait {$time}",
+            ]);
+        }
+
         $this->validate([
             'replyBoxTexts.' . $parentId => 'required'
         ]);
 
-        $this->post->comments()->create([
+        $newReply = $this->post->comments()->create([
             'user_id' => auth()->user()->id,
             'parent_id' => $parentId,
             'comment' => $this->replyBoxTexts[$parentId],
         ]);
 
         $this->replyBoxTexts[$parentId] = "";
+        $this->dispatchBrowserEvent('scroll-to-element', ['elementId' => 'reply-' . $newReply->id]);
+    }
+
+
+    public function deleteCommentId($id)
+    {
+        $this->deleteCommentId = $id;
+    }
+    public function deleteComment()
+    {
+        Comment::findOrFail($this->deleteCommentId)->delete();
     }
 }

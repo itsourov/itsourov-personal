@@ -40,7 +40,7 @@
     @livewireScripts
     <script src="{{ asset('js/jquery-min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
-    @yield('scripts')
+    @stack('scripts')
 </body>
 
 </html>
