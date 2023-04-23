@@ -39,7 +39,7 @@
         <div class="grid gap-4 mt-8">
             @foreach ($comments as $comment)
                 @if (!$comment->deleted_at)
-                    <x-card class="space-y-3 px-4 py-4" x-data="{ replyBoxOpen: false }">
+                    <x-card class="space-y-3 px-4 py-4">
                         <div class="flex justify-between">
                             <div class="flex flex-wrap items-center gap-2">
                                 <img class="h-6 w-6 rounded-full"
