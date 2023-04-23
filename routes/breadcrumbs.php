@@ -24,3 +24,35 @@ Breadcrumbs::for ('blog.article', function (BreadcrumbTrail $trail, $title) {
     $trail->parent('blog');
     $trail->push($title);
 });
+
+
+
+// Home > Shop
+Breadcrumbs::for ('shop', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(__("Shop"), route('shop.index'));
+});
+
+// Home > Shop > [product]
+Breadcrumbs::for ('shop.product', function (BreadcrumbTrail $trail, $product) {
+    $trail->parent('shop');
+    $trail->push($product->title, route('shop.products.show', $product));
+});
+
+// Home > Shop > Cart
+Breadcrumbs::for ('shop.cart', function (BreadcrumbTrail $trail) {
+    $trail->parent('shop');
+    $trail->push(__('Cart'), route('shop.cart.index'));
+});
+// Home > Shop > Checkout
+Breadcrumbs::for ('shop.checkout', function (BreadcrumbTrail $trail) {
+    $trail->parent('shop');
+    $trail->push('Checkout', route('shop.checkout'));
+});
+
+// Home > Shop > Checkout
+Breadcrumbs::for ('my-account', function (BreadcrumbTrail $trail, $title) {
+    $trail->parent('home');
+    $trail->push('My Account', route('my-account.index'));
+    $trail->push($title);
+});

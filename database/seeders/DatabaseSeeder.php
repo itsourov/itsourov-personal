@@ -18,15 +18,15 @@ class DatabaseSeeder extends Seeder
     {
 
         Storage::deleteDirectory('public');
-        Storage::deleteDirectory('user');
-        Storage::deleteDirectory('thumbnail');
-        Storage::deleteDirectory('profile-image');
+        Storage::deleteDirectory('profile-images');
+        Storage::deleteDirectory('post-thumbnails');
 
 
 
 
         $this->call(UserSeeder::class);
         $this->call(PostSeeder::class);
+        $this->call(ProductSeeder::class);
         $this->call(CommentSeeder::class);
     }
 }

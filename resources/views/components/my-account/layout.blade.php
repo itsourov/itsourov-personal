@@ -2,7 +2,7 @@
     {{ Breadcrumbs::render('my-account', $title) }}
 
 
-    <section class="container mx-auto px-2 mt-10">
+    <section class="container mx-auto px-2 mt-10 mb-20">
         <h2 class="sr-only">{{ $title }}</h2>
         <div
             class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 md:divide-x divide-gray-200 dark:divide-gray-700">

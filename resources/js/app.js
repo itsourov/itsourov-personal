@@ -10,6 +10,8 @@ Alpine.start()
 
 
 import './dark-mode.js';
+import './filepond.js';
 import './prism.js';
 import 'flowbite';
 import 'spotlight.js';
+

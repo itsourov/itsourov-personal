@@ -55,6 +55,18 @@ class User extends Authenticatable implements HasMedia
             ->fit(Manipulations::FIT_CROP, 200, 200)
             ->nonQueued();
     }
+    public function cartItems()
+    {
+        return $this->belongsToMany(Product::class, CartItem::class)->withPivot('quantity');
+    }
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+    public function purchasedItems()
+    {
+        return $this->belongsToMany(Product::class)->withPivot('expiration_date');
+    }
 
 
 }

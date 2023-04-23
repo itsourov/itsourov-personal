@@ -61,24 +61,70 @@
 
                     </x-admin.sidebar-menu-item>
 
-                    {{-- <x-admin.sidebar-menu-item :active="request()->routeIs('admin.categories.index')" :href="route('admin.categories.index')">
+                    <x-admin.sidebar-menu-item :active="request()->routeIs('admin.products*')" :dropdown="true">
 
                         <x-slot name="icon">
+                            <svg class="w-5 h-5" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                stroke="currentColor" stroke-width="1.5">
+                                <rect x="8" y="8" width="12" height="12" />
+                                <rect x="26" y="8" width="12" height="12" />
+                                <rect x="26" y="44" width="12" height="12" />
+                                <rect x="44" y="8" width="12" height="12" />
+                                <rect x="8" y="26" width="12" height="12" />
+                                <rect x="26" y="26" width="12" height="12" />
+                                <rect x="44" y="26" width="12" height="12" />
+                                <rect x="8" y="44" width="12" height="12" />
+                                <rect x="44" y="44" width="12" height="12" />
+                            </svg>
+                        </x-slot>
+                        <x-slot name="title">
+                            {{ __('Products') }}
+                        </x-slot>
 
+                        <x-slot name="submenu">
+                            <x-admin.sidebar-sub-menu-item :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')">
+                                View all Products
+                            </x-admin.sidebar-sub-menu-item>
+                            <x-admin.sidebar-sub-menu-item :href="route('admin.products.create')" :active="request()->routeIs('admin.products.create')">
+                                Add new Product
+                            </x-admin.sidebar-sub-menu-item>
+                            {{-- <x-admin.sidebar-sub-menu-item :href="route('admin.movies.genres')" :active="request()->routeIs('admin.posts.categories')">
+                                Genres
+                            </x-admin.sidebar-sub-menu-item> --}}
+                        </x-slot>
+
+                    </x-admin.sidebar-menu-item>
+
+
+                    <x-admin.sidebar-menu-item :active="request()->routeIs('admin.categories.index')" :href="route('admin.categories.index')">
+
+                        <x-slot name="icon">
+                            <svg class="w-5 h-5" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="8" y="8" width="12" height="12" />
+                                <rect x="26" y="8" width="12" height="12" />
+                                <rect x="26" y="44" width="12" height="12" />
+                                <rect x="44" y="8" width="12" height="12" />
+                                <rect x="8" y="26" width="12" height="12" />
+                                <rect x="26" y="26" width="12" height="12" />
+                                <rect x="44" y="26" width="12" height="12" />
+                                <rect x="8" y="44" width="12" height="12" />
+                                <rect x="44" y="44" width="12" height="12" />
+                            </svg>
                         </x-slot>
                         <x-slot name="title">
                             {{ __('Categories') }}
                         </x-slot>
 
 
-                    </x-admin.sidebar-menu-item> --}}
+                    </x-admin.sidebar-menu-item>
 
 
 
-                    {{-- <x-admin.sidebar-menu-item :active="request()->routeIs('admin.orders*')" :dropdown="true">
+                    <x-admin.sidebar-menu-item :active="request()->routeIs('admin.orders*')" :dropdown="true">
 
                         <x-slot name="icon">
-
+                            {{-- <x-ri-article-line /> --}}
                         </x-slot>
                         <x-slot name="title">
                             {{ __('Orders') }}
@@ -91,7 +137,7 @@
 
                         </x-slot>
 
-                    </x-admin.sidebar-menu-item> --}}
+                    </x-admin.sidebar-menu-item>
                     {{-- <x-admin.sidebar-menu-item :active="request()->routeIs('admin.bkash*')" :dropdown="true">
 
                         <x-slot name="icon">

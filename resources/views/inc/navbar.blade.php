@@ -35,6 +35,9 @@
                 <x-nav-link :href="route('blog.index')" :active="request()->routeIs('blog.index')">
                     {{ __('Blog') }}
                 </x-nav-link>
+                <x-nav-link :href="route('shop.index')" :active="request()->routeIs('shop.index')">
+                    {{ __('Shop') }}
+                </x-nav-link>
 
 
                 <x-nav-link :href="route('pages.about')" :active="request()->routeIs('pages.about')">
@@ -49,10 +52,10 @@
 
                 @auth
 
-                    {{-- 
+
                     <x-nav-link :href="route('my-account.index')" :active="request()->routeIs('my-account')">
-                         <x-svg.user-circle class="inline w-4 h-4" />  {{ __('Dashboard') }}
-                    </x-nav-link> --}}
+                        <x-svg.user-circle class="inline w-4 h-4" /> {{ __('Dashboard') }}
+                    </x-nav-link>
                     @admin
                         <x-nav-link :href="route('admin.posts.index')">
                             <x-svg.lock class="inline w-4 h-4" /> {{ __('Admin Panel') }}
@@ -130,7 +133,9 @@
                             <x-nav-link :href="route('blog.index')" :active="request()->routeIs('blog.index')">
                                 {{ __('Blog') }}
                             </x-nav-link>
-
+                            <x-nav-link :href="route('shop.index')" :active="request()->routeIs('shop.index')">
+                                {{ __('Shop') }}
+                            </x-nav-link>
 
                             <x-nav-link :href="route('pages.about')" :active="request()->routeIs('pages.about')">
                                 {{ __('About') }}
@@ -159,9 +164,9 @@
                                     <x-slot name="content">
 
 
-                                        {{-- <x-dropdown-link :href="route('my-account.index')">
+                                        <x-dropdown-link :href="route('my-account.index')">
                                             {{ __('Dashboard') }}
-                                        </x-dropdown-link> --}}
+                                        </x-dropdown-link>
 
 
 
@@ -241,7 +246,7 @@
                             <div class="tooltip-arrow" data-popper-arrow></div>
                         </div>
                         <!-- Cart -->
-                        {{-- <div class=" flow-root ">
+                        <div class=" flow-root ">
                             <button x-on:click="cartPreview = !cartPreview" class="group -m-2 p-2 flex items-center">
                                 <!-- Heroicon name: outline/shopping-bag -->
                                 <svg class="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
@@ -254,12 +259,12 @@
                                     class="ml-1 text-sm font-medium text-gray-500">{{ App\Http\Helpers\Cart::getCartItemsCount() }}</span>
                                 <span class="sr-only">items in cart, view bag</span>
                             </button>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
             </div>
         </nav>
     </header>
-    {{-- <x-cart-menu /> --}}
+    <x-cart-menu />
 
 </div>

@@ -22,7 +22,7 @@ class PostController extends Controller
 
         $SEOData = new SEOData(
             title: $post->title, image
-            : $post->media->last()->original_url,
+            : $post->media->last()?->original_url,
             description: $post->content, author
             : $post->user->name,
 
