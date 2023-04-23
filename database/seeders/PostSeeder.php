@@ -18,7 +18,7 @@ class PostSeeder extends Seeder
 
         // foreach (Post::all() as $post) {
 
-        //     $post->addMediaFromUrl(fake()->imageUrl(1280, 720))
+        //     $post->addMediaFromUrl(fake()->imageUrl())
         //         ->withResponsiveImages()
         //         ->toMediaCollection('post-thumbnails', 'post-thumbnails');
         // }

@@ -51,7 +51,7 @@
                     @if ($post->getMedia('post-thumbnails')->last())
                         <a class="spotlight inline-block rounded overflow-hidden"
                             href="{{ $post->getMedia('post-thumbnails')->last()->getUrl() }}">
-                            {{ $post->getFirstMedia('post-thumbnails') }}
+                            {{ $post->getMedia('post-thumbnails')->last() }}
                         </a>
                     @endif
 

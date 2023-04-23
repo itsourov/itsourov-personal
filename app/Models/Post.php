@@ -40,10 +40,18 @@ class Post extends Model implements HasMedia
 
         $this
             ->addMediaConversion('preview')
-            ->fit(Manipulations::FIT_CROP, 300, 300)
+            ->fit(Manipulations::FIT_CROP, 500, 280)
             ->nonQueued();
 
 
+    }
+    public function getFallbackImage(): string
+    {
+        return view('inc.fallback-image');
+    }
+    public function getFallbackImageUrl(): string
+    {
+        return asset('images/fallback.png');
     }
 
 

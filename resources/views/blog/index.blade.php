@@ -13,7 +13,7 @@
                             <a href="{{ route('blog.show', $post) }}">
                                 <div class=" aspect-w-16 aspect-h-9 ">
 
-                                    {{ $post->getMedia('post-thumbnails')->last() }}
+                                    {!! $post->getMedia('post-thumbnails')->last() ?? $post->getFallbackImage() !!}
                                 </div>
 
                             </a>
@@ -24,7 +24,7 @@
                                 <div>
                                     <a href="{{ route('blog.show', $post) }}">
                                         <button
-                                            class="border border-primary-600 rounded py-1.5 px-3 hover:bg-primary-600 hover:text-gray-100 transition-all">
+                                            class="border border-primary-600 rounded py-1.5 px-3 hover:bg-primary-600 hover:text-gray-100 transition-all text-sm">
                                             {{ __('Read more') }}
                                             <x-svg.arrow-right class="inline w-4 h-4" />
                                         </button>
