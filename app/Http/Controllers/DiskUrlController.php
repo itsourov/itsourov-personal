@@ -8,10 +8,21 @@ class DiskUrlController extends Controller
 {
     public function postThumbnails($filepath)
     {
-        return response()->file(storage_path('app/post-thumbnails/' . $filepath));
+        $filepath = storage_path('app/post-thumbnails/' . $filepath);
+        if (file_exists($filepath)) {
+            return response()->file($filepath);
+        } else {
+            abort(404);
+        }
+
     }
     public function profileImages($filepath)
     {
-        return response()->file(storage_path('app/profile-images/' . $filepath));
+        $filepath = storage_path('app/profile-images/' . $filepath);
+        if (file_exists($filepath)) {
+            return response()->file($filepath);
+        } else {
+            abort(404);
+        }
     }
 }
