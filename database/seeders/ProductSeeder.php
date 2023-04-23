@@ -16,12 +16,9 @@ class ProductSeeder extends Seeder
 
 
 
-        // foreach (\App\Models\Product::all() as $product) {
-        //     for ($i = 0; $i < 4; $i++) {
-        //         $product->addMedia(fake()->imageUrl())
-
-        //             ->toMediaCollection('productImages', 'product-image');
-        //     }
-        // }
+        foreach (\App\Models\Product::all() as $product) {
+            $product->addMediaFromUrl(fake()->imageUrl())
+                ->toMediaCollection('product-thumbnail', 'product-thumbnail');
+        }
     }
 }

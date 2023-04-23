@@ -9,8 +9,15 @@
                 <x-card class="px-0 py-0 rounded transition-none overflow-hidden ">
 
                     <a href="{{ route('shop.products.show', $product) }}">
-                        <div class="aspect-w-16 aspect-h-9 ">
-                            <img src="{{ $product->featured_image }}" alt="" class=" object-cover">
+                        <div class=" aspect-w-16 aspect-h-9 ">
+
+                            @if ($product->getMedia('product-thumbnail')->last())
+                                {{ $product->getMedia('product-thumbnail')->last() }}
+                            @else
+                                {!! $product->getFallbackImage() !!}
+                            @endif
+
+
                         </div>
                     </a>
 

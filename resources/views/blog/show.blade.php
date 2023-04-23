@@ -48,11 +48,12 @@
 
                     </div>
 
-                    @if ($post->getMedia('post-thumbnails')->last())
-                        <a class="spotlight inline-block rounded overflow-hidden"
-                            href="{{ $post->getMedia('post-thumbnails')->last()->getUrl() }}">
-                            {{ $post->getMedia('post-thumbnails')->last() }}
-                        </a>
+                    @if ($post->getMedia('post-thumbnail')->last())
+                        <div class="rounded overflow-hidden">
+                            <a class="spotlight  " href="{{ $post->getMedia('post-thumbnail')->last()->getUrl() }}">
+                                {{ $post->getMedia('post-thumbnail')->last() }}
+                            </a>
+                        </div>
                     @endif
 
 

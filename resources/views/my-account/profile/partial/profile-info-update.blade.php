@@ -16,9 +16,9 @@
      <div>
 
          <a class="spotlight inline-block"
-             href="{{ auth()->user()->getMedia('profile-images')->last()?->getUrl() ?? asset('images/user.png') }}">
+             href="{{ auth()->user()->getMedia('profile-image')->last()?->getUrl() ?? asset('images/user.png') }}">
              <img class="rounded shadow h-36 w-36 my-4"
-                 src="{{ auth()->user()->getMedia('profile-images')->last()?->getUrl() ?? asset('images/user.png') }}"
+                 src="{{ auth()->user()->getMedia('profile-image')->last()?->getUrl() ?? asset('images/user.png') }}"
                  alt="">
          </a>
      </div>

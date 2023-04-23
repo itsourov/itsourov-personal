@@ -79,8 +79,8 @@ Route::prefix('bkash')->middleware(['auth'])->group(function () {
 });
 
 
-Route::get('/post-thumbnails/{filepath}', [DiskUrlController::class, 'postThumbnails'])->where('filepath', '.*')->name('post-thumbnails');
-Route::get('/profile-images/{filepath}', [DiskUrlController::class, 'profile-images'])->where('filepath', '.*')->name('profile-images');
+Route::get('/post-thumbnail/{filepath}', [DiskUrlController::class, 'postThumbnails'])->where('filepath', '.*')->name('post-thumbnail');
+Route::get('/profile-image/{filepath}', [DiskUrlController::class, 'profileImages'])->where('filepath', '.*')->name('profile-image');
 
 require __DIR__ . '/inc/web/auth.php';
 require __DIR__ . '/inc/web/admin.php';

@@ -9,7 +9,7 @@
                     <a href="{{ route('admin.posts.edit', $post) }}">
                         <div class=" aspect-w-16 aspect-h-9 ">
 
-                            {{ $post->getMedia('post-thumbnails')->last() }}
+                            {{ $post->getMedia('post-thumbnail')->last() }}
                         </div>
 
                     </a>

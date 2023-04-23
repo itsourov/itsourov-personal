@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use App\Models\DownloadItem;
+use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Product extends Model implements HasMedia
 {
@@ -22,7 +24,6 @@ class Product extends Model implements HasMedia
     protected $fillable = [
         'title',
         'slug',
-        'featured_image',
         'images',
         'selling_price',
         'original_price',
@@ -39,6 +40,21 @@ class Product extends Model implements HasMedia
         'images' => 'array',
     ];
 
+    /**
+     * Register the conversions that should be performed.
+     *
+     * @return array
+     */
+    public function registerMediaConversions(Media $media = null): void
+    {
+
+        $this
+            ->addMediaConversion('preview')
+            ->fit(Manipulations::FIT_CROP, 500, 280)
+            ->nonQueued();
+
+
+    }
 
 
     public function categories()
@@ -55,6 +71,15 @@ class Product extends Model implements HasMedia
     public function reviews()
     {
         return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id')->with(['user.media', 'replies.user.media'])->withTrashed();
+    }
+
+    public function getFallbackImage(): string
+    {
+        return view('inc.fallback-image');
+    }
+    public function getFallbackImageUrl(): string
+    {
+        return asset('images/fallback.png');
     }
 
 }

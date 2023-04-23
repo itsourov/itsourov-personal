@@ -38,7 +38,7 @@ class PostEdit extends Component
         $this->post = $post;
 
 
-        $this->featuredImageUrl = $post->getMedia('post-thumbnails')->last()?->getUrl();
+        $this->featuredImageUrl = $post->getMedia('post-thumbnail')->last()?->getUrl();
 
 
     }
@@ -65,10 +65,10 @@ class PostEdit extends Component
         if ($this->imageUpdated) {
 
 
-            $this->post->clearMediaCollection('post-thumbnails');
+            $this->post->clearMediaCollection('post-thumbnail');
             $this->post->addMediaFromUrl($this->featuredImageUrl)
                 ->withResponsiveImages()
-                ->toMediaCollection('post-thumbnails', 'post-thumbnails');
+                ->toMediaCollection('post-thumbnail', 'post-thumbnail');
         }
         // $this->product->categories()->sync($this->categoryIds);
 

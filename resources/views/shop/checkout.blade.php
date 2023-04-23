@@ -45,8 +45,8 @@
 
                             @foreach ($products as $product)
                                 <div class="flex gap-2 py-4">
-                                    <img class=" w-20 h-18 object-cover rounded" src="{{ $product->featured_image }}"
-                                        alt="">
+                                    <img class=" w-20 h-18 object-cover rounded"
+                                        src="{{ $product->media->last()->preview_url }}" alt="">
 
                                     <div class="flex-grow">
                                         <h3 class="line-clamp-1 font-medium ">{{ $product->title }}</h3>

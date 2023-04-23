@@ -106,7 +106,8 @@
 
                         <a href="{{ route('admin.products.edit', $product) }}">
                             <div class="aspect-w-16 aspect-h-9 ">
-                                <img src="{{ $product->featured_image }}" alt="" class=" object-cover">
+                                <img src="{{ $product->media->last()->preview_url }}" alt=""
+                                    class=" object-cover">
                             </div>
                         </a>
 

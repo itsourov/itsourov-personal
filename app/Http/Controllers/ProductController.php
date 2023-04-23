@@ -19,7 +19,7 @@ class ProductController extends Controller
     }
     public function show(Product $product)
     {
-        $product->loadMissing('categories')->loadAvg('reviews', 'rating');
+        $product->loadMissing('categories', 'media')->loadAvg('reviews', 'rating');
 
         $reviews = $product->reviews()->with('user')->paginate(3, ['*'], 'reviews_page');
         $links = $product->downloadItems()->paginate(3);
