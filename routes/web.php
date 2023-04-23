@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DiskUrlController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 
@@ -23,6 +24,9 @@ Route::prefix('blog')->name('blog.')->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('index');
     Route::get('/{post:slug}', [PostController::class, 'show'])->name('show');
 });
+
+Route::get('/post-thumbnails/{filepath}', [DiskUrlController::class, 'postThumbnails'])->where('filepath', '.*')->name('post-thumbnails');
+Route::get('/profile-images/{filepath}', [DiskUrlController::class, 'profileImages'])->where('filepath', '.*')->name('profile-images');
 
 require __DIR__ . '/inc/web/auth.php';
 require __DIR__ . '/inc/web/admin.php';

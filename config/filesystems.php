@@ -58,16 +58,16 @@ return [
 
         'profile-images' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/profile-image'),
-            'url' => env('APP_URL') . '/storage/profile-image',
+            'root' => storage_path('app/profile-images'),
+            'url' => env('APP_URL') . '/profile-images',
             'visibility' => 'public',
             'throw' => false,
         ],
 
         'post-thumbnails' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/post-thumbnails'),
-            'url' => env('APP_URL') . '/storage/post-thumbnails',
+            'root' => storage_path('app/post-thumbnails'),
+            'url' => env('APP_URL') . '/post-thumbnails',
             'visibility' => 'public',
             'throw' => false,
         ],
