@@ -63,7 +63,7 @@
                         <x-comment.reply-box :comment="$comment" />
                     </x-card>
                 @else
-                    <x-card>
+                    <x-card class="text-sm">
                         This comment was deleted
                     </x-card>
                 @endif
@@ -92,7 +92,7 @@
                             <x-comment.reply-box :comment="$comment" />
                         </x-card>
                     @else
-                        <x-card class="ml-4 md:ml-8">
+                        <x-card class="ml-4 md:ml-8 tex-sm">
                             This reply was deleted
                         </x-card>
                     @endif
