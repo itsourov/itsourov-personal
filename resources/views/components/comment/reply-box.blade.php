@@ -1,7 +1,7 @@
 <div x-data="{ replyBoxOpen: false, focus: false }" @click.away="focus=false">
-    <button class="replyButton text-sm hover:text-primary-500"
+    <button class="replyButton text-sm hover:text-primary-500 flex items-center gap-1"
         x-on:click="replyBoxOpen = !replyBoxOpen, focus=replyBoxOpen">
-        <i class="fa-solid fa-comment-dots"></i>
+        <x-svg.comments class="inline w-4 h-4" />
         {{ __('Relpy') }}
     </button>
 

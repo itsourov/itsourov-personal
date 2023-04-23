@@ -26,7 +26,7 @@
                                         <button
                                             class="border border-primary-600 rounded py-1.5 px-3 hover:bg-primary-600 hover:text-gray-100 transition-all">
                                             {{ __('Read more') }}
-                                            <i class="ml-1 fa-solid fa-arrow-right"></i>
+                                            <x-svg.arrow-right class="inline w-4 h-4" />
                                         </button>
                                     </a>
 

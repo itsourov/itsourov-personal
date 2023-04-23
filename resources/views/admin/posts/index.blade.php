@@ -21,13 +21,13 @@
                             <a href="{{ route('blog.show', $post) }}">
                                 <button
                                     class="border border-primary-600 rounded py-1.5 px-3 hover:bg-primary-600 hover:text-gray-100 transition-all">
-                                    <i class="fa-solid fa-eye"></i>
+                                    <x-svg.eye class="inline w-5 h-5" />
                                 </button>
                             </a>
                             <a href="{{ route('admin.posts.edit', $post) }}">
                                 <button
                                     class="border border-primary-600 rounded py-1.5 px-3 hover:bg-primary-600 hover:text-gray-100 transition-all">
-                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    <x-svg.edit class="inline w-5 h-5" />
                                 </button>
                             </a>
 

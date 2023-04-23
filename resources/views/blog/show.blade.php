@@ -14,11 +14,11 @@
                             {{ $post->created_at->format('d M, Y') }}</p>
                         <div class="space-x-2 whitespace-nowrap">
                             <div class="inline">
-                                <i class="fa-solid fa-eye fa-xs"></i>
+                                <x-svg.eye class="inline w-4 h-4" />
                                 <span>{{ $post->count }}</span>
                             </div>
                             <div class="inline">
-                                <i class="fa-solid fa-comments fa-xs"></i>
+                                <x-svg.comments class="inline w-4 h-4" />
                                 <span>{{ $post->comments_count }}</span>
                             </div>
                         </div>
@@ -30,7 +30,8 @@
                             class="fb-xfbml-parse-ignore">
                             <button
                                 class="text-sm rounded-full py-2 border dark:border-gray-700 flex items-center gap-2 px-4 divide-x dark:divide-gray-700">
-                                <i class="fa-brands fa-facebook-f text-blue-500"></i>
+
+                                <x-svg.facebook class="inline w-4 h-4 text-blue-500" />
 
                                 <p class="pl-2">Facebook</p>
                             </button>
@@ -39,7 +40,7 @@
                             href="http://twitter.com/share?text=text{{ urlencode($post->title) }}&url={{ urlencode(route('blog.show', $post)) }}">
                             <button
                                 class="text-sm rounded-full py-2 border dark:border-gray-700 flex items-center gap-2 px-4 divide-x dark:divide-gray-700">
-                                <i class="fa-brands fa-twitter text-blue-400"></i>
+                                <x-svg.twitter class="inline w-4 h-4 " />
 
                                 <p class="pl-2">Twitter</p>
                             </button>

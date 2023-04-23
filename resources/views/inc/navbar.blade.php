@@ -51,11 +51,11 @@
 
                     {{-- 
                     <x-nav-link :href="route('my-account.index')" :active="request()->routeIs('my-account')">
-                        <i class="fa-solid fa-user mr-2"></i> {{ __('Dashboard') }}
+                         <x-svg.user-circle class="inline w-4 h-4" />  {{ __('Dashboard') }}
                     </x-nav-link> --}}
                     @admin
                         <x-nav-link :href="route('admin.posts.index')">
-                            <i class="fa-solid fa-lock mr-2"></i> {{ __('Admin Panel') }}
+                            <x-svg.lock class="inline w-4 h-4" /> {{ __('Admin Panel') }}
                         </x-nav-link>
                     @endadmin
 
@@ -66,15 +66,15 @@
                         <x-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                             this.closest('form').submit();">
-                            <i class="fa-solid fa-right-from-bracket mr-2"></i> {{ __('Log Out') }}
+                            <x-svg.exit class="inline w-4 h-4" /></i> {{ __('Log Out') }}
                         </x-nav-link>
                     </form>
                 @else
                     <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
-                        <i class="fa-solid fa-right-to-bracket mr-2"></i> {{ __('Login') }}
+                        <x-svg.exit class="inline w-4 h-4" /> {{ __('Login') }}
                     </x-nav-link>
                     <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
-                        <i class="fa-solid fa-user-plus mr-2"></i> {{ __('Register') }}
+                        <x-svg.user-plus class="inline w-4 h-4" /> {{ __('Register') }}
                     </x-nav-link>
                 @endauth
 
@@ -153,7 +153,7 @@
                                 <x-dropdown align="left" width="48">
                                     <x-slot name="trigger">
                                         <x-nav-link href="#">
-                                            <i class="fa-solid fa-user mr-2"></i> {{ __('Profile') }}
+                                            <x-svg.user-circle class="inline w-4 h-4" /> {{ __('Profile') }}
                                         </x-nav-link>
                                     </x-slot>
                                     <x-slot name="content">
@@ -185,11 +185,11 @@
                                 </x-dropdown>
                             @else
                                 <x-nav-link :href="route('login')" :active="request()->routeIs('login')" class="border-none">
-                                    <i class="fa-solid fa-right-to-bracket mr-2"></i> {{ __('Login') }}
+                                    <x-svg.exit class="inline w-4 h-4" /></i> {{ __('Login') }}
                                 </x-nav-link>
                                 <span class="h-6 w-px bg-gray-200" aria-hidden="true"></span>
                                 <x-nav-link :href="route('register')" :active="request()->routeIs('register')" class="border-none">
-                                    <i class="fa-solid fa-user-plus mr-2"></i> {{ __('Register') }}
+                                    <x-svg.user-plus class="inline w-4 h-4" /> {{ __('Register') }}
                                 </x-nav-link>
                             @endauth
                         </div>
