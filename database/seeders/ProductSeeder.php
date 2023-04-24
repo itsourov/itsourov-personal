@@ -17,13 +17,13 @@ class ProductSeeder extends Seeder
 
 
         foreach (\App\Models\Product::all() as $product) {
-            $product->addMediaFromUrl(fake()->imageUrl())
+            $product->addMedia(fake()->image())
                 ->toMediaCollection('product-thumbnails', 'product-thumbnails');
-            $product->addMediaFromUrl(fake()->imageUrl())
+            $product->addMedia(fake()->image())
                 ->toMediaCollection('product-images', 'product-images');
-            $product->addMediaFromUrl(fake()->imageUrl())
+            $product->addMedia(fake()->image())
                 ->toMediaCollection('product-images', 'product-images');
-            $product->addMediaFromUrl(fake()->imageUrl())
+            $product->addMedia(fake()->image())
                 ->toMediaCollection('product-images', 'product-images');
         }
     }
