@@ -11,8 +11,8 @@
                     <a href="{{ route('shop.products.show', $product) }}">
                         <div class=" aspect-w-16 aspect-h-9 ">
 
-                            @if ($product->getMedia('product-thumbnail')->last())
-                                {{ $product->getMedia('product-thumbnail')->last() }}
+                            @if ($product->getMedia('product-thumbnails')->last())
+                                {{ $product->getMedia('product-thumbnails')->last() }}
                             @else
                                 {!! $product->getFallbackImage() !!}
                             @endif

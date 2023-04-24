@@ -56,25 +56,25 @@ return [
             'throw' => false,
         ],
 
-        'profile-image' => [
+        'profile-images' => [
             'driver' => 'local',
-            'root' => storage_path('app/profile-image'),
-            'url' => env('APP_URL') . '/profile-image',
+            'root' => storage_path('app/profile-images'),
+            'url' => env('APP_URL') . '/profile-images',
             'visibility' => 'public',
             'throw' => false,
         ],
 
-        'post-thumbnail' => [
+        'post-thumbnails' => [
             'driver' => 'local',
-            'root' => storage_path('app/post-thumbnail'),
-            'url' => env('APP_URL') . '/post-thumbnail',
+            'root' => storage_path('app/post-thumbnails'),
+            'url' => env('APP_URL') . '/post-thumbnails',
             'visibility' => 'public',
             'throw' => false,
         ],
-        'product-thumbnail' => [
+        'product-thumbnails' => [
             'driver' => 'local',
-            'root' => storage_path('app/post-thumbnail'),
-            'url' => env('APP_URL') . '/post-thumbnail',
+            'root' => storage_path('app/post-thumbnails'),
+            'url' => env('APP_URL') . '/post-thumbnails',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -101,6 +101,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('post-thumbnails') => storage_path('app/post-thumbnails'),
     ],
 
 ];

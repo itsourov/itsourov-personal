@@ -34,7 +34,7 @@ class FacebookLoginController extends Controller
                 event(new Registered($new_user));
                 // $new_user->addMediaFromUrl($img)
                 //     ->usingFileName($facebookUser->name . '.png')
-                //     ->toMediaCollection('profile-image', 'profile-image');
+                //     ->toMediaCollection('profile-images', 'profile-images');
 
                 return redirect()->intended(RouteServiceProvider::HOME)->with('message', 'You are now logged in!');
             } else {

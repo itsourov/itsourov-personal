@@ -37,7 +37,7 @@ class GoogleLoginController extends Controller
                 event(new Registered($new_user));
                 $new_user->addMediaFromUrl(str_replace('=s96-c', '', $googleUser->avatar))
                     ->usingFileName($googleUser->name . '.png')
-                    ->toMediaCollection('profile-image', 'profile-image');
+                    ->toMediaCollection('profile-images', 'profile-images');
 
                 return redirect()->intended(RouteServiceProvider::HOME)->with('message', 'You are now logged in!');
             } else {

@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
         // foreach (User::all() as $user) {
         //     $user->addMediaFromUrl(fake()->imageUrl())
 
-        //         ->toMediaCollection('profile-image', 'profile-image');
+        //         ->toMediaCollection('profile-images', 'profile-images');
 
         // }
     }

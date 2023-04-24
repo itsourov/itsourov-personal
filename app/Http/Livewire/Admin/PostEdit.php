@@ -4,16 +4,17 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Post;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class PostEdit extends Component
 {
+    use WithFileUploads;
     public Post $post;
-    public $featuredImageUrl;
+    public $featuredImage;
 
     public $title = 'Edit Post';
     public $tabItem = 'info';
 
-    public $imageUpdated = false;
 
     protected function rules()
     {
@@ -22,7 +23,6 @@ class PostEdit extends Component
             'post.title' => 'required',
             'post.slug' => 'required | unique:posts,slug,' . $this->post->id,
             'post.content' => 'required',
-            'featuredImageUrl' => 'required',
 
         ];
     }
@@ -38,15 +38,9 @@ class PostEdit extends Component
         $this->post = $post;
 
 
-        $this->featuredImageUrl = $post->getMedia('post-thumbnail')->last()?->getUrl();
 
 
-    }
-    public function updated($propertyName)
-    {
-        if ($propertyName == 'featuredImageUrl') {
-            $this->imageUpdated = true;
-        }
+
     }
 
     public function setTab($item)
@@ -62,13 +56,15 @@ class PostEdit extends Component
             $this->post->user_id = auth()->user()->id;
         }
         $this->post->save();
-        if ($this->imageUpdated) {
+        if ($this->featuredImage) {
+            $validatedImage = $this->validate([
+                'featuredImage' => 'image|max:1500'
+            ]);
 
-
-            $this->post->clearMediaCollection('post-thumbnail');
-            $this->post->addMediaFromUrl($this->featuredImageUrl)
+            $this->post->clearMediaCollection('post-thumbnails');
+            $this->post->addMedia($validatedImage['featuredImage'])
                 ->withResponsiveImages()
-                ->toMediaCollection('post-thumbnail', 'post-thumbnail');
+                ->toMediaCollection('post-thumbnails', 'post-thumbnails');
         }
         // $this->product->categories()->sync($this->categoryIds);
 

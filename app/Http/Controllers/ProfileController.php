@@ -36,7 +36,7 @@ class ProfileController extends Controller
         if (request()->hasFile('profileImage')) {
             $request->user()->addMediaFromRequest('profileImage')
 
-                ->toMediaCollection('profile-image', 'profile-image');
+                ->toMediaCollection('profile-images', 'profile-images');
         }
 
 

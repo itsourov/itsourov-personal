@@ -51,13 +51,8 @@
 
                     <div>
                         <x-input.label :value="__('Featured Image')" required="false" />
-                        <div class="flex mt-1 gap-2">
-                            <x-input.text wire:model="featuredImageUrl" type="url" class=" block w-full"
-                                id="featuredImageUrl" />
-                            <button onclick="openFileManager('featuredImageUrl')"
-                                class="border border-gray-200 dark:border-gray-700 rounded-md bg-gray-50 dark:bg-gray-700 px-2">Select</button>
-                        </div>
-                        @error('featuredImageUrl')
+                        <x-input.livewire-filepond wire:model="featuredImage" />
+                        @error('featuredImage')
                             <x-input.livewire-error>
                                 {{ $message }}
                             </x-input.livewire-error>

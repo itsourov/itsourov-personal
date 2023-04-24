@@ -48,10 +48,10 @@
 
                     </div>
 
-                    @if ($post->getMedia('post-thumbnail')->last())
+                    @if ($post->getMedia('post-thumbnails')->last())
                         <div class="rounded overflow-hidden">
-                            <a class="spotlight  " href="{{ $post->getMedia('post-thumbnail')->last()->getUrl() }}">
-                                {{ $post->getMedia('post-thumbnail')->last() }}
+                            <a class="spotlight  " href="{{ $post->getMedia('post-thumbnails')->last()->getUrl() }}">
+                                {{ $post->getMedia('post-thumbnails')->last() }}
                             </a>
                         </div>
                     @endif

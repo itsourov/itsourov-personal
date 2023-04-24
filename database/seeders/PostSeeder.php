@@ -20,7 +20,7 @@ class PostSeeder extends Seeder
 
             // $post->addMediaFromUrl(fake()->imageUrl())
             //     ->withResponsiveImages()
-            //     ->toMediaCollection('post-thumbnail', 'post-thumbnail');
+            //     ->toMediaCollection('post-thumbnails', 'post-thumbnails');
         }
     }
 }

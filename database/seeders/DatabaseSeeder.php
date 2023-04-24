@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
     {
 
         Storage::deleteDirectory('public');
-        Storage::deleteDirectory('profile-image');
-        Storage::deleteDirectory('post-thumbnail');
+        Storage::deleteDirectory('profile-images');
+        Storage::deleteDirectory('post-thumbnails');
 
 
 

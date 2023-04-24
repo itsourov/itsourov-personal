@@ -43,7 +43,7 @@
                         <div class="flex justify-between">
                             <div class="flex flex-wrap items-center gap-2">
                                 <img class="h-6 w-6 rounded-full"
-                                    src="{{ $comment->user->getFirstMedia('profile-image')?->getUrl('preview') }}"
+                                    src="{{ $comment->user->getFirstMedia('profile-images')?->getUrl('preview') }}"
                                     alt="">
                                 <p class="text-sm font-medium">{{ $comment->user->name }}</p>
                                 <p class="text-sm text-gray-500">{{ $comment->created_at->diffForHumans() }}</p>
@@ -75,7 +75,7 @@
                             <div class="flex justify-between">
                                 <div class="flex flex-wrap items-center gap-2">
                                     <img class="h-6 w-6 rounded-full"
-                                        src="{{ $reply->user->getFirstMedia('profile-image')?->getUrl('preview') }}"
+                                        src="{{ $reply->user->getFirstMedia('profile-images')?->getUrl('preview') }}"
                                         alt="">
                                     <p class="text-sm font-medium">{{ $reply->user->name }}</p>
                                     <p class="text-sm text-gray-500">{{ $reply->created_at->diffForHumans() }}</p>

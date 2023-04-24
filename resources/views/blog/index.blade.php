@@ -13,8 +13,8 @@
                             <a href="{{ route('blog.show', $post) }}">
                                 <div class=" aspect-w-16 aspect-h-9 ">
 
-                                    @if ($post->getMedia('post-thumbnail')->last())
-                                        {{ $post->getMedia('post-thumbnail')->last() }}
+                                    @if ($post->getMedia('post-thumbnails')->last())
+                                        {{ $post->getMedia('post-thumbnails')->last() }}
                                     @else
                                         {!! $post->getFallbackImage() !!}
                                     @endif
