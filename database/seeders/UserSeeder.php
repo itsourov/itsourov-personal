@@ -14,11 +14,11 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::factory(10)->create();
-        // foreach (User::all() as $user) {
-        //     $user->addMediaFromUrl(fake()->imageUrl())
+        foreach (User::all() as $user) {
+            $user->addMediaFromUrl(fake()->imageUrl())
 
-        //         ->toMediaCollection('profile-images', 'profile-images');
+                ->toMediaCollection('profile-images', 'profile-images');
 
-        // }
+        }
     }
 }
