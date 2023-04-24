@@ -59,7 +59,7 @@ return [
         'profile-images' => [
             'driver' => 'local',
             'root' => storage_path('app/public/profile-images'),
-            'url' => env('APP_URL') . '/disks/profile-images',
+            'url' => env('APP_URL') . '/public-disks/profile-images',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -67,28 +67,28 @@ return [
         'post-thumbnails' => [
             'driver' => 'local',
             'root' => storage_path('app/public/post-thumbnails'),
-            'url' => env('APP_URL') . '/disks/post-thumbnails',
+            'url' => env('APP_URL') . '/public-disks/post-thumbnails',
             'visibility' => 'public',
             'throw' => false,
         ],
         'product-thumbnails' => [
             'driver' => 'local',
             'root' => storage_path('app/public/product-thumbnails'),
-            'url' => env('APP_URL') . '/disks/product-thumbnails',
+            'url' => env('APP_URL') . '/public-disks/product-thumbnails',
             'visibility' => 'public',
             'throw' => false,
         ],
         'product-images' => [
             'driver' => 'local',
             'root' => storage_path('app/public/product-images'),
-            'url' => env('APP_URL') . '/disks/product-images',
+            'url' => env('APP_URL') . '/public-disks/product-images',
             'visibility' => 'public',
             'throw' => false,
         ],
         'uploads' => [
             'driver' => 'local',
             'root' => storage_path('app/public/uploads'),
-            'url' => env('APP_URL') . '/disks/uploads',
+            'url' => env('APP_URL') . '/public-disks/uploads',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -108,11 +108,7 @@ return [
 
     'links' => [
 
-        public_path('disks/uploads') => storage_path('app/public/uploads'),
-        public_path('disks/post-thumbnails') => storage_path('app/public/post-thumbnails'),
-        public_path('disks/product-thumbnails') => storage_path('app/public/product-thumbnails'),
-        public_path('disks/product-images') => storage_path('app/public/product-images'),
-        public_path('disks/profile-images') => storage_path('app/public/profile-images'),
+        public_path('public-disks') => storage_path('app/public'),
     ],
 
 ];
