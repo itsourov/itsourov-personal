@@ -5,6 +5,7 @@
 /public/storage
 /public/disks
 /storage/*.key
+/storage/app
 /vendor
 .env
 .env.backup

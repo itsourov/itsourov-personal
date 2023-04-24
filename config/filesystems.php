@@ -78,6 +78,13 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+        'product-images' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/product-images'),
+            'url' => env('APP_URL') . '/disks/product-images',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
         'uploads' => [
             'driver' => 'local',
             'root' => storage_path('app/public/uploads'),
@@ -103,7 +110,8 @@ return [
 
         public_path('disks/uploads') => storage_path('app/public/uploads'),
         public_path('disks/post-thumbnails') => storage_path('app/public/post-thumbnails'),
-        public_path('disks/roduct-thumbnails') => storage_path('app/public/post-thumbnails'),
+        public_path('disks/product-thumbnails') => storage_path('app/public/product-thumbnails'),
+        public_path('disks/product-images') => storage_path('app/public/product-images'),
         public_path('disks/profile-images') => storage_path('app/public/profile-images'),
     ],
 

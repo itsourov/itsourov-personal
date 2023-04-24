@@ -13,8 +13,11 @@
 
                     <div class="overflow-hidden rounded aspect-w-3 aspect-h-2 ">
 
-                        <img id="productMainImage" src="{{ $product->media->last()->original_url }}"
-                            class="h-full w-full object-cover object-center ">
+                        @if ($product->getMedia('product-thumbnails')->last())
+                            {{ $product->getMedia('product-thumbnails')->last() }}
+                        @else
+                            {!! $product->getFallbackImage() !!}
+                        @endif
 
 
                     </div>
@@ -32,10 +35,10 @@
                 </div>
                 <div class="flex overflow-auto gap-1 py-2" id="product-images">
 
-                    @foreach (array_merge([$product->media->last()->original_url], $product->images) as $image)
+                    {{-- @foreach (array_merge([$product->media->last()->original_url], $product->images) as $image)
                         <img src="{{ $image }}"
                             class="sec h-20 w-20 object-cover object-center cursor-pointer flex-none opacity-50 border border-gray-300 dark:border-gray-700   overflow-hidden rounded-lg">
-                    @endforeach
+                    @endforeach --}}
 
 
 

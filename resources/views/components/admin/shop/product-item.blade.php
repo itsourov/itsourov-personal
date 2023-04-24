@@ -2,7 +2,11 @@
 
     <a href="{{ route('admin.products.edit', $product) }}">
         <div class="aspect-w-16 aspect-h-9 ">
-            <img src="{{ $product->media->last()->preview_url }}" alt="" class=" object-cover">
+            @if ($product->getMedia('product-thumbnails')->last())
+                {{ $product->getMedia('product-thumbnails')->last() }}
+            @else
+                {!! $product->getFallbackImage() !!}
+            @endif
         </div>
     </a>
 
