@@ -58,30 +58,30 @@ return [
 
         'profile-images' => [
             'driver' => 'local',
-            'root' => storage_path('app/profile-images'),
-            'url' => env('APP_URL') . '/profile-images',
+            'root' => storage_path('app/public/profile-images'),
+            'url' => env('APP_URL') . '/disks/profile-images',
             'visibility' => 'public',
             'throw' => false,
         ],
 
         'post-thumbnails' => [
             'driver' => 'local',
-            'root' => storage_path('app/post-thumbnails'),
-            'url' => env('APP_URL') . '/post-thumbnails',
+            'root' => storage_path('app/public/post-thumbnails'),
+            'url' => env('APP_URL') . '/disks/post-thumbnails',
             'visibility' => 'public',
             'throw' => false,
         ],
         'product-thumbnails' => [
             'driver' => 'local',
-            'root' => storage_path('app/post-thumbnails'),
-            'url' => env('APP_URL') . '/post-thumbnails',
+            'root' => storage_path('app/public/product-thumbnails'),
+            'url' => env('APP_URL') . '/disks/product-thumbnails',
             'visibility' => 'public',
             'throw' => false,
         ],
         'uploads' => [
             'driver' => 'local',
             'root' => storage_path('app/public/uploads'),
-            'url' => env('APP_URL') . '/storage/uploads',
+            'url' => env('APP_URL') . '/disks/uploads',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -100,8 +100,11 @@ return [
     */
 
     'links' => [
-        public_path('storage') => storage_path('app/public'),
-        public_path('post-thumbnails') => storage_path('app/post-thumbnails'),
+
+        public_path('disks/uploads') => storage_path('app/public/uploads'),
+        public_path('disks/post-thumbnails') => storage_path('app/public/post-thumbnails'),
+        public_path('disks/roduct-thumbnails') => storage_path('app/public/post-thumbnails'),
+        public_path('disks/profile-images') => storage_path('app/public/profile-images'),
     ],
 
 ];
