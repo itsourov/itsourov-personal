@@ -13,11 +13,11 @@
                         <div class="grid grid-cols-4 gap-3 py-4">
                             <div class=" self-center">
                                 <div class="aspect-w-16 aspect-h-9 rounded overflow-hidden">
-                                    <img src="{{ $product->media->last()->preview_url }}" alt=""
-                                        class=" object-cover">
+                                    {{ $product->getMedia('product-thumbnails')->last() }}
+
                                 </div>
                             </div>
-                            <div class=" col-span-3 flex">
+                            <div class=" col-span-3 flex justify-between">
                                 <div class="">
 
                                     <h3

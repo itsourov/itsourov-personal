@@ -158,7 +158,7 @@
                                 <x-dropdown align="left" width="48">
                                     <x-slot name="trigger">
                                         <x-nav-link href="#">
-                                            <x-svg.user-circle class="inline w-4 h-4" /> {{ __('Profile') }}
+                                            <x-svg.user-circle class="inline w-5 h-5" /> {{ __('Profile') }}
                                         </x-nav-link>
                                     </x-slot>
                                     <x-slot name="content">

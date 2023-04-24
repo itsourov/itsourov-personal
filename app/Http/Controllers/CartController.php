@@ -12,13 +12,14 @@ class CartController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $products = $user->cartItems;
+        $products = $user->cartItems()->with('media')->paginate(10);
         $productCount = count($products);
         $order_total = 0;
         foreach ($products as $cartItem) {
 
             $order_total += $cartItem->selling_price * ($cartItem->pivot->quantity ?? 1);
         }
+
 
         return view('shop.cart', compact('products', 'order_total', 'productCount'));
     }

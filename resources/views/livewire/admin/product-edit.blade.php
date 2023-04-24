@@ -54,11 +54,12 @@
                 <div class="py-4">
                     <x-input.label :value="__('Product Featured image')" />
 
-                    @if ($product->getMedia('product-thumbnails')->last())
+                    @foreach ($product->getMedia('product-thumbnails') as $media)
                         <div class="aspect-w-16 aspect-h-9 rounded overflow-hidden">
-                            {{ $product->getMedia('product-thumbnails')->last() }}
+                            {{ $media }}
                         </div>
-                    @endif
+                    @endforeach
+
                 </div>
                 <div>
                     <x-input.livewire-filepond wire:model="featuredImage" accept="image/*" />

@@ -54,7 +54,7 @@ class ProductEdit extends Component
 
         if ($this->featuredImage) {
 
-            $this->product->clearMediaCollection('product-thumbnails');
+            // $this->product->clearMediaCollection('product-thumbnails');
             $this->product->addMedia($this->featuredImage)
                 ->withResponsiveImages()
                 ->toMediaCollection('product-thumbnails', 'product-thumbnails');

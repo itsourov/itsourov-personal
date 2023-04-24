@@ -23,7 +23,7 @@ class CartMenu extends Component
     {
         if (auth()->user()) {
 
-            $cartItems = auth()->user()->cartItems->sortByDesc('created_at');
+            $cartItems = auth()->user()->cartItems->loadMissing('media')->sortByDesc('created_at');
         } else {
             $cartItems = [];
         }
