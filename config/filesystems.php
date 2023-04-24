@@ -108,7 +108,6 @@ return [
 
     'links' => [
 
-        public_path('disks') => storage_path('app/public'),
         public_path('disks/uploads') => storage_path('app/public/uploads'),
         public_path('disks/post-thumbnails') => storage_path('app/public/post-thumbnails'),
         public_path('disks/product-thumbnails') => storage_path('app/public/product-thumbnails'),
