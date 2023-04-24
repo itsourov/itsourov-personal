@@ -2,12 +2,13 @@
 
 namespace App\Http\Livewire\Post;
 
-use Illuminate\Support\Facades\Gate;
 use App\Models\Post;
 use App\Models\Comment;
 use Livewire\Component;
 use Carbon\CarbonInterval;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
@@ -65,6 +66,7 @@ class CommentSection extends Component
         $this->resetPage();
         $this->commentBoxText = "";
 
+        Session::flash('success', 'This is a FlashMessage Test!');
     }
     public function addReply($parentId)
     {

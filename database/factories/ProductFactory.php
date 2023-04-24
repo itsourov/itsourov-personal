@@ -20,7 +20,6 @@ class ProductFactory extends Factory
         return [
             'title' => fake()->text(200),
             'slug' => fake()->slug(),
-            'images' => ['https://picsum.photos/601/400', 'https://picsum.photos/601/401'],
             'selling_price' => $sellingPrice,
             'original_price' => fake()->numberBetween($sellingPrice, 399),
             'short_description' => fake()->paragraph(5),

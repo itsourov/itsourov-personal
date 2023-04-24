@@ -37,6 +37,7 @@
         {{ $slot }}
     </main>
     @include('inc.footer')
+    @include('inc.notification')
 
     @livewireScripts
 

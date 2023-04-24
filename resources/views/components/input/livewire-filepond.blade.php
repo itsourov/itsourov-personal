@@ -1,5 +1,6 @@
 <div wire:ignore x-data x-init="document.addEventListener('DOMContentLoaded', function() {
-    FilePond.setOptions({
+
+    FilePond.create($refs.input, {
         allowMultiple: {{ isset($attributes['multiple']) ? 'true' : 'false' }},
         server: {
             process: (fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
@@ -10,7 +11,6 @@
             },
         },
     });
-    FilePond.create($refs.input);
 });">
-    <input type="file" x-ref="input">
+    <input type="file" x-ref="input" {!! isset($attributes['accept']) ? 'accept="' . $attributes['accept'] . '"' : '' !!}>
 </div>

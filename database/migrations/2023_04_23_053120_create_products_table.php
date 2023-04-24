@@ -14,7 +14,6 @@ return new class extends Migration {
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->json('images');
             $table->float('selling_price');
             $table->float('original_price');
             $table->text('short_description');

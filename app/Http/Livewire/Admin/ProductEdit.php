@@ -12,6 +12,7 @@ class ProductEdit extends Component
     public Product $product;
     public $title = 'Edit Product';
     public $featuredImage;
+    public $productImages = [];
 
 
     protected function rules()
@@ -24,6 +25,8 @@ class ProductEdit extends Component
             'product.long_description' => 'required',
             'product.selling_price' => 'required|numeric|gt:0',
             'product.original_price' => 'required|numeric|gt:0',
+            'featuredImage' => 'nullable|image|max:1500',
+            'productImages.*' => 'nullable|image|max:50'
 
 
         ];
@@ -48,18 +51,27 @@ class ProductEdit extends Component
 
         $this->product->save();
 
+
         if ($this->featuredImage) {
-            $validatedImage = $this->validate([
-                'featuredImage' => 'image|max:1500'
-            ]);
 
             $this->product->clearMediaCollection('product-thumbnails');
-            $this->product->addMedia($validatedImage['featuredImage'])
+            $this->product->addMedia($this->featuredImage)
                 ->withResponsiveImages()
                 ->toMediaCollection('product-thumbnails', 'product-thumbnails');
+
+        }
+        if ($this->productImages) {
+
+
+            foreach ($this->productImages as $productImage) {
+                $this->product->addMedia($productImage)
+                    ->withResponsiveImages()
+                    ->toMediaCollection('product-images', 'product-images');
+            }
+
         }
 
-        return redirect(route('admin.products.index'));
+        return redirect(request()->header('Referer'));
 
     }
     public function dismiss()
