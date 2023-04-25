@@ -22,9 +22,10 @@
 
                     </div>
                     <div class="absolute right-0 top-0 ">
-                        <button onclick="showGallery()"
-                            class="flex justify-center align-center hover:bg-gray-300 rounded-lg"><svg fill="none"
-                                stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                        <button data-src="{{ $product->getMedia('product-thumbnails')->last()->getFullUrl() }}"
+                            data-animation="fade" id="fullScreenButton"
+                            class="spotlight flex justify-center align-center hover:bg-gray-500 hover:bg-opacity-30 rounded-lg"><svg
+                                fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
                                 class="h-7 w-7 m-2 text-primary-500">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -35,9 +36,13 @@
                 </div>
                 <div class="flex overflow-auto gap-1 py-2" id="product-images">
 
-                    {{ $product->getMedia('product-thumbnails')->last()->img()->attributes(['class' => 'sec h-20 w-20 object-cover object-center cursor-pointer flex-none border border-gray-300 dark:border-gray-700  overflow-hidden rounded-lg']) }}
+                    {{ $product->getMedia('product-thumbnails')->last()->img()->attributes(['class' => ' sec h-20 w-20 object-cover object-center cursor-pointer flex-none border border-gray-300 dark:border-gray-700  overflow-hidden rounded-lg']) }}
+                    <div class="sr-only spotlight"
+                        data-src="{{ $product->getMedia('product-thumbnails')->last()->getFullUrl() }}"></div>
                     @foreach ($product->getMedia('product-images') as $image)
-                        {{ $image->img()->attributes(['class' => 'sec h-20 w-20 object-cover object-center cursor-pointer flex-none border border-gray-300 dark:border-gray-700  overflow-hidden rounded-lg']) }}
+                        <div class="sr-only spotlight" data-src="{{ $image->getFullUrl() }}"
+                            data-title="{{ $image->name }}"></div>
+                        {{ $image->img()->attributes(['class' => ' sec h-20 w-20 object-cover object-center cursor-pointer flex-none border border-gray-300 dark:border-gray-700  overflow-hidden rounded-lg']) }}
                     @endforeach
 
 
@@ -185,22 +190,16 @@
     @push('scripts')
         <script>
             array = $('#product-images > .sec');
-            var gallery = [];
+
             for (let index = 0; index < array.length; index++) {
                 const element = array[index];
-                var obj = {
-                    src: element.src
-                }
-                gallery.push(obj)
+
 
                 if (element.src == $('#productMainImage')[0].src) {
                     $(element).addClass('opacity-50')
                 }
             }
 
-            function showGallery() {
-                Spotlight.show(gallery);
-            }
 
 
 
@@ -209,11 +208,9 @@
                 $(this).addClass('opacity-50')
                 $("#productMainImage").attr('src', $(this).attr('src'))
                 $("#productMainImage").attr('srcset', $(this).attr('srcset'))
-                first = {
-                    src: $(this).attr('src')
-                }
-                gallery.shift(first)
-                gallery.unshift(first)
+                $("#fullScreenButton").attr('data-src', $(this).attr('src'))
+
+
             })
         </script>
     @endpush
