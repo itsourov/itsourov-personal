@@ -1,3 +1,4 @@
+@props(['comment'])
 <div x-data="{ replyBoxOpen: false, focus: false }" @click.away="focus=false">
     <button class="replyButton text-sm hover:text-primary-500 flex items-center gap-1"
         x-on:click="replyBoxOpen = !replyBoxOpen, focus=replyBoxOpen">

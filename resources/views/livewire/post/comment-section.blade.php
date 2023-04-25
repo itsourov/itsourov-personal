@@ -39,29 +39,7 @@
         <div class="grid gap-4 mt-8">
             @foreach ($comments as $comment)
                 @if (!$comment->deleted_at)
-                    <x-card class="space-y-3 px-4 py-4">
-                        <div class="flex justify-between">
-                            <div class="flex flex-wrap items-center gap-2">
-                                <img class="h-6 w-6 rounded-full"
-                                    src="{{ $comment->user->getFirstMedia('profile-images')?->getUrl('preview') }}"
-                                    alt="">
-                                <p class="text-sm font-medium">{{ $comment->user->name }}</p>
-                                <p class="text-sm text-gray-500">{{ $comment->created_at->diffForHumans() }}</p>
-                            </div>
-                            @if ($comment->user->id == auth()->user()?->id)
-                                <button class="text-sm  hover:text-primary-500 flex items-center gap-1"
-                                    wire:click="deleteCommentId({{ $comment->id }})"
-                                    x-on:click="deleteModal = !deleteModal">
-                                    <x-svg.trash class="inline w-4 h-4" />{{ __('Delete') }}
-                                </button>
-                            @endif
-
-                        </div>
-                        <div>
-                            <p>{{ $comment->comment }}</p>
-                        </div>
-                        <x-comment.reply-box :comment="$comment" />
-                    </x-card>
+                    <x-comment.comment-item :comment="$comment" />
                 @else
                     <x-card class="text-sm">
                         This comment was deleted
@@ -70,27 +48,7 @@
 
                 @foreach ($comment->replies as $reply)
                     @if (!$reply->deleted_at)
-                        <x-card class="space-y-3 px-4 py-4 ml-4 md:ml-8" x-data="{ replyBoxOpen: false }"
-                            id="reply-{{ $reply->id }}">
-                            <div class="flex justify-between">
-                                <div class="flex flex-wrap items-center gap-2">
-                                    <img class="h-6 w-6 rounded-full"
-                                        src="{{ $reply->user->getFirstMedia('profile-images')?->getUrl('preview') }}"
-                                        alt="">
-                                    <p class="text-sm font-medium">{{ $reply->user->name }}</p>
-                                    <p class="text-sm text-gray-500">{{ $reply->created_at->diffForHumans() }}</p>
-                                </div>
-                                <button x-on:click="deleteModal = !deleteModal"
-                                    class="text-sm  hover:text-primary-500 flex items-center gap-1"
-                                    wire:click="deleteCommentId({{ $reply->id }})">
-                                    <x-svg.trash class="inline w-4 h-4" />{{ __('Delete') }}
-                                </button>
-                            </div>
-                            <div>
-                                <p>{{ $reply->comment }}</p>
-                            </div>
-                            <x-comment.reply-box :comment="$comment" />
-                        </x-card>
+                        <x-comment.comment-item :comment="$reply" :isReply="true" :parentComment="$comment" />
                     @else
                         <x-card class="ml-4 md:ml-8 tex-sm">
                             This reply was deleted
