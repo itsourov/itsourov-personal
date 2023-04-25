@@ -26,7 +26,7 @@ class ProductEdit extends Component
             'product.selling_price' => 'required|numeric|gt:0',
             'product.original_price' => 'required|numeric|gt:0',
             'featuredImage' => 'nullable|image|max:1500',
-            'productImages.*' => 'nullable|image|max:50'
+            'productImages.*' => 'nullable|image|max:1500'
 
 
         ];
@@ -71,7 +71,7 @@ class ProductEdit extends Component
 
         }
 
-        return redirect(request()->header('Referer'));
+        return redirect(route('admin.products.edit', $this->product));
 
     }
     public function dismiss()

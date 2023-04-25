@@ -66,7 +66,7 @@ class CommentSection extends Component
         $this->resetPage();
         $this->commentBoxText = "";
 
-        Session::flash('success', 'This is a FlashMessage Test!');
+        session()->flash('message', 'Comment Submitted');
     }
     public function addReply($parentId)
     {
@@ -92,6 +92,7 @@ class CommentSection extends Component
             'parent_id' => $parentId,
             'comment' => $this->replyBoxTexts[$parentId],
         ]);
+        session()->flash('message', 'Reply Submitted');
 
         $this->replyBoxTexts[$parentId] = "";
         $this->dispatchBrowserEvent('scroll-to-element', ['elementId' => 'reply-' . $newReply->id]);

@@ -16,6 +16,7 @@
                 <div class="grid grid-cols-2 gap-1 md:block md:space-y-1">
                     <x-admin.tab-button :tabItem='$tabItem' name="info">Info</x-admin.tab-button>
                     <x-admin.tab-button :tabItem='$tabItem' name="content">Content</x-admin.tab-button>
+                    <x-admin.tab-button :tabItem='$tabItem' name="categories">Categories</x-admin.tab-button>
 
 
 
@@ -71,6 +72,26 @@
                                 {{ $post['content'] }}</x-input.textarea>
 
                         </div>
+                    </div>
+                </div>
+                <div id="categories-container" class="" {!! $tabItem == 'categories' ? '' : 'style="display: none"' !!}>
+
+                    <div>
+
+                        <h3>Select categories</h3>
+                        <hr class="border-gray-300 dark:border-gray-700 my-2">
+                        <div class="grid grid-cols-4 gap-3">
+                            @foreach ($categories as $index => $category)
+                                <div class="bg-gray-100 dark:bg-gray-700 px-2 rounded flex items-center gap-2">
+                                    <input type="checkbox" wire:model="categoryIds" id="cat-item-{{ $index }}"
+                                        value="{{ $category->id }}">
+
+                                    <label class="block w-full py-3 select-none cursor-pointer"
+                                        for="cat-item-{{ $index }}">{{ $category->title }}</label>
+                                </div>
+                            @endforeach
+                        </div>
+
                     </div>
                 </div>
 

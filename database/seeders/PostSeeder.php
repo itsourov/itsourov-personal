@@ -16,11 +16,11 @@ class PostSeeder extends Seeder
 
         Post::factory(20)->create();
 
-        foreach (Post::all() as $post) {
+        // foreach (Post::all() as $post) {
 
-            $post->addMedia(fake()->image())
-                ->withResponsiveImages()
-                ->toMediaCollection('post-thumbnails', 'post-thumbnails');
-        }
+        //     $post->addMedia(fake()->image())
+        //         ->withResponsiveImages()
+        //         ->toMediaCollection('post-thumbnails', 'post-thumbnails');
+        // }
     }
 }

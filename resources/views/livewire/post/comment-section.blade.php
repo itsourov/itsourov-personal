@@ -189,4 +189,5 @@
             });
         </script>
     @endpush
+    @include('inc.notification')
 </div>

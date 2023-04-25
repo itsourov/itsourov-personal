@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Category;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
@@ -63,7 +64,10 @@ class Post extends Model implements HasMedia
     {
         return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id')->with(['user.media', 'replies.user.media'])->withTrashed();
     }
-
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
 
 
 

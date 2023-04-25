@@ -4,6 +4,8 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Post;
 use Livewire\Component;
+use App\Models\Category;
+use App\Enums\CategoryType;
 use Livewire\WithFileUploads;
 
 class PostEdit extends Component
@@ -14,6 +16,9 @@ class PostEdit extends Component
 
     public $title = 'Edit Post';
     public $tabItem = 'info';
+
+    public $categories;
+    public $categoryIds = [];
 
 
     protected function rules()
@@ -29,6 +34,8 @@ class PostEdit extends Component
 
     public function render()
     {
+        $categories = Category::where('type', CategoryType::postCategory)->get();
+        $this->categories = $categories;
 
         return view('livewire.admin.post-edit');
     }
@@ -36,7 +43,7 @@ class PostEdit extends Component
     {
 
         $this->post = $post;
-
+        $this->categoryIds = $post->categories->pluck('id')->toArray();
 
 
 
@@ -56,6 +63,7 @@ class PostEdit extends Component
             $this->post->user_id = auth()->user()->id;
         }
         $this->post->save();
+        $this->post->categories()->sync($this->categoryIds);
         if ($this->featuredImage) {
             $validatedImage = $this->validate([
                 'featuredImage' => 'image|max:1500'
