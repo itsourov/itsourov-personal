@@ -57,7 +57,7 @@
                         <x-svg.user-circle class="inline w-4 h-4" /> {{ __('Dashboard') }}
                     </x-nav-link>
                     @admin
-                        <x-nav-link :href="route('admin.posts.index')">
+                        <x-nav-link :href="route('admin.dashboard')">
                             <x-svg.lock class="inline w-4 h-4" /> {{ __('Admin Panel') }}
                         </x-nav-link>
                     @endadmin
@@ -171,7 +171,7 @@
 
 
                                         @admin
-                                            <x-dropdown-link :href="route('admin.posts.index')">
+                                            <x-dropdown-link :href="route('admin.dashboard')">
                                                 {{ __('Admin Panel') }}
                                             </x-dropdown-link>
                                         @endadmin

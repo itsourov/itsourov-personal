@@ -6,7 +6,7 @@
     } else {
         $classes = '';
     }
-    $classes = $classes . ' w-full flex items-center p-2 text-base text-gray-600 rounded-lg hover:bg-gray-100 group dark:text-gray-300 dark:hover:bg-gray-700';
+    $classes = $classes . ' w-full flex items-center p-2 text-base text-gray-600 rounded-lg hover:bg-gray-100 group dark:text-gray-300 dark:hover:bg-gray-700 border dark:border-gray-700';
     if (!isset($id)) {
         $id = rand();
     }
