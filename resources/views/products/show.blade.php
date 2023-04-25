@@ -14,7 +14,7 @@
                     <div class="overflow-hidden rounded aspect-w-3 aspect-h-2 ">
 
                         @if ($product->getMedia('product-thumbnails')->last())
-                            {{ $product->getMedia('product-thumbnails')->last() }}
+                            {{ $product->getMedia('product-thumbnails')->last()->img()->attributes(['id' => 'productMainImage']) }}
                         @else
                             {!! $product->getFallbackImage() !!}
                         @endif
@@ -35,10 +35,10 @@
                 </div>
                 <div class="flex overflow-auto gap-1 py-2" id="product-images">
 
-                    {{-- @foreach (array_merge([$product->media->last()->original_url], $product->images) as $image)
-                        <img src="{{ $image }}"
-                            class="sec h-20 w-20 object-cover object-center cursor-pointer flex-none opacity-50 border border-gray-300 dark:border-gray-700   overflow-hidden rounded-lg">
-                    @endforeach --}}
+                    {{ $product->getMedia('product-thumbnails')->last()->img()->attributes(['class' => 'sec h-20 w-20 object-cover object-center cursor-pointer flex-none opacity-50 border border-gray-300 dark:border-gray-700  overflow-hidden rounded-lg']) }}
+                    @foreach ($product->getMedia('product-images') as $image)
+                        {{ $image->img()->attributes(['class' => 'sec h-20 w-20 object-cover object-center cursor-pointer flex-none opacity-50 border border-gray-300 dark:border-gray-700  overflow-hidden rounded-lg']) }}
+                    @endforeach
 
 
 
@@ -208,6 +208,7 @@
                 $(".sec").addClass('opacity-50')
                 $(this).removeClass('opacity-50')
                 $("#productMainImage").attr('src', $(this).attr('src'))
+                $("#productMainImage").attr('srcset', $(this).attr('srcset'))
                 first = {
                     src: $(this).attr('src')
                 }
