@@ -6,7 +6,7 @@
     @endsection
 
     <section class=" container mx-auto px-2 mt-10">
-        <div class="  grid grid-cols-1 md:grid-cols-2 gap-10 ">
+        <div class="  grid grid-cols-1 md:grid-cols-2 gap-8 ">
             <div>
                 <div class="relative">
 
@@ -35,9 +35,9 @@
                 </div>
                 <div class="flex overflow-auto gap-1 py-2" id="product-images">
 
-                    {{ $product->getMedia('product-thumbnails')->last()->img()->attributes(['class' => 'sec h-20 w-20 object-cover object-center cursor-pointer flex-none opacity-50 border border-gray-300 dark:border-gray-700  overflow-hidden rounded-lg']) }}
+                    {{ $product->getMedia('product-thumbnails')->last()->img()->attributes(['class' => 'sec h-20 w-20 object-cover object-center cursor-pointer flex-none border border-gray-300 dark:border-gray-700  overflow-hidden rounded-lg']) }}
                     @foreach ($product->getMedia('product-images') as $image)
-                        {{ $image->img()->attributes(['class' => 'sec h-20 w-20 object-cover object-center cursor-pointer flex-none opacity-50 border border-gray-300 dark:border-gray-700  overflow-hidden rounded-lg']) }}
+                        {{ $image->img()->attributes(['class' => 'sec h-20 w-20 object-cover object-center cursor-pointer flex-none border border-gray-300 dark:border-gray-700  overflow-hidden rounded-lg']) }}
                     @endforeach
 
 
@@ -194,7 +194,7 @@
                 gallery.push(obj)
 
                 if (element.src == $('#productMainImage')[0].src) {
-                    $(element).removeClass('opacity-50')
+                    $(element).addClass('opacity-50')
                 }
             }
 
@@ -205,8 +205,8 @@
 
 
             $(".sec").click(function() {
-                $(".sec").addClass('opacity-50')
-                $(this).removeClass('opacity-50')
+                $(".sec").removeClass('opacity-50')
+                $(this).addClass('opacity-50')
                 $("#productMainImage").attr('src', $(this).attr('src'))
                 $("#productMainImage").attr('srcset', $(this).attr('srcset'))
                 first = {
