@@ -157,7 +157,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse gap-2">
+                    <div class="mt-5 sm:mt-4 flex justify-center sm:justify-end  gap-2">
                         <x-button.secondary x-on:click="deleteModal = !deleteModal" class="">
                             {{ __('Cancel') }}
                         </x-button.secondary>
@@ -170,7 +170,15 @@
         </div>
     </div>
 
-
+    <div wire:loading wire:target="deleteComment, addComment,addReply,gotoPage">
+        <div
+            class="fixed z-40 flex tems-center justify-center inset-0 bg-gray-700 dark:bg-gray-900 dark:bg-opacity-50 bg-opacity-50 transition-opacity">
+            <div class="flex items-center justify-center ">
+                <div class="w-40 h-40 border-t-4 border-b-4 border-green-900 rounded-full animate-spin">
+                </div>
+            </div>
+        </div>
+    </div>
 
     @push('scripts')
         <script>
