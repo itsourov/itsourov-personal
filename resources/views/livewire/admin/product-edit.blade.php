@@ -45,46 +45,63 @@
 
             </div>
         </x-card>
-        <x-card>
-            <h2 class="py-2">Product Image</h2>
-            <hr class="dark:border-gray-700">
-
-            <div>
-
-                <div class="py-4">
-                    <x-input.label :value="__('Product Featured image')" />
-
-                    @foreach ($product->getMedia('product-thumbnails') as $media)
-                        <div class="aspect-w-16 aspect-h-9 rounded overflow-hidden">
-                            {{ $media }}
-                        </div>
-                    @endforeach
-
-                </div>
-                <div>
-                    <x-input.livewire-filepond wire:model="featuredImage" accept="image/*" />
-                </div>
-                <div>
-                    <x-error-list :errors="$errors->get('featuredImage')" />
-                </div>
-            </div>
-            <div class="mt-6 space-y-4">
+        <div class="space-y-4">
+            <x-card>
+                <h2 class="py-2">Product Image</h2>
+                <hr class="dark:border-gray-700">
 
                 <div>
-                    <x-input.label :value="__('Product image Gellery')" />
-                    <div class="flex flex-wrap gap-3">
-                        @foreach ($product->getMedia('product-images') as $productImage)
-                            <img class=" w-20 flex-grow" src="{{ $productImage->getUrl('preview') }}" alt="">
+
+                    <div class="py-4">
+                        <x-input.label :value="__('Product Featured image')" />
+
+                        @foreach ($product->getMedia('product-thumbnails') as $media)
+                            <div class="aspect-w-16 aspect-h-9 rounded overflow-hidden">
+                                {{ $media }}
+                            </div>
                         @endforeach
 
                     </div>
+                    <div>
+                        <x-input.livewire-filepond wire:model="featuredImage" accept="image/*" />
+                    </div>
+                    <div>
+                        <x-error-list :errors="$errors->get('featuredImage')" />
+                    </div>
                 </div>
+                <div class="mt-6 space-y-4">
+
+                    <div>
+                        <x-input.label :value="__('Product image Gellery')" />
+                        <div class="flex flex-wrap gap-3">
+                            @foreach ($product->getMedia('product-images') as $productImage)
+                                <img class=" w-20 flex-grow" src="{{ $productImage->getUrl('preview') }}"
+                                    alt="">
+                            @endforeach
+
+                        </div>
+                    </div>
+                    <div>
+                        <x-input.livewire-filepond wire:model="productImages" multiple accept="image/*" />
+                        <x-error-list :errors="$errors->get('productImages.*')" />
+                    </div>
+                </div>
+            </x-card>
+            <x-card class="space-y-2">
+                <h2 class="">Product Category</h2>
+                <hr class="dark:border-gray-700">
+
                 <div>
-                    <x-input.livewire-filepond wire:model="productImages" multiple accept="image/*" />
-                    <x-error-list :errors="$errors->get('productImages.*')" />
+                    <x-input.select multiple class="w-full h-60 space-y-2" wire:model.lazy="selectedCategories">
+                        @foreach ($categories as $category)
+                            <option class="border dark:border-gray-700 rounded" value="{{ $category->id }}">
+                                {{ $category->title }}</option>
+                        @endforeach
+                    </x-input.select>
+
                 </div>
-            </div>
-        </x-card>
+            </x-card>
+        </div>
     </div>
 
     <div wire:loading wire:target="update">

@@ -4,6 +4,8 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Product;
 use Livewire\Component;
+use App\Models\Category;
+use App\Enums\CategoryType;
 use Livewire\WithFileUploads;
 
 class ProductEdit extends Component
@@ -13,6 +15,7 @@ class ProductEdit extends Component
     public $title = 'Edit Product';
     public $featuredImage;
     public $productImages = [];
+    public $selectedCategories = [];
 
 
     protected function rules()
@@ -26,7 +29,8 @@ class ProductEdit extends Component
             'product.selling_price' => 'required|numeric|gt:0',
             'product.original_price' => 'required|numeric|gt:0',
             'featuredImage' => 'nullable|image|max:1500',
-            'productImages.*' => 'nullable|image|max:1500'
+            'productImages.*' => 'nullable|image|max:1500',
+            'selectedCategories' => ''
 
 
         ];
@@ -34,13 +38,16 @@ class ProductEdit extends Component
 
     public function render()
     {
-        return view('livewire.admin.product-edit');
+        $categories = Category::where('type', CategoryType::productCategory)->get();
+        return view('livewire.admin.product-edit', [
+            'categories' => $categories,
+        ]);
     }
 
     public function mount(Product $product)
     {
         $this->product = $product;
-
+        $this->selectedCategories = $product->categories->pluck('id')->toArray();
     }
 
     public function update()
@@ -50,11 +57,11 @@ class ProductEdit extends Component
         $this->validate();
 
         $this->product->save();
-
+        $this->product->categories()->sync($this->selectedCategories);
 
         if ($this->featuredImage) {
 
-            // $this->product->clearMediaCollection('product-thumbnails');
+            $this->product->clearMediaCollection('product-thumbnails');
             $this->product->addMedia($this->featuredImage)
                 ->withResponsiveImages()
                 ->toMediaCollection('product-thumbnails', 'product-thumbnails');
