@@ -32,7 +32,7 @@ class ManageCategories extends Component
     }
     public function mount()
     {
-        $this->editing = new Category(['type' => CategoryType::postCategory]);
+        $this->editing = new Category(['type' => '']);
     }
 
     public function render()
@@ -54,7 +54,7 @@ class ManageCategories extends Component
     {
 
         if ($this->editing->getKey()) {
-            $this->editing = new Category(['type' => CategoryType::postCategory]);
+            $this->editing = new Category(['type' => '']);
             $this->resetErrorBag();
         }
         $this->showEditModal = true;
