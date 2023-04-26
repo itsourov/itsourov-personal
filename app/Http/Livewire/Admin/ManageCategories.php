@@ -14,6 +14,9 @@ class ManageCategories extends Component
 
     public $showEditModal = false;
     public Category $editing;
+    public $selectedCategories = [];
+    public $selectAllInPage = false;
+
 
 
 
@@ -64,5 +67,20 @@ class ManageCategories extends Component
         $this->validate();
         $this->editing->save();
         $this->showEditModal = false;
+    }
+    public function deleteSelected()
+    {
+        $selectedCategories = Category::whereKey($this->selectedCategories);
+        $selectedCategories->delete();
+        $this->selectedCategories = [];
+    }
+    public function exportSelected()
+    {
+        return response()->streamDownload(function () {
+            $csv = Category::whereKey($this->selectedCategories)->toCsv();
+            echo $csv;
+        }, 'categories.csv');
+
+
     }
 }
