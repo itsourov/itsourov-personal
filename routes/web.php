@@ -27,6 +27,10 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/icons', function () {
+    return view('icons');
+})->name('icons');
+
 
 Route::prefix('blog')->name('blog.')->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('index');
@@ -77,6 +81,7 @@ Route::prefix('bkash')->middleware(['auth'])->group(function () {
 
 
 });
+
 
 
 require __DIR__ . '/inc/web/auth.php';

@@ -1,4 +1,4 @@
-@props(['align' => 'right', 'width' => '48', 'contentClasses' => 'py-1 bg-white dark:bg-gray-800 dark:border dark:border-gray-700 '])
+@props(['hoverAction' => true, 'align' => 'right', 'width' => '48', 'contentClasses' => 'py-1 bg-white dark:bg-gray-800 dark:border dark:border-gray-700 '])
 
 @php
     switch ($align) {
@@ -24,7 +24,10 @@
 @endphp
 
 <div {{ $attributes->merge(['class' => $classes]) }} x-data="{ open: false }" @click.outside="open = false">
-    <div @mouseover="open = true" class="flex ">
+    <div @if ($hoverAction) @mouseover="open = true" 
+        @else
+        @click="open = !open" @endif
+        class="flex ">
         {{ $trigger }}
     </div>
 

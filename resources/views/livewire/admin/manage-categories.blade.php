@@ -1,14 +1,36 @@
 <div>
     <div class="space-y-2">
-        <div class="flex justify-end">
-            <x-button.primary class="space-x-1" wire:click="create">
-                <x-svg.plus class="w-5 h-5" /> <span>{{ __('Add new') }}</span>
+        <div class="flex justify-end gap-3">
+            <x-dropdown :hoverAction="false">
+                <x-slot name="trigger">
+                    <x-button.secondary class="space-x-1 text-sm">
+                        <x-svg.chevron-down class="w-4 h-4" />
+                        <span>{{ __('Bulk Action') }}</span>
+                    </x-button.secondary>
+                </x-slot>
+                <x-slot name="content">
+                    <x-dropdown-link class="flex gap-1 cursor-pointer" wire:click="deleteSelected">
+                        <x-svg.trash class="w-5 h-5" />
+                        <span>{{ __('Delete') }}</span>
+                    </x-dropdown-link>
+                    <x-dropdown-link class="flex gap-1 cursor-pointer" wire:click="exportSelected">
+                        <x-svg.arrow-down-tray class="w-5 h-5" />
+                        <span>{{ __('Export') }}</span>
+                    </x-dropdown-link>
+                </x-slot>
+            </x-dropdown>
+
+            <x-button.primary class="space-x-1 text-sm" wire:click="create">
+                <x-svg.plus class="w-4 h-4" /> <span>{{ __('Add new') }}</span>
             </x-button.primary>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
+                        <th class="p-2">
+                            <input type="checkbox">
+                        </th>
                         <th scope="col" class="p-3">
                             Category Title
                         </th>
@@ -24,10 +46,14 @@
 
                     </tr>
                 </thead>
+                @json($selectedCategories)
                 <tbody>
                     @foreach ($categories as $category)
-                        <tr
+                        <tr wire:key="row-{{ $category->id }}"
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <td class="p-2">
+                                <input type="checkbox" wire:model="selectedCategories" value="{{ $category->id }}">
+                            </td>
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 max-w-xs dark:text-white">
                                 {{ $category->title }}
                             </th>
