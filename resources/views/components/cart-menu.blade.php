@@ -42,8 +42,8 @@
                                     @foreach ($cartItems as $cartItem)
                                         <li class="py-6 flex">
                                             <div
-                                                class="flex-shrink-0 w-24 h-24 border border-gray-200 rounded-md overflow-hidden ">
-                                                {!! $cartItem->getMedia('product-thumbnails')->last() ?? $cartItem->getFallbackImage() !!}
+                                                class="flex-shrink-0 w-24 border border-gray-200 rounded-md overflow-hidden ">
+                                                {!! $cartItem->getMedia('product-thumbnails')->last()->img() ?? $cartItem->getFallbackImage() !!}
                                             </div>
 
                                             <div class="ml-4 flex-1 flex flex-col">

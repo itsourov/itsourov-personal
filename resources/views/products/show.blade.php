@@ -55,10 +55,11 @@
             </div>
             <div class="">
 
-                <div class=" divide-x">
+                <div class=" ">
 
                     @foreach ($product->categories as $category)
-                        <a href="#" class="text-md p-1">{{ $category->title }}</a>
+                        <a href="{{ route('shop.index', ['category' => $category->id]) }}"
+                            class="text-sm bg-primary-500 dark:bg-opacity-40 rounded px-1 py-0.5 text-white">{{ $category->title }}</a>
                     @endforeach
                 </div>
                 <h1 class="text-3xl mt-2 font-bold line-clamp-2">{{ $product->title }}</h1>
