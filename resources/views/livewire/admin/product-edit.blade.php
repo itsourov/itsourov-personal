@@ -94,7 +94,7 @@
                 <div>
                     <x-input.select multiple class="w-full h-60 space-y-2" wire:model.lazy="selectedCategories">
                         @foreach ($categories as $category)
-                            <option class="border dark:border-gray-700 rounded" value="{{ $category->id }}">
+                            <option class="p-2 border dark:border-gray-800 rounded" value="{{ $category->id }}">
                                 {{ $category->title }}</option>
                         @endforeach
                     </x-input.select>
