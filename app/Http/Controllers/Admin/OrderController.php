@@ -14,9 +14,9 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::withCount('products')->latest()->paginate(10);
 
-        return view('admin.orders.index', compact('orders'));
+
+        return view('admin.orders.index');
     }
     public function show(Request $request, Order $order)
     {

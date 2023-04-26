@@ -14,8 +14,8 @@ return new class extends Migration {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->enum('type', CategoryType::toArray());
-            $table->string('description')->nullable();
+            $table->enum('type', CategoryType::toArray())->default(CategoryType::postCategory);
+            $table->text('description')->nullable();
             $table->string('slug')->unique();
             $table->timestamps();
         });

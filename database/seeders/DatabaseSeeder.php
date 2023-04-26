@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Database\Seeders\PostSeeder;
 use Database\Seeders\UserSeeder;
+use Database\Seeders\OrderSeeder;
 use Database\Seeders\CommentSeeder;
 use Database\Seeders\CategorySeeder;
 use Illuminate\Support\Facades\Storage;
@@ -28,5 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PostSeeder::class);
         $this->call(ProductSeeder::class);
         $this->call(CommentSeeder::class);
+        $this->call(OrderSeeder::class);
     }
 }
