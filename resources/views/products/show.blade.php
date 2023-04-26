@@ -22,7 +22,7 @@
 
                     </div>
                     <div class="absolute right-0 top-0 ">
-                        <button data-src="{{ $product->getMedia('product-thumbnails')->last()->getFullUrl() }}"
+                        <button data-src="{{ $product->getMedia('product-thumbnails')->last()?->getFullUrl() }}"
                             data-animation="fade" id="fullScreenButton"
                             class="spotlight flex justify-center align-center hover:bg-gray-500 hover:bg-opacity-30 rounded-lg"><svg
                                 fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
@@ -36,9 +36,9 @@
                 </div>
                 <div class="flex overflow-auto gap-1 py-2" id="product-images">
 
-                    {{ $product->getMedia('product-thumbnails')->last()->img()->attributes(['class' => ' sec h-20 w-20 object-cover object-center cursor-pointer flex-none border border-gray-300 dark:border-gray-700  overflow-hidden rounded-lg']) }}
+                    {{ $product->getMedia('product-thumbnails')->last()?->img()->attributes(['class' => ' sec h-20 w-20 object-cover object-center cursor-pointer flex-none border border-gray-300 dark:border-gray-700  overflow-hidden rounded-lg']) }}
                     <div class="sr-only spotlight"
-                        data-src="{{ $product->getMedia('product-thumbnails')->last()->getFullUrl() }}"></div>
+                        data-src="{{ $product->getMedia('product-thumbnails')->last()?->getFullUrl() }}"></div>
                     @foreach ($product->getMedia('product-images') as $image)
                         <div class="sr-only spotlight" data-src="{{ $image->getFullUrl() }}"
                             data-title="{{ $image->name }}"></div>
