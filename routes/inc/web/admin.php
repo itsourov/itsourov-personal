@@ -27,8 +27,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::get('/create', [ProductController::class, 'create'])->name('create');
         Route::get('/{product:slug}', [ProductController::class, 'edit'])->name('edit');
         Route::get('/downloadable/{product:slug}/manage', [DownloadItemController::class, 'index'])->name('manage-downloadables');
-        Route::post('/downloadable/{product:slug}/store', [DownloadItemController::class, 'store'])->name('store-downloadables');
-        Route::delete('/downloadable/{downloadable}/delete', [DownloadItemController::class, 'destroy'])->name('delete-downloadables');
     });
 
     Route::prefix('categories')->name('categories.')->group(function () {

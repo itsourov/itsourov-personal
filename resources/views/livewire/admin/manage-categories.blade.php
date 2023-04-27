@@ -46,7 +46,6 @@
 
                     </tr>
                 </thead>
-                @json($selectedCategories)
                 <tbody>
                     @foreach ($categories as $category)
                         <tr wire:key="row-{{ $category->id }}"
