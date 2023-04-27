@@ -76,7 +76,7 @@
                         class="bg-blue-100 text-blue-800 text-xs  px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">{{ round($product->reviews_avg_rating, 2) }}</span>
 
                     <a href="#"
-                        class="ml-3 text-sm font-medium text-primary-600 hover:text-primary-500">{{ $reviews->total() }}
+                        class="ml-3 text-sm font-medium text-primary-600 hover:text-primary-500">{{ $product->reviews_count }}
                         {{ __('Reviews') }}</a>
                 </div>
 
@@ -148,45 +148,10 @@
                 </div>
             </div>
             <div id="reviews">
-                <h4 class="text-base font-bold">{{ __('Reviews') }}</h4>
-                <div class="grid gap-3 mt-3">
-                    @foreach ($reviews as $review)
-                        <x-card>
-                            <div class="user-info flex items-start gap-3">
-                                <img class="rounded-full w-10 h-10"
-                                    src="https://picsum.photos/100/100/?{{ $review->id }}" alt="">
-                                <div>
-                                    <p class="text-sm">{{ $review->user->name }}</p>
-                                    <p class="text-sm text-gray-500">{{ $review->created_at->format('d M, Y') }}</p>
-                                    <div class="rating text-yellow-300 ">
-                                        @for ($i = 1; $i <= 5; $i++)
-                                            @if ($i <= ceil($product->reviews_avg_rating))
-                                                <x-svg.star-solid class="w-4 h-4 inline" />
-                                            @else
-                                                <x-svg.star-outlined class="w-4 h-4 inline" />
-                                            @endif
-                                        @endfor
-                                        <span class="text-gray-500 text-sm">({{ $review->rating }})</span>
-                                    </div>
-                                    <p class="mt-1">{{ $review->comment }}</p>
-                                </div>
-                            </div>
-
-                        </x-card>
-                    @endforeach
-                </div>
-                <div class="my-2">
-                    {{ $reviews->links('pagination.tailwind') }}
-                </div>
+                <livewire:shop.product-reviews :product="$product" />
             </div>
 
 
-            {{-- <div id="questions-container" class="tab-content">
-                <h4 class="text-base font-bold">reviews</h4>
-            </div>
-            <div id="links-container" class="tab-content">
-                <h4 class="text-base font-bold">reviews</h4>
-            </div> --}}
         </div>
 
     </section>

@@ -12,6 +12,7 @@ class ProductController extends Controller
     {
         $products = Product::latest()->with('media')->withCount('reviews')->withAvg('reviews', 'rating')->paginate(12);
 
+        // return $products;
 
         return view('products.index', [
             'products' => $products,
@@ -19,13 +20,12 @@ class ProductController extends Controller
     }
     public function show(Product $product)
     {
-        $product->loadMissing('categories', 'media')->loadAvg('reviews', 'rating');
+        $product->loadMissing('categories', 'media')->loadAvg('reviews', 'rating')->loadCount('reviews');
 
-        $reviews = $product->reviews()->with('user')->paginate(10, ['*'], 'reviews_page');
-        $links = $product->downloadItems()->paginate(3);
+        // $links = $product->downloadItems()->paginate(3);
 
 
-        return view('products.show', compact('product', 'reviews', 'links'));
+        return view('products.show', compact('product'));
     }
 
 }

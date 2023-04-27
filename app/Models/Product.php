@@ -15,7 +15,7 @@ class Product extends Model implements HasMedia
     use HasFactory;
     use InteractsWithMedia;
 
-
+    protected $appends = array('isPurchased');
     /**
      * The attributes that are mass assignable.
      *
@@ -79,6 +79,10 @@ class Product extends Model implements HasMedia
     public function getFallbackImageUrl(): string
     {
         return asset('images/fallback.png');
+    }
+    public function getIsPurchasedAttribute(): bool
+    {
+        return auth()->user()?->purchasedItems->contains($this) ?? false;
     }
 
 }

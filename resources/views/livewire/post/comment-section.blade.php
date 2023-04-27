@@ -138,22 +138,6 @@
         </div>
     </div>
 
-    @push('scripts')
-        <script>
-            document.addEventListener('livewire:load', function() {
 
-
-                document.addEventListener('scroll-to-element', function(params) {
-
-                    let element = document.getElementById(params.detail.elementId);
-                    if (element) {
-                        element.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        </script>
-    @endpush
     @include('inc.notification')
 </div>
