@@ -72,7 +72,7 @@ class Product extends Model implements HasMedia
         return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id')->with(['user.media', 'replies.user.media'])->withTrashed();
     }
 
-    public function getFallbackImage(): string
+    public function getFallbackImage()
     {
         return view('inc.fallback-image');
     }

@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->integer('download_itemable_id')->unsigned();
             $table->string('download_itemable_type');
             $table->string('title');
+            $table->string('size')->default('undefined');
             $table->enum('type', DownloadLinkType::toArray())->default(DownloadLinkType::directLink);
             $table->string('content');
             $table->timestamps();

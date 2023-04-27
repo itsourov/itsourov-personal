@@ -24,6 +24,7 @@ class ManageDownloadItems extends Component
 
             'editing.title' => 'required',
             'editing.content' => 'required',
+            'editing.size_in_kb' => 'required',
             'editing.type' => ['required', Rule::in(DownloadLinkType::toArray())],
 
 

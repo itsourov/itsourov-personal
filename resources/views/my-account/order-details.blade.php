@@ -97,7 +97,7 @@
 
     </x-card>
 
-    <x-modal name="bkash-error-modal" maxWidth="sm" focusable>
+    <x-modal-static name="bkash-error-modal" maxWidth="sm" focusable>
         <div class="p-4">
             <div>
                 <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
@@ -117,7 +117,7 @@
                 <x-button.primary class="w-full" x-on:click="$dispatch('close')">Continue</x-button.primary>
             </div>
         </div>
-    </x-modal>
+    </x-modal-static>
 
 
     <div id="loading-overlay" style="display: none"

@@ -33,6 +33,7 @@ class ProductSeeder extends Seeder
                     'type' => DownloadLinkType::toArray()[rand(0, 2)],
                     'title' => fake()->text(100),
                     'content' => fake()->url(),
+                    'size' => random_int(1, 50) . ' MB',
                 ]);
             }
         }

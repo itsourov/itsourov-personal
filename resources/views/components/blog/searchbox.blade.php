@@ -1,6 +1,6 @@
 <div class=" p-3 lg:p-5 mb-5 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
 
-    <label for="simple-search" class="tex-sm">Search</label>
+    <label for="simple-search" class="tex-sm ml-1">Search</label>
     <form class="flex items-center" method="GET" action="{{ route('blog.index') }}">
 
         <div class="relative w-full">

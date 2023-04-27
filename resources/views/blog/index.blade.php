@@ -22,7 +22,7 @@
                                 </div>
 
                             </a>
-                            <div class="p-3 grid gap-3">
+                            <div class="p-2 grid gap-2">
                                 <a href="{{ route('blog.show', $post) }}">
                                     <h2 class="text-lg font-medium line-clamp-2">{{ $post->title }}</h2>
                                 </a>

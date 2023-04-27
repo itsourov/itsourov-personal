@@ -19,6 +19,7 @@ class DownloadItem extends Model
         'title',
         'type',
         'content',
+        'size',
     ];
 
 
@@ -26,4 +27,6 @@ class DownloadItem extends Model
     {
         return $this->morphTo();
     }
+
+
 }

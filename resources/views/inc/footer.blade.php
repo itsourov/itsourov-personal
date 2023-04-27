@@ -111,7 +111,7 @@
                         <x-input.text name="email" type="email" placeholder="{{ __('Enter your email') }}" />
                     </div>
 
-                    <x-button.primary class=" px-4">Subscribe</x-button.primary>
+                    <x-button.primary type="button" class=" px-4">Subscribe</x-button.primary>
                 </form>
             </div>
         </div>

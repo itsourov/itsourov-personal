@@ -43,12 +43,15 @@
                             downloadItem type
                         </th>
                         <th scope="col" class="p-3">
+                            File size
+                        </th>
+                        <th scope="col" class="p-3">
                             Actions
                         </th>
 
                     </tr>
                 </thead>
-                @json($selectedDownloadItems)
+
                 <tbody>
                     @foreach ($downloadItems as $downloadItem)
                         <tr wire:key="row-{{ $downloadItem->id }}"
@@ -66,6 +69,9 @@
 
                             <td class="px-6 py-4">
                                 {{ $downloadItem->type }}
+                            </td>
+                            <td class="p-3 whitespace-nowrap">
+                                {{ $downloadItem->size }}
                             </td>
                             <td class="px-6 py-4 text-right">
                                 <button wire:click.defer="edit({{ $downloadItem->id }})"
@@ -102,6 +108,11 @@
                         <x-input.label value="{{ __('Content') }}" required="true" />
                         <x-input.text placeholder="{{ __('Download Item content...') }}"
                             wire:model.lazy="editing.content" />
+                    </div>
+                    <div>
+                        <x-input.label value="{{ __('Size in KB') }}" />
+                        <x-input.text type="number" placeholder="{{ __('Download Size in KB') }}"
+                            wire:model.lazy="editing.size_in_kb" />
                     </div>
 
                     <div>
