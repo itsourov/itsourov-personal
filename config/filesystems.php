@@ -59,7 +59,7 @@ return [
         'profile-images' => [
             'driver' => 'local',
             'root' => storage_path('app/public/profile-images'),
-            'url' => env('APP_URL') . '/public-disks/profile-images',
+            'url' => env('APP_URL') . '/storage/profile-images',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -67,28 +67,28 @@ return [
         'post-thumbnails' => [
             'driver' => 'local',
             'root' => storage_path('app/public/post-thumbnails'),
-            'url' => env('APP_URL') . '/public-disks/post-thumbnails',
+            'url' => env('APP_URL') . '/storage/post-thumbnails',
             'visibility' => 'public',
             'throw' => false,
         ],
         'product-thumbnails' => [
             'driver' => 'local',
             'root' => storage_path('app/public/product-thumbnails'),
-            'url' => env('APP_URL') . '/public-disks/product-thumbnails',
+            'url' => env('APP_URL') . '/storage/product-thumbnails',
             'visibility' => 'public',
             'throw' => false,
         ],
         'product-images' => [
             'driver' => 'local',
             'root' => storage_path('app/public/product-images'),
-            'url' => env('APP_URL') . '/public-disks/product-images',
+            'url' => env('APP_URL') . '/storage/product-images',
             'visibility' => 'public',
             'throw' => false,
         ],
         'uploads' => [
             'driver' => 'local',
             'root' => storage_path('app/public/uploads'),
-            'url' => env('APP_URL') . '/public-disks/uploads',
+            'url' => env('APP_URL') . '/storage/uploads',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -112,7 +112,7 @@ return [
 
     'links' => [
 
-        public_path('public-disks') => storage_path('app/public'),
+        public_path('storage') => storage_path('app/public'),
     ],
 
 ];

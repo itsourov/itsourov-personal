@@ -16,15 +16,15 @@ class ProductSeeder extends Seeder
 
 
 
-        // foreach (\App\Models\Product::all() as $product) {
-        //     $product->addMedia(fake()->image())
-        //         ->toMediaCollection('product-thumbnails', 'product-thumbnails');
-        //     $product->addMedia(fake()->image())
-        //         ->toMediaCollection('product-images', 'product-images');
-        //     $product->addMedia(fake()->image())
-        //         ->toMediaCollection('product-images', 'product-images');
-        //     $product->addMedia(fake()->image())
-        //         ->toMediaCollection('product-images', 'product-images');
-        // }
+        foreach (\App\Models\Product::all() as $product) {
+            $product->addMedia(fake()->image())
+                ->toMediaCollection('product-thumbnails', 'product-thumbnails');
+            $product->addMedia(fake()->image())
+                ->toMediaCollection('product-images', 'product-images');
+            $product->addMedia(fake()->image())
+                ->toMediaCollection('product-images', 'product-images');
+            $product->addMedia(fake()->image())
+                ->toMediaCollection('product-images', 'product-images');
+        }
     }
 }
