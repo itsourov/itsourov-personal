@@ -5,8 +5,10 @@ namespace App\Providers;
 // use Illuminate\Support\Facades\Gate;
 use App\Models\Comment;
 use App\Models\DownloadItem;
+use App\Models\Product;
 use App\Policies\CommentPolicy;
 use App\Policies\DownloaditemPolicy;
+use App\Policies\ProductPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -17,6 +19,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
+        Product::class => ProductPolicy::class,
         Order::class => OrderPolicy::class,
         Comment::class => CommentPolicy::class,
         DownloadItem::class => DownloaditemPolicy::class,
