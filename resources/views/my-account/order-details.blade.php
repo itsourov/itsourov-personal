@@ -199,8 +199,10 @@
                             success: function(data) {
 
                                 if (data && data.paymentID != null) {
-                                    alert('[SUCCESS] data : ' + JSON.stringify(data));
-                                    // window.location.href = "success.html";
+
+                                    window.location.href =
+                                        "{{ route('my-account.orders.show', $order) }}";
+                                    bKash.execute().onSuccess(data);
                                 } else {
 
                                     showError("Error - " + data.errorMessage);

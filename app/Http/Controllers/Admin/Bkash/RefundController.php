@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Bkash;
 
+use App\Models\Order;
 use App\Enums\OrderStatus;
 use App\Http\Helpers\Bkash;
 use App\Enums\PaymentStatus;
@@ -50,6 +51,8 @@ class RefundController extends Controller
                 ]);
             }
 
+        } else {
+            return 'This situation is Unhandled. This Payment was for this model : ' . $bkashTransaction->bkash_transactionable_type;
         }
         $refundResponse = Bkash::refundPayment(
         paymentID: $bkashTransaction->paymentID,
