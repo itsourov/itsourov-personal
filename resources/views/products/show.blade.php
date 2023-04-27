@@ -122,28 +122,32 @@
 
         <div class="mt-5 border-t border-b dark:border-gray-700 py-2">
             <div class="grid grid-cols-2 gap-1 md:block md:space-y-1">
-                <button class="rounded bg-gray-100 dark:bg-gray-700 px-4 py-1.5 transition-all duration-200 tab-btn "
-                    data-target="description-container">{{ __('Description') }}</button>
-                <button class="rounded bg-gray-100 dark:bg-gray-700 px-4 py-1.5 ransition-all duration-200 tab-btn"
-                    data-target="reviews-container">{{ __('Reviews') }}</button>
-                {{-- <button class="rounded bg-gray-100 dark:bg-gray-700 px-4 py-1.5 ransition-all duration-200 tab-btn"
-                    data-target="questions-container">Questions</button>
-                <button class="rounded bg-gray-100 dark:bg-gray-700 px-4 py-1.5 ransition-all duration-200 tab-btn"
-                    data-target="links-container">Links</button> --}}
+
+                <a type="button" href="#description"
+                    class="rounded border dark:border-gray-700 hover:bg-orange-400 dark:hover:bg-orange-500 hover:text-white dark:hover:text-white  px-4 py-1.5 bg-white dark:bg-gray-800 inline-block shadow transition-all font-medium text-sm text-gray-700 dark:text-gray-200">
+                    {{ __('Description') }}
+                </a>
+                <a type="button" href="#reviews"
+                    class="rounded border dark:border-gray-700 hover:bg-orange-400 dark:hover:bg-orange-500 hover:text-white dark:hover:text-white  px-4 py-1.5 bg-white dark:bg-gray-800 inline-block shadow transition-all font-medium text-sm text-gray-700 dark:text-gray-200">
+                    {{ __('Reviews') }}
+                </a>
+
+
+
 
             </div>
 
         </div>
 
-        <div class="my-6 space-y-4 ">
-            <div id="description-container" class="tab-content">
+        <div class="my-6 space-y-8 ">
+            <div id="description">
                 <h4 class="text-base font-bold">{{ __('Description') }}</h4>
-                <div class="format md:format-lg  dark:format-invert max-w-none format-a:text-blue-600 ">
+                <div class="format   dark:format-invert max-w-none format-a:text-blue-600 ">
 
                     {!! $product->long_description !!}
                 </div>
             </div>
-            <div id="reviews-container" class="tab-content">
+            <div id="reviews">
                 <h4 class="text-base font-bold">{{ __('Reviews') }}</h4>
                 <div class="grid gap-3 mt-3">
                     @foreach ($reviews as $review)

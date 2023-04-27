@@ -21,7 +21,7 @@ class ProductController extends Controller
     {
         $product->loadMissing('categories', 'media')->loadAvg('reviews', 'rating');
 
-        $reviews = $product->reviews()->with('user')->paginate(3, ['*'], 'reviews_page');
+        $reviews = $product->reviews()->with('user')->paginate(10, ['*'], 'reviews_page');
         $links = $product->downloadItems()->paginate(3);
 
 
