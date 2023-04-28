@@ -83,7 +83,7 @@
                         </div>
                     </div>
                     <x-button.primary wire:click="submit" class="w-full mt-4 py-3">
-                        <span wire:loading target="submit">
+                        <span wire:loading wire:target="submit">
                             <x-svg.spinner class="w-4 h-4 mr-1 animate-spin" />
                         </span>
                         <span>
