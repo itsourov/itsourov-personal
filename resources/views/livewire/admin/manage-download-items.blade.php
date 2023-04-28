@@ -111,8 +111,7 @@
                     </div>
                     <div>
                         <x-input.label value="{{ __('Size in KB') }}" />
-                        <x-input.text type="number" placeholder="{{ __('Download Size in KB') }}"
-                            wire:model.lazy="editing.size_in_kb" />
+                        <x-input.text placeholder="{{ __('Download Size in KB') }}" wire:model.lazy="editing.size" />
                     </div>
 
                     <div>
