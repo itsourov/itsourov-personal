@@ -82,7 +82,13 @@
                             <x-input.error :messages="$errors->get('message')" />
                         </div>
                     </div>
-                    <x-button.primary wire:click="submit" class="w-full mt-4 py-3">{{ __('Send') }}
+                    <x-button.primary wire:click="submit" class="w-full mt-4 py-3">
+                        <span wire:loading target="submit">
+                            <x-svg.spinner class="w-4 h-4 mr-1 animate-spin" />
+                        </span>
+                        <span>
+                            {{ __('Send') }}
+                        </span>
                     </x-button.primary>
 
                 </x-card>
