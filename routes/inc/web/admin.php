@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\GoogleDriveController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -48,5 +49,13 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::delete('/refund/{bkash_transaction}', [RefundController::class, 'refundPaymeent'])->name('refund');
 
     });
+
+
+
+});
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/google-drive', [GoogleDriveController::class, 'index'])->name('google-drive.index');
+    Route::get('/google-drive/redirect', [GoogleDriveController::class, 'redirect'])->name('google-drive.redirect');
+    Route::get('/google-drive/callback', [GoogleDriveController::class, 'callback'])->name('google-drive.callback');
 
 });
