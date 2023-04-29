@@ -6,6 +6,7 @@ use Livewire\Component;
 
 class GoogleDriveExplorer extends Component
 {
+    protected $service;
     public $message = '';
     public $data = [];
     public $nextPageToken;
@@ -13,32 +14,34 @@ class GoogleDriveExplorer extends Component
 
     public $tokenExpired = false;
 
-    public bool $loadData = false;
+
     public $files = [];
+    public $currentFolderId;
+    public $currentPath = [
+        [
+            'name' => "Home",
+        ]
+
+    ];
+    public $editingFile;
     public $showDetailsModal = false;
 
-    public function init()
-    {
-        $this->loadData = true;
-    }
+
 
     public function render()
     {
 
 
 
-        if ($this->loadData)
-            $this->loadGoogleClient();
+
         return view('livewire.admin.google-drive-explorer', [
             'data' => $this->data,
             'tokenExpired' => $this->tokenExpired,
 
         ]);
     }
-    public function loadGoogleClient()
+    public function initGoogleDrive()
     {
-
-
         $client = new \Google\Client();
         $client->setClientId(config('services.google.client_id'));
         $client->setClientSecret(config('services.google.client_secret'));
@@ -50,61 +53,66 @@ class GoogleDriveExplorer extends Component
 
         $this->tokenExpired = $client->isAccessTokenExpired();
 
-        // if (!$client->isAccessTokenExpired()) {
-        try {
 
-            // Set up the Drive API service
-            $service = new \Google_Service_Drive($client);
+        // Set up the Drive API service
+        $this->service = new \Google_Service_Drive($client);
 
-            $about = $service->about->get(array('fields' => 'user'))->getUser();
+        $about = $this->service->about->get(array('fields' => 'user'))->getUser();
 
-            $this->data['name'] = $about->displayName;
-            $this->data['email'] = $about->emailAddress;
-            $this->data['permissionId'] = $about->permissionId;
-            $this->data['photoLink'] = $about->photoLink;
+        $this->data['name'] = $about->displayName;
+        $this->data['email'] = $about->emailAddress;
+        $this->data['permissionId'] = $about->permissionId;
+        $this->data['photoLink'] = $about->photoLink;
 
-            // Get the root folder ID
-            $rootFolder = $service->files->get('root');
-            $rootFolderId = $rootFolder->getId();
+        // Get the root folder ID
+        $rootFolder = $this->service->files->get('root');
+        return $rootFolder->getId();
 
-            // Retrieve a list of files and folders from the home directory
-            $files = $service->files->listFiles(
-                array(
-                    'pageToken' => $this->nextPageToken,
-                    'q' => "'$rootFolderId' in parents and trashed = false",
-                    'pageSize' => 20,
-                    'fields' => 'nextPageToken, files(id, name, mimeType, iconLink, size)',
-                )
-            );
+    }
+    public function mount()
+    {
+        $this->currentFolderId = $this->initGoogleDrive();
+        $this->loadGoogleClient();
+    }
+    public function loadGoogleClient()
+    {
 
-            $this->nextPageToken = $files->getNextPageToken();
-            if (!$this->nextPageToken) {
-                $this->hasMorePage = false;
-            } else {
-                $this->hasMorePage = true;
-            }
 
-            // dump($files->getFiles());
-            foreach ($files->getFiles() as $file) {
-                array_push($this->files, [
-                    'name' => $file->getName(),
-                    'id' => $file->getId(),
-                    'mimeType' => $file->getMimeType(),
-                    'iconLink' => $file->getIconLink(),
-                    'size' => $this->formatBytes($file->getSize()),
-                ]);
-            }
 
-        } catch (\Throwable $th) {
-            $this->message = $th->getMessage();
+
+
+        // Retrieve a list of files and folders from the home directory
+        $files = $this->service->files->listFiles(
+            array(
+                'pageToken' => $this->nextPageToken,
+                'q' => "'$this->currentFolderId' in parents and trashed = false",
+                'pageSize' => 20,
+                'fields' => 'nextPageToken, files(id, name, mimeType, iconLink, size)',
+            )
+        );
+
+        $this->nextPageToken = $files->getNextPageToken();
+        if (!$this->nextPageToken) {
+            $this->hasMorePage = false;
+        } else {
+            $this->hasMorePage = true;
         }
 
-
-        // }
+        // dump($files->getFiles());
+        foreach ($files->getFiles() as $file) {
+            array_push($this->files, [
+                'name' => $file->getName(),
+                'id' => $file->getId(),
+                'mimeType' => $file->getMimeType(),
+                'iconLink' => $file->getIconLink(),
+                'size' => $this->formatBytes($file->getSize()),
+            ]);
+        }
 
     }
     public function loadMore()
     {
+        $this->currentFolderId = $this->initGoogleDrive();
         $this->loadGoogleClient();
     }
 
@@ -122,8 +130,77 @@ class GoogleDriveExplorer extends Component
     }
     public function open($index)
     {
-        // $this->message = $this->files[$index];
-        $this->showDetailsModal = true;
-    }
 
+        $this->editingFile = $this->files[$index];
+        if ($this->editingFile['mimeType'] == 'application/vnd.google-apps.folder') {
+            $this->files = [];
+            $this->initGoogleDrive();
+            $this->currentFolderId = $this->editingFile['id'];
+            $this->nextPageToken = null;
+            $this->loadGoogleClient();
+
+            array_push($this->currentPath, [
+                'id' => $this->editingFile['id'],
+                'name' => $this->editingFile['name'],
+            ]);
+
+        } else {
+
+            dd("its not an folder");
+        }
+
+    }
+    public function previewFile($index)
+    {
+
+        $this->editingFile = $this->files[$index];
+        $this->showDetailsModal = true;
+
+
+
+    }
+    public function openFromPath($id, $index)
+    {
+
+        $this->files = [];
+        if (!$id) {
+            $this->currentFolderId = $this->initGoogleDrive();
+        } else {
+            $this->initGoogleDrive();
+            $this->currentFolderId = $id;
+        }
+        $this->nextPageToken = null;
+        $this->loadGoogleClient();
+
+
+        $this->currentPath = $this->keep_items_before_index($this->currentPath, $index + 1);
+
+    }
+    public function update()
+    {
+        $this->initGoogleDrive();
+        // Define the file ID and new name
+        $fileId = $this->editingFile['id'];
+        $newName = $this->editingFile['name'];
+
+        // Retrieve the existing file metadata
+        $file = $this->service->files->get($fileId);
+
+        // Update the name
+        $file->setName($newName);
+
+        // Update the file metadata in Drive
+        $updatedFile = $this->service->files->update(
+            $fileId,
+            $file,
+            array(
+                'fields' => 'name'
+            )
+        );
+        dd($updatedFile);
+    }
+    function keep_items_before_index($array, $index)
+    {
+        return array_slice($array, 0, $index);
+    }
 }
