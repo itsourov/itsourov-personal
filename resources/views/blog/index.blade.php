@@ -4,6 +4,11 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 ">
             <div class=" md:col-span-2">
 
+                @if (request('search'))
+                    <x-card class="mb-4 text-lg">
+                        <h3>{{ __('Search Results for') }}: <span class="font-bold">{{ request('search') }}</span></h3>
+                    </x-card>
+                @endif
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
 
