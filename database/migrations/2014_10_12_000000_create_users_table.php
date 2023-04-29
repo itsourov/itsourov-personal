@@ -18,8 +18,6 @@ return new class extends Migration {
             $table->enum('role', UserRole::toArray())->default(UserRole::user);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->text('access_token')->nullable();
-            $table->text('refresh_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

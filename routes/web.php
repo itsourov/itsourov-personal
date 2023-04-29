@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\BkashController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\DiskUrlController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CheckoutController;
@@ -80,6 +81,7 @@ Route::prefix('bkash')->middleware(['auth'])->group(function () {
 
 
 });
+
 
 
 require __DIR__ . '/inc/web/auth.php';
