@@ -26,8 +26,6 @@ class User extends Authenticatable implements HasMedia
         'email',
         'role',
         'password',
-        'access_token',
-        'refresh_token',
     ];
 
     /**
@@ -38,8 +36,6 @@ class User extends Authenticatable implements HasMedia
     protected $hidden = [
         'password',
         'remember_token',
-        'access_token',
-        'refresh_token',
     ];
 
     /**
