@@ -11,9 +11,24 @@
                 <x-input.text class="pl-10 py-2" name="search" id="simple-search" value="{{ request('search') ?? '' }}"
                     required />
             </div>
-            <x-button.primary class="space-x-1 text-sm" wire:click="create">
-                <x-svg.plus class="w-4 h-4" /> <span>{{ __('Add new') }}</span>
-            </x-button.primary>
+            <x-dropdown :hoverAction="false">
+                <x-slot name="trigger">
+                    <x-button.primary class="space-x-1 text-sm">
+                        <x-svg.plus class="w-4 h-4" /> <span>{{ __('Add new') }}</span>
+                    </x-button.primary>
+                </x-slot>
+                <x-slot name="content">
+                    <x-dropdown-link class="flex gap-1 cursor-pointer" wire:click="$set('showFileUploadModal', true)">
+                        <x-svg.plus class="w-5 h-5" />
+                        <span>{{ __('Upload File') }}</span>
+                    </x-dropdown-link>
+                    <x-dropdown-link class="flex gap-1 cursor-pointer" wire:click="$set('showAddFolderModal', true)">
+                        <x-svg.folder class="w-5
+                        h-5" />
+                        <span>{{ __('Add Folder') }}</span>
+                    </x-dropdown-link>
+                </x-slot>
+            </x-dropdown>
         </div>
         @if ($data)
             <div class=" max-w-sm rounded border dark:border-gray-700  p-2 flex flex-wrap gap-3 items-center">
@@ -34,7 +49,9 @@
             </div>
         @endif
 
+
     </x-card>
+
 
     <div>
         <h2 class=" font-medium ml-1">{{ __('My Files') }}</h2>
@@ -105,8 +122,8 @@
                             </td>
 
                             <td class="px-6 py-4 flex justify-end">
-                                <a href="#"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                <button wire:click="previewFile({{ $loop->index }})"
+                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
                             </td>
                         </tr>
                     @empty
@@ -165,11 +182,67 @@
             @slot('footer')
                 <x-button.secondary class="text-sm" wire:click="$set('showDetailsModal', false)">{{ __('Cancel') }}
                 </x-button.secondary>
-                <x-button.primary class="text-sm" type="submit">
-                    {{ __('Save') }}</x-button.primary>
+                <x-button.primary class="text-sm flex items-center gap-1" type="submit">
+                    <x-svg.spinner class="w-3 h-3 animate-spin" wire:loading wire:target="update" />
+                    {{ __('Save') }}
+                </x-button.primary>
             @endslot
         </x-modal.dialog>
     </form>
+    <form wire:submit.prevent="makeFolder">
+        <x-modal.dialog wire:model="showAddFolderModal">
+            @slot('title')
+                Add a new folder
+            @endslot
+            @slot('content')
+                <div class="space-y-4">
+                    <div>
+                        <x-error-list :errors="$errors->get('newFolder.*')" />
+                    </div>
+                    <div>
+                        <x-input.label value="{{ __('Name') }}" required="true" />
+                        <x-input.text placeholder="{{ __('Folder Name...') }}" wire:model.lazy="newFolder.name" />
+                    </div>
+
+
+                </div>
+            @endslot
+            @slot('footer')
+                <x-button.secondary class="text-sm" wire:click="$set('showAddFolderModal', false)">{{ __('Cancel') }}
+                </x-button.secondary>
+                <x-button.primary class="text-sm flex items-center gap-1" type="submit">
+                    <x-svg.spinner class="w-3 h-3 animate-spin" wire:loading wire:target="update" />
+                    {{ __('Save') }}
+                </x-button.primary>
+            @endslot
+        </x-modal.dialog>
+    </form>
+    <x-modal.dialog wire:model="showFileUploadModal">
+        @slot('title')
+            File Upload
+        @endslot
+        @slot('content')
+            <div>
+                <p>Upload Files to Folder id : {{ $currentFolderId }}</p>
+                <x-input.label :value="__('Upload File')" required="false" />
+                <x-input.livewire-filepond wire:model="uploadFile" />
+
+                @error('uploadFile')
+                    <x-input.livewire-error>
+                        {{ $message }}
+                    </x-input.livewire-error>
+                @enderror
+            </div>
+        @endslot
+        @slot('footer')
+            <x-button.secondary class="text-sm" wire:click="$set('showFileUploadModal', false)">{{ __('Cancel') }}
+            </x-button.secondary>
+            <x-button.primary class="text-sm flex items-center gap-1" wire:click="saveFileToDrive">
+                <x-svg.spinner class="w-3 h-3 animate-spin" wire:loading wire:target="saveFileToDrive" />
+                {{ __('Save') }}
+            </x-button.primary>
+        @endslot
+    </x-modal.dialog>
     {{-- <a class="inline-block" href="{{ route('google-drive.redirect') }}">
         <x-button.primary>
             {{ __('Redirect') }}

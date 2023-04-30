@@ -3,9 +3,14 @@
 namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class GoogleDriveExplorer extends Component
 {
+    use WithFileUploads;
+
+
+    public $uploadFile;
     protected $service;
     public $message = '';
     public $data = [];
@@ -24,7 +29,10 @@ class GoogleDriveExplorer extends Component
 
     ];
     public $editingFile;
+    public $newFolder;
     public $showDetailsModal = false;
+    public $showFileUploadModal = false;
+    public $showAddFolderModal = true;
 
 
 
@@ -84,6 +92,7 @@ class GoogleDriveExplorer extends Component
         // Retrieve a list of files and folders from the home directory
         $files = $this->service->files->listFiles(
             array(
+                'orderBy' => 'name',
                 'pageToken' => $this->nextPageToken,
                 'q' => "'$this->currentFolderId' in parents and trashed = false",
                 'pageSize' => 20,
@@ -100,6 +109,7 @@ class GoogleDriveExplorer extends Component
 
         // dump($files->getFiles());
         foreach ($files->getFiles() as $file) {
+
             array_push($this->files, [
                 'name' => $file->getName(),
                 'id' => $file->getId(),
@@ -184,10 +194,12 @@ class GoogleDriveExplorer extends Component
         $newName = $this->editingFile['name'];
 
         // Retrieve the existing file metadata
-        $file = $this->service->files->get($fileId);
+        $file = new \Google_Service_Drive_DriveFile();
 
         // Update the name
         $file->setName($newName);
+
+
 
         // Update the file metadata in Drive
         $updatedFile = $this->service->files->update(
@@ -197,10 +209,54 @@ class GoogleDriveExplorer extends Component
                 'fields' => 'name'
             )
         );
-        dd($updatedFile);
+        $this->showDetailsModal = false;
+        $this->files = [];
+        $this->loadGoogleClient();
     }
     function keep_items_before_index($array, $index)
     {
         return array_slice($array, 0, $index);
+    }
+
+
+    public function saveFileToDrive()
+    {
+
+        $validateUploadFile = $this->validate([
+            'uploadFile' => 'image|max:1500'
+        ]);
+        $file = $validateUploadFile['uploadFile'];
+        $name = $file->getClientOriginalName();
+        $mimeType = $file->getClientMimeType();
+        $this->initGoogleDrive();
+
+        $fileMetadata = new \Google\Service\Drive\DriveFile(
+            array(
+                'name' => $name,
+                'parents' => [$this->currentFolderId],
+            )
+        );
+
+
+        $uploadedFile = $this->service->files->create(
+            $fileMetadata,
+            array(
+                'data' => file_get_contents($file->getRealPath()),
+                'mimeType' => $mimeType,
+                'uploadType' => 'multipart',
+                'fields' => 'id,parents',
+            )
+        );
+        $this->uploadFile = null;
+        $this->dispatchBrowserEvent('pondReset');
+        $this->showFileUploadModal = false;
+        $this->files = [];
+        $this->loadGoogleClient();
+    }
+
+    public function makeFolder()
+    {
+        dd($this->newFolder);
+
     }
 }
