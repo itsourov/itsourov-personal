@@ -10,3 +10,16 @@
 [x-cloak] {
     display: none !important;
 }
+
+.filepond--panel-root {
+    background-color: rgb(237, 237, 237);
+}
+
+.dark .filepond--panel-root {
+    background-color: #40444a;
+}
+
+.dark .filepond--drop-label {
+
+    color: rgb(206, 206, 206);
+}
