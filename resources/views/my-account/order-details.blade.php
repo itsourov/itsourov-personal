@@ -89,10 +89,16 @@
                     class="bg-gray-200 dark:bg-gray-700 rounded px-2">{{ $order->payment_method }}</span></h3>
         </div>
         @if (!$order->isPaid)
-            <div class="text-end">
+            <div>
+                <a
+                    href="{{ route('bkash-tokenized.payment.create.order', ['order' => $order, 'price' => $order->order_total]) }}">
+                    <x-button.primary class="w-full">Pay now (Redirect)</x-button.primary>
+                </a>
+            </div>
+            {{-- <div class="text-end">
 
                 <x-button.primary class="w-full" id="bKash_button">Pay now</x-button.primary>
-            </div>
+            </div> --}}
         @endif
 
     </x-card>
@@ -127,7 +133,7 @@
             </div>
         </div>
     </div>
-    @push('scripts')
+    {{-- @push('scripts')
         <script id="myScript" src="{{ config('services.bkash.script') }}"></script>
         <script>
             var accessToken = "{{ session('id_token') }}";
@@ -281,6 +287,6 @@
                 });
             }
         </script>
-    @endpush
+    @endpush --}}
 
 </x-my-account.layout>
