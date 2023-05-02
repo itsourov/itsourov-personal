@@ -11,7 +11,8 @@
                 <x-input.text class="pl-10 py-2" name="search" id="simple-search" value="{{ request('search') ?? '' }}"
                     required />
             </div>
-            <x-dropdown :hoverAction="false">
+
+            <x-dropdown :hoverAction="false" wire:loading.remove wire:target="loadMore, open, openFromPath">
                 <x-slot name="trigger">
                     <x-button.primary class="space-x-1 text-sm">
                         <x-svg.plus class="w-4 h-4" /> <span>{{ __('Add new') }}</span>
@@ -164,7 +165,7 @@
     <form wire:submit.prevent="update">
         <x-modal.dialog wire:model="showDetailsModal">
             @slot('title')
-                asd
+                File Details
             @endslot
             @slot('content')
                 <div class="space-y-4">
@@ -211,7 +212,7 @@
                 <x-button.secondary class="text-sm" wire:click="$set('showAddFolderModal', false)">{{ __('Cancel') }}
                 </x-button.secondary>
                 <x-button.primary class="text-sm flex items-center gap-1" type="submit">
-                    <x-svg.spinner class="w-3 h-3 animate-spin" wire:loading wire:target="update" />
+                    <x-svg.spinner class="w-3 h-3 animate-spin" wire:loading wire:target="makeFolder" />
                     {{ __('Save') }}
                 </x-button.primary>
             @endslot

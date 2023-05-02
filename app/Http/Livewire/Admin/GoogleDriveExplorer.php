@@ -32,7 +32,7 @@ class GoogleDriveExplorer extends Component
     public $newFolder;
     public $showDetailsModal = false;
     public $showFileUploadModal = false;
-    public $showAddFolderModal = true;
+    public $showAddFolderModal = false;
 
 
 
@@ -223,7 +223,7 @@ class GoogleDriveExplorer extends Component
     {
 
         $validateUploadFile = $this->validate([
-            'uploadFile' => 'image|max:1500'
+            'uploadFile' => 'file|max:1500'
         ]);
         $file = $validateUploadFile['uploadFile'];
         $name = $file->getClientOriginalName();
@@ -256,7 +256,21 @@ class GoogleDriveExplorer extends Component
 
     public function makeFolder()
     {
-        dd($this->newFolder);
+        $this->initGoogleDrive();
+
+
+        // Create a new folder object
+        $folder = new \Google\Service\Drive\DriveFile();
+        $folder->setName($this->newFolder['name']);
+        $folder->setMimeType('application/vnd.google-apps.folder');
+        $folder->setParents([$this->currentFolderId]);
+
+
+        $newCreatedFolder = $this->service->files->create($folder);
+        $this->newFolder = null;
+        $this->showAddFolderModal = false;
+        $this->files = [];
+        $this->loadGoogleClient();
 
     }
 }
