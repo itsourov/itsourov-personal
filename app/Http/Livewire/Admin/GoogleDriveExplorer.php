@@ -5,65 +5,75 @@ namespace App\Http\Livewire\Admin;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
+
 class GoogleDriveExplorer extends Component
 {
     use WithFileUploads;
 
+    private $service;
 
-    public $uploadFile;
-    protected $service;
-    public $message = '';
-    public $data = [];
-    public $nextPageToken;
-    public $hasMorePage = false;
-
-    public $tokenExpired = false;
-
-
+    public $data;
     public $files = [];
-    public $currentFolderId;
+    public ?string $currentFolderId;
+    public ?string $nextPageToken;
     public $currentPath = [
         [
             'name' => "Home",
         ]
 
     ];
-    public $editingFile;
-    public $newFolder;
+
+
+    public $unAuthorized = false;
+    public $hasMorePage = false;
     public $showDetailsModal = false;
+    public $showEditModal = false;
     public $showFileUploadModal = false;
     public $showAddFolderModal = false;
 
+
+    public $editingFile;
+    public $newFolder;
+    public $uploadFile;
 
 
     public function render()
     {
 
 
-
-
         return view('livewire.admin.google-drive-explorer', [
-            'data' => $this->data,
-            'tokenExpired' => $this->tokenExpired,
+            'data' => $this->data
 
         ]);
     }
+
+    public function mount()
+    {
+        if (!auth()->user()?->access_token) {
+            return $this->unAuthorized = true;
+        }
+        $this->nextPageToken = null;
+
+        $this->initGoogleDrive();
+        $this->getUserData();
+        $this->currentFolderId = $this->getRootFolderId();
+        $this->loadGoogleClient();
+    }
+
     public function initGoogleDrive()
     {
         $client = new \Google\Client();
         $client->setClientId(config('services.google.client_id'));
         $client->setClientSecret(config('services.google.client_secret'));
-        try {
-            $client->setAccessToken(auth()->user()->access_token);
-        } catch (\Throwable $th) {
-            dd($th->getMessage());
-        }
 
-        $this->tokenExpired = $client->isAccessTokenExpired();
-
-
+        $client->setAccessToken(auth()->user()->access_token);
         // Set up the Drive API service
         $this->service = new \Google_Service_Drive($client);
+
+
+    }
+    public function getUserData()
+    {
 
         $about = $this->service->about->get(array('fields' => 'user'))->getUser();
 
@@ -72,16 +82,15 @@ class GoogleDriveExplorer extends Component
         $this->data['permissionId'] = $about->permissionId;
         $this->data['photoLink'] = $about->photoLink;
 
+
+    }
+    public function getRootFolderId()
+    {
         // Get the root folder ID
         $rootFolder = $this->service->files->get('root');
         return $rootFolder->getId();
+    }
 
-    }
-    public function mount()
-    {
-        $this->currentFolderId = $this->initGoogleDrive();
-        $this->loadGoogleClient();
-    }
     public function loadGoogleClient()
     {
 
@@ -120,38 +129,27 @@ class GoogleDriveExplorer extends Component
         }
 
     }
+
     public function loadMore()
     {
-        $this->currentFolderId = $this->initGoogleDrive();
+        $this->initGoogleDrive();
+
         $this->loadGoogleClient();
     }
 
-    public static function formatBytes($size, $precision = 2)
+    public function openFolder($index)
     {
-        if ($size > 0) {
-            $size = (int) $size;
-            $base = log($size) / log(1024);
-            $suffixes = array(' bytes', ' KB', ' MB', ' GB', ' TB');
-
-            return round(pow(1024, $base - floor($base)), $precision) . $suffixes[floor($base)];
-        } else {
-            return $size;
-        }
-    }
-    public function open($index)
-    {
-
-        $this->editingFile = $this->files[$index];
-        if ($this->editingFile['mimeType'] == 'application/vnd.google-apps.folder') {
+        $selectedFolder = $this->files[$index];
+        if ($selectedFolder['mimeType'] == 'application/vnd.google-apps.folder') {
             $this->files = [];
             $this->initGoogleDrive();
-            $this->currentFolderId = $this->editingFile['id'];
+            $this->currentFolderId = $selectedFolder['id'];
             $this->nextPageToken = null;
             $this->loadGoogleClient();
 
             array_push($this->currentPath, [
-                'id' => $this->editingFile['id'],
-                'name' => $this->editingFile['name'],
+                'id' => $selectedFolder['id'],
+                'name' => $selectedFolder['name'],
             ]);
 
         } else {
@@ -160,23 +158,15 @@ class GoogleDriveExplorer extends Component
         }
 
     }
-    public function previewFile($index)
-    {
 
-        $this->editingFile = $this->files[$index];
-        $this->showDetailsModal = true;
-
-
-
-    }
     public function openFromPath($id, $index)
     {
-
+        $this->initGoogleDrive();
         $this->files = [];
         if (!$id) {
-            $this->currentFolderId = $this->initGoogleDrive();
+            $this->currentFolderId = $this->getRootFolderId();
         } else {
-            $this->initGoogleDrive();
+
             $this->currentFolderId = $id;
         }
         $this->nextPageToken = null;
@@ -186,38 +176,62 @@ class GoogleDriveExplorer extends Component
         $this->currentPath = $this->keep_items_before_index($this->currentPath, $index + 1);
 
     }
+    public function showEditModal($index)
+    {
+        $this->editingFile = $this->files[$index];
+        $this->showEditModal = true;
+
+    }
     public function update()
     {
         $this->initGoogleDrive();
+
         // Define the file ID and new name
         $fileId = $this->editingFile['id'];
         $newName = $this->editingFile['name'];
 
-        // Retrieve the existing file metadata
-        $file = new \Google_Service_Drive_DriveFile();
+
+        $emptyFile = new \Google_Service_Drive_DriveFile();
 
         // Update the name
-        $file->setName($newName);
+        $emptyFile->setName($newName);
 
 
 
         // Update the file metadata in Drive
         $updatedFile = $this->service->files->update(
             $fileId,
-            $file,
+            $emptyFile,
             array(
                 'fields' => 'name'
             )
         );
-        $this->showDetailsModal = false;
+        $this->showEditModal = false;
+        $this->files = [];
+        $this->nextPageToken = null;
+        $this->loadGoogleClient();
+    }
+
+
+    public function makeFolder()
+    {
+        $this->initGoogleDrive();
+
+
+        // Create a new folder object
+        $folder = new \Google\Service\Drive\DriveFile();
+        $folder->setName($this->newFolder['name']);
+        $folder->setMimeType('application/vnd.google-apps.folder');
+        $folder->setParents([$this->currentFolderId]);
+
+
+        $newCreatedFolder = $this->service->files->create($folder);
+        $this->newFolder = null;
+        $this->showAddFolderModal = false;
+        $this->nextPageToken = null;
         $this->files = [];
         $this->loadGoogleClient();
     }
-    function keep_items_before_index($array, $index)
-    {
-        return array_slice($array, 0, $index);
-    }
-
 
     public function saveFileToDrive()
     {
@@ -251,26 +265,36 @@ class GoogleDriveExplorer extends Component
         $this->dispatchBrowserEvent('pondReset');
         $this->showFileUploadModal = false;
         $this->files = [];
+        $this->nextPageToken = null;
         $this->loadGoogleClient();
     }
 
-    public function makeFolder()
+    public function previewFile($index)
     {
-        $this->initGoogleDrive();
+
+        $this->editingFile = $this->files[$index];
+        $this->showDetailsModal = true;
 
 
-        // Create a new folder object
-        $folder = new \Google\Service\Drive\DriveFile();
-        $folder->setName($this->newFolder['name']);
-        $folder->setMimeType('application/vnd.google-apps.folder');
-        $folder->setParents([$this->currentFolderId]);
-
-
-        $newCreatedFolder = $this->service->files->create($folder);
-        $this->newFolder = null;
-        $this->showAddFolderModal = false;
-        $this->files = [];
-        $this->loadGoogleClient();
 
     }
+
+    public static function formatBytes($size, $precision = 2)
+    {
+        if ($size > 0) {
+            $size = (int) $size;
+            $base = log($size) / log(1024);
+            $suffixes = array(' bytes', ' KB', ' MB', ' GB', ' TB');
+
+            return round(pow(1024, $base - floor($base)), $precision) . $suffixes[floor($base)];
+        } else {
+            return $size;
+        }
+    }
+    function keep_items_before_index($array, $index)
+    {
+        return array_slice($array, 0, $index);
+    }
+
+
 }

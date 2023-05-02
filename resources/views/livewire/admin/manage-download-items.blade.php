@@ -125,6 +125,13 @@
 
 
                     </div>
+                    <div>
+                        @if ($editing['type'] == \App\Enums\DownloadLinkType::googleDriveId)
+                            <x-button.secondary class="text-sm px-1 py-1" onclick="openGoogleDriveExplorar()">
+                                {{ __('Google Drive Explorer') }}
+                            </x-button.secondary>
+                        @endif
+                    </div>
                 </div>
 
             </x-slot>
@@ -133,8 +140,17 @@
                 </x-button.secondary>
                 <x-button.primary class="text-sm" type="submit">
                     {{ __('Save') }}</x-button.primary>
+
             </x-slot>
 
         </x-modal.dialog>
     </form>
+
+    @push('scripts')
+        <script>
+            function openGoogleDriveExplorar() {
+                window.open('{{ route('admin.google-drive.index') }}?model=', 'fm', 'width=1280,height=720');
+            }
+        </script>
+    @endpush
 </div>
