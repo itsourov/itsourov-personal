@@ -31,6 +31,19 @@ class Post extends Model implements HasMedia
         'content',
     ];
 
+
+    public function scopeSearch($query, $searchQuery)
+    {
+
+
+        if ($searchQuery) {
+            $query->where('title', 'like', '%' . $searchQuery . '%')
+                ->orWhere('content', 'like', '%' . $searchQuery . '%');
+        }
+
+
+    }
+
     /**
      * Register the conversions that should be performed.
      *
@@ -68,6 +81,8 @@ class Post extends Model implements HasMedia
     {
         return $this->belongsToMany(Category::class);
     }
+
+
 
 
 
