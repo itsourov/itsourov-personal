@@ -25,7 +25,7 @@ class GoogleDriveController extends Controller
         $client->setAccessType('offline');
         $client->setPrompt('consent');
         $client->addScope(\Google\Service\Drive::DRIVE);
-        $client->setRedirectUri(route('google-drive.callback'));
+        $client->setRedirectUri(route('admin.google-drive.callback'));
 
         return redirect($client->createAuthUrl());
     }
@@ -39,7 +39,7 @@ class GoogleDriveController extends Controller
         $client->setAccessType('offline');
         $client->setPrompt('consent');
         $client->addScope(\Google\Service\Drive::DRIVE);
-        $client->setRedirectUri(route('google-drive.callback'));
+        $client->setRedirectUri(route('admin.google-drive.callback'));
 
         if (request('error')) {
             return "there was an error";
@@ -55,7 +55,7 @@ class GoogleDriveController extends Controller
                 'access_token' => $accessToken,
             ]);
 
-            return redirect(route('google-drive.index'))->with('message', "Authenticated! token was saved to database");
+            return redirect(route('admin.google-drive.index'))->with('message', "Authenticated! token was saved to database");
 
         }
 
