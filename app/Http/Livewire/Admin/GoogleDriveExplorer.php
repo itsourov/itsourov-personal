@@ -105,7 +105,7 @@ class GoogleDriveExplorer extends Component
                 'pageToken' => $this->nextPageToken,
                 'q' => "'$this->currentFolderId' in parents and trashed = false",
                 'pageSize' => 20,
-                'fields' => 'nextPageToken, files(id, name, mimeType, iconLink, size)',
+                'fields' => 'nextPageToken, files(id, name, mimeType, iconLink, size, thumbnailLink)',
             )
         );
 
@@ -125,8 +125,10 @@ class GoogleDriveExplorer extends Component
                 'mimeType' => $file->getMimeType(),
                 'iconLink' => $file->getIconLink(),
                 'size' => $this->formatBytes($file->getSize()),
+                'thumbnailLink' => $file->getThumbnailLink(),
             ]);
         }
+        // dd($this->files);
 
     }
 

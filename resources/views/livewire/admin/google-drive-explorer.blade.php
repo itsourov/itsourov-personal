@@ -116,7 +116,10 @@
                             <tr wire:loading.remove wire:target="openFolder, openFromPath"
                                 wire:key="data-row-{{ $loop->index }}"
                                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+
                                 <th scope="row" class="font-medium text-gray-900 p-2 dark:text-white ">
+
                                     <button
                                         wire:click="{{ $file['mimeType'] == 'application/vnd.google-apps.folder' ? "openFolder($loop->index)" : "previewFile($loop->index)" }}"
                                         class="flex items-center gap-2 cursor-pointer px-2 py-2 rounded  hover:bg-gray-100 dark:hover:bg-gray-600  ">
@@ -258,6 +261,7 @@
             @endslot
             @slot('content')
                 <div class="space-y-4">
+                    <img src="{{ $editingFile['thumbnailLink'] ?? '' }}" alt="" class="w-22 rounded">
                     <div class="flex flex-wrap gap-2">
                         <p class="font-bold">File Name:</p>
                         <p>{{ $editingFile['name'] ?? '' }}</p>
