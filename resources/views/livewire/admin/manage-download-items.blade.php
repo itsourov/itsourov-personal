@@ -110,8 +110,8 @@
                             wire:model.lazy="editing.content" />
                     </div>
                     <div>
-                        <x-input.label value="{{ __('Size in KB') }}" />
-                        <x-input.text placeholder="{{ __('Download Size in KB') }}" wire:model.lazy="editing.size" />
+                        <x-input.label value="{{ __('Size') }}" />
+                        <x-input.text placeholder="{{ __('Download Size') }}" wire:model.lazy="editing.size" />
                     </div>
 
                     <div>
@@ -150,6 +150,12 @@
         <script>
             function openGoogleDriveExplorar() {
                 window.open('{{ route('admin.google-drive.index') }}?model=', 'fm', 'width=1280,height=720');
+            }
+
+            function googleDriveExplorarCallback(data) {
+                @this.set('editing.title', data.name)
+                @this.set('editing.content', data.id)
+                @this.set('editing.size', data.size)
             }
         </script>
     @endpush

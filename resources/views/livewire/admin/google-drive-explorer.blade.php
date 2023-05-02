@@ -277,7 +277,16 @@
             @slot('footer')
                 <x-button.secondary class="text-sm" wire:click="$set('showDetailsModal', false)">{{ __('Cancel') }}
                 </x-button.secondary>
-                <x-button.primary class="text-sm ">
+                <x-button.primary class="text-sm"
+                    x-on:click="
+                    if( window.opener){
+                        window.opener.googleDriveExplorarCallback({{ json_encode($editingFile) }});
+                            window.close();
+
+                    }else{
+                        alert('no callback found')
+                    }
+                ">
 
                     {{ __('Inseart') }}
                 </x-button.primary>
