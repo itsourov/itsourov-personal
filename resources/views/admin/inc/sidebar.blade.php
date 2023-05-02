@@ -144,7 +144,17 @@
                         </x-slot>
 
                     </x-admin.sidebar-menu-item>
+                    <x-admin.sidebar-menu-item :active="request()->routeIs('admin.settings.index')" :href="route('admin.settings.index')">
 
+                        <x-slot name="icon">
+                            <x-svg.cog class="w-5 h-5" />
+                        </x-slot>
+                        <x-slot name="title">
+                            {{ __('Settings') }}
+                        </x-slot>
+
+
+                    </x-admin.sidebar-menu-item>
 
                 </ul>
 

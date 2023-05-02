@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\SettingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\OrderController;
@@ -47,6 +48,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
         Route::get('/transactions/{bkash_transaction}', [TransactionController::class, 'showtTransaction'])->name('transactions.show');
         Route::delete('/refund/{bkash_transaction}', [RefundController::class, 'refundPaymeent'])->name('refund');
+
+    });
+    Route::prefix('settings')->name('settings.')->group(function () {
+        Route::get('/settings', [SettingController::class, 'index'])->name('index');
 
     });
 
