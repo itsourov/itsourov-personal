@@ -24,11 +24,11 @@ class BkashTokenized
 
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
-            'password' => config('bkash.bkash.tokenized.password'),
-            'username' => config('bkash.bkash.tokenized.username'),
-        ])->post(config('bkash.bkash.tokenized.tokenURL'), [
-                'app_key' => config('bkash.bkash.tokenized.app_key'),
-                'app_secret' => config('bkash.bkash.tokenized.app_secret'),
+            'password' => config('bkash.tokenized.password'),
+            'username' => config('bkash.tokenized.username'),
+        ])->post(config('bkash.tokenized.tokenURL'), [
+                'app_key' => config('bkash.tokenized.app_key'),
+                'app_secret' => config('bkash.tokenized.app_secret'),
             ]);
 
 
@@ -54,8 +54,8 @@ class BkashTokenized
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
             'authorization' => self::getToken(),
-            'x-app-key' => config('bkash.bkash.tokenized.app_key'),
-        ])->post(config('bkash.bkash.tokenized.createURL'), [
+            'x-app-key' => config('bkash.tokenized.app_key'),
+        ])->post(config('bkash.tokenized.createURL'), [
                 "mode" => "0011",
                 "payerReference" => $customerMobileNumber,
                 "callbackURL" => $callbackUrl,
@@ -72,14 +72,37 @@ class BkashTokenized
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
             'authorization' => self::getToken(),
-            'x-app-key' => config('bkash.bkash.tokenized.app_key'),
-        ])->post(config('bkash.bkash.tokenized.executeURL'), [
+            'x-app-key' => config('bkash.tokenized.app_key'),
+        ])->post(config('bkash.tokenized.executeURL'), [
                 "paymentID" => $paymentID,
 
             ]);
 
         return $response;
 
+    }
+
+
+
+    public static function refundPayment($paymentID, $trxID, $amount, $sku, $reason)
+    {
+
+
+
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json',
+            'authorization' => self::getToken(),
+            'x-app-key' => config('bkash.tokenized.app_key'),
+        ])->post(config('bkash.tokenized.refundURL'), [
+                'amount' => $amount,
+                'paymentID' => $paymentID,
+                'trxID' => $trxID,
+                'sku' => $sku,
+                'reason' => $reason,
+            ]);
+
+
+        return $response;
     }
 
 }
