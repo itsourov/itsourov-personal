@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Bkash;
 
+use App\Http\Helpers\BkashTokenized;
 use Illuminate\Http\Request;
 use App\Models\BkashTransaction;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Http;
 
 class TransactionController extends Controller
 {
@@ -16,5 +18,24 @@ class TransactionController extends Controller
     public function showtTransaction(Request $request, BkashTransaction $bkashTransaction)
     {
         return view('admin.bkash.transactions.show', compact('bkashTransaction'));
+    }
+
+    public function searchTransaction(Request $request)
+    {
+        if ($request->trxID) {
+
+            $response = Http::withHeaders([
+                'Content-Type' => 'application/json',
+                'authorization' => BkashTokenized::getToken(),
+                'x-app-key' => config('bkash.tokenized.app_key'),
+            ])->post(config('bkash.tokenized.searchTransactionUrl'), [
+                    'trxID' => $request->trxID,
+                ]);
+
+        }
+
+        return view('admin.bkash.transactions.search', [
+            "response" => $response?->json() ?? [],
+        ]);
     }
 }

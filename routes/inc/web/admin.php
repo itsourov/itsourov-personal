@@ -49,6 +49,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::get('/transactions/{bkash_transaction}', [TransactionController::class, 'showtTransaction'])->name('transactions.show');
         Route::delete('/refund/{bkash_transaction}', [RefundController::class, 'refundPaymeent'])->name('refund');
 
+        Route::get('/searchTransaction', [TransactionController::class, 'searchTransaction'])->name('searchTransaction');
+
     });
     Route::prefix('settings')->name('settings.')->group(function () {
         Route::get('/settings', [SettingController::class, 'index'])->name('index');

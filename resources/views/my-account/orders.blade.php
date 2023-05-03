@@ -20,7 +20,7 @@
                 </div>
                 <div class="flex items-center justify-between">
                     <h3 class="text-sm font-medium text-gray-500">ITEM COUNT</h3>
-                    <p>{{ $order->ordered_products_count }}</p>
+                    <p>{{ $order->products_count }}</p>
                 </div>
                 <div class="flex items-center justify-between">
                     <h3 class="text-sm font-medium text-gray-500">ACTIONS</h3>

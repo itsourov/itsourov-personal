@@ -140,6 +140,9 @@
                             <x-admin.sidebar-sub-menu-item :href="route('admin.bkash.transactions.index')" :active="request()->routeIs('admin.bkash.transactions.index')">
                                 View all transaction
                             </x-admin.sidebar-sub-menu-item>
+                            <x-admin.sidebar-sub-menu-item :href="route('admin.bkash.searchTransaction')" :active="request()->routeIs('admin.bkash.searchTransaction')">
+                                Search transaction
+                            </x-admin.sidebar-sub-menu-item>
 
                         </x-slot>
 
