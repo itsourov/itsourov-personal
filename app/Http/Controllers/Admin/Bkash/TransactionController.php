@@ -32,11 +32,13 @@ class TransactionController extends Controller
                     'trxID' => $request->trxID,
                 ]);
 
+            $response = $response->json();
+
+        } else {
+            $response = [];
         }
 
-        return view('admin.bkash.transactions.search', [
-            "response" => $response?->json() ?? [],
-        ]);
+        return view('admin.bkash.transactions.search', compact('response'));
     }
     public function refundStatus(Request $request)
     {
@@ -51,10 +53,13 @@ class TransactionController extends Controller
                     'paymentID' => $request->paymentID,
                 ]);
 
+            $response = $response->json();
+
+        } else {
+            $response = [];
         }
 
-        return view('admin.bkash.transactions.refund_status', [
-            "response" => $response?->json() ?? [],
-        ]);
+
+        return view('admin.bkash.transactions.refund_status', compact('response'));
     }
 }
