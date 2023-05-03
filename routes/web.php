@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Bkash\AgreementController;
+use App\Http\Controllers\Bkash\PaymentController;
 use App\Http\Controllers\BkashTokenizedController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
@@ -73,19 +75,16 @@ Route::prefix('my-account')->name('my-account.')->middleware(['auth'])->group(fu
 
 });
 
-Route::prefix('bkash')->middleware(['auth'])->group(function () {
-    Route::post('token', [BkashController::class, 'token'])->name('bkash.token');
-    Route::post('token/refresh', [BkashController::class, 'refresh_token'])->name('bkash.token.refresh');
-
-    Route::get('payment/create/order/{order}/{price}', [BkashController::class, 'order_create_payment'])->name('bkash.payment.create.order');
-    Route::get('payment/execute/order', [BkashController::class, 'execute_order_payment'])->name('bkash.payment.execute.order');
-
-
-});
 
 Route::prefix('bkash-tokenized')->name('bkash-tokenized.')->middleware(['auth'])->group(function () {
-    Route::get('payment/create/order/{order}', [BkashTokenizedController::class, 'order_create_payment'])->name('payment.create.order');
-    Route::get('callback/order', [BkashTokenizedController::class, 'order_callback'])->name('callback.order');
+
+    Route::get('payment/create/order/{order}', [PaymentController::class, 'create_order_payment'])->name('payment.create.order');
+    Route::get('payment/execute', [PaymentController::class, 'execute_bkash_payment'])->name('payment.execute');
+
+    Route::get('agreement/create', [AgreementController::class, 'create'])->name('agreement.create');
+    Route::get('agreement/callback', [AgreementController::class, 'callback'])->name('agreement.callback');
+
+    Route::get('agreement/payment/create/order/{order}', [AgreementController::class, 'create_order_payment'])->name('agreement.payment.create.order');
 });
 
 require __DIR__ . '/inc/web/auth.php';

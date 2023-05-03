@@ -3,11 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\BkashAgreement;
 use Spatie\Image\Manipulations;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -72,5 +74,11 @@ class User extends Authenticatable implements HasMedia
         return $this->belongsToMany(Product::class)->withPivot('expiration_date');
     }
 
-
+    /**
+     * Get the phone associated with the user.
+     */
+    public function bkashAgreement(): HasOne
+    {
+        return $this->hasOne(BkashAgreement::class);
+    }
 }

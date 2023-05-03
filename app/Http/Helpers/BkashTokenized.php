@@ -44,20 +44,20 @@ class BkashTokenized
     }
 
 
-    public static function create_payment($amount, $invoice, $callbackUrl, $customerMobileNumber)
+    public static function create_payment($amount, $invoice, $callbackUrl, $payerReference, $agreementID = null)
     {
 
-
-
         $intent = "sale";
+        $mode = $agreementID ? "0001" : "0011";
 
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
             'authorization' => self::getToken(),
             'x-app-key' => config('bkash.tokenized.app_key'),
         ])->post(config('bkash.tokenized.createURL'), [
-                "mode" => "0011",
-                "payerReference" => $customerMobileNumber,
+                "mode" => $mode,
+                "agreementID" => $agreementID,
+                "payerReference" => $payerReference,
                 "callbackURL" => $callbackUrl,
                 'amount' => $amount,
                 'currency' => 'BDT',
@@ -104,5 +104,38 @@ class BkashTokenized
 
         return $response;
     }
+
+    public static function createAgreement($payerReference, $callbackUrl)
+    {
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json',
+            'authorization' => self::getToken(),
+            'x-app-key' => config('bkash.tokenized.app_key'),
+        ])->post(config('bkash.tokenized.createURL'), [
+                'mode' => "0000",
+                "callbackURL" => $callbackUrl,
+                "payerReference" => $payerReference,
+
+            ]);
+
+
+        return $response;
+    }
+
+    public static function execute_agreement($paymentID)
+    {
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json',
+            'authorization' => self::getToken(),
+            'x-app-key' => config('bkash.tokenized.app_key'),
+        ])->post(config('bkash.tokenized.executeURL'), [
+                "paymentID" => $paymentID,
+
+            ]);
+
+        return $response;
+
+    }
+
 
 }
