@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Bkash;
 
+use App\Http\Helpers\BkashTokenized;
 use App\Models\Order;
 use App\Enums\OrderStatus;
 use App\Http\Helpers\Bkash;
@@ -15,6 +16,7 @@ class RefundController extends Controller
 {
     public function refundPaymeent(Request $request, BkashTransaction $bkashTransaction)
     {
+
 
         // new start
         $validated = $request->validate([
@@ -54,7 +56,7 @@ class RefundController extends Controller
         } else {
             return 'This situation is Unhandled. This Payment was for this model : ' . $bkashTransaction->bkash_transactionable_type;
         }
-        $refundResponse = Bkash::refundPayment(
+        $refundResponse = BkashTokenized::refundPayment(
         paymentID: $bkashTransaction->paymentID,
         trxID: $bkashTransaction->trxID,
         amount: $validated['amount'],
@@ -65,9 +67,9 @@ class RefundController extends Controller
 
 
         if ($refundResponse->status() == 401) {
-            Bkash::refresh_token();
+            BkashTokenized::grant_token();
 
-            $refundResponse = Bkash::refundPayment(
+            $refundResponse = BkashTokenized::refundPayment(
             paymentID: $bkashTransaction->paymentID,
             trxID: $bkashTransaction->trxID,
             amount: $validated['amount'],
@@ -80,7 +82,8 @@ class RefundController extends Controller
 
         if ($refundResponse->json('transactionStatus') == 'Completed') {
 
-            $bkashTransaction->update(array_merge($refundResponse->json(), ['transactionStatus' => 'Refunded']));
+
+            $bkashTransaction->update(array_merge($refundResponse->json(), ['transactionStatus' => 'Refunded', 'refundTime' => $refundResponse->json('completedTime')]));
 
             DB::commit();
             return back()->with('message', "Refunded to customer complite");

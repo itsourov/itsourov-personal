@@ -38,9 +38,10 @@ class BkashTokenizedController extends Controller
         $response = BkashTokenized::create_payment(amount: $price, invoice: $invoice, callbackUrl: route('bkash-tokenized.callback.order'), customerMobileNumber: $order->phone);
 
 
+
         if ($response->status() == 200) {
 
-            $order->bkashTransactions()->create(array_merge($response->json(), ['order_id' => $order->id, 'createTime' => $response->json('paymentCreateTime')]));
+            $order->bkashTransactions()->create(array_merge($response->json(), ['order_id' => $order->id]));
 
             return redirect($response->json('bkashURL'));
         } elseif ($response->status() == 401 && !$request->token_refreshed) {
@@ -52,6 +53,7 @@ class BkashTokenizedController extends Controller
     }
     public function order_callback(Request $request)
     {
+
         if ($request->status == 'success' && $request->paymentID) {
 
             $paymentID = $request->paymentID;
@@ -87,6 +89,8 @@ class BkashTokenizedController extends Controller
                 return $response->json();
             }
 
+        } else {
+            return redirect(route('my-account.orders'))->with('message', "payment failed");
         }
     }
 
