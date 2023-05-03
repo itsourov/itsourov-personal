@@ -38,4 +38,23 @@ class TransactionController extends Controller
             "response" => $response?->json() ?? [],
         ]);
     }
+    public function refundStatus(Request $request)
+    {
+        if ($request->trxID && $request->paymentID) {
+
+            $response = Http::withHeaders([
+                'Content-Type' => 'application/json',
+                'authorization' => BkashTokenized::getToken(),
+                'x-app-key' => config('bkash.tokenized.app_key'),
+            ])->post(config('bkash.tokenized.refundStatusURL'), [
+                    'trxID' => $request->trxID,
+                    'paymentID' => $request->paymentID,
+                ]);
+
+        }
+
+        return view('admin.bkash.transactions.refund_status', [
+            "response" => $response?->json() ?? [],
+        ]);
+    }
 }
