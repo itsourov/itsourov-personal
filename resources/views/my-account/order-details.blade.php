@@ -90,15 +90,14 @@
         </div>
         @if (!$order->isPaid)
             <div>
-                <a
-                    href="{{ route('bkash-tokenized.payment.create.order', ['order' => $order, 'price' => $order->order_total]) }}">
+                <a href="{{ route('bkash-tokenized.payment.create.order', $order) }}">
                     <x-button.primary class="w-full">Pay now (Redirect)</x-button.primary>
                 </a>
             </div>
-            {{-- <div class="text-end">
+            <div class="text-end">
 
                 <x-button.primary class="w-full" id="bKash_button">Pay now</x-button.primary>
-            </div> --}}
+            </div>
         @endif
 
     </x-card>
@@ -133,10 +132,10 @@
             </div>
         </div>
     </div>
-    {{-- @push('scripts')
-        <script id="myScript" src="{{ config('services.bkash.script') }}"></script>
+    @push('scripts')
+        <script id="myScript" src="{{ config('bkash.bkash.checkout.script') }}"></script>
         <script>
-            var accessToken = "{{ session('id_token') }}";
+            var accessToken;
             var refreshed = false;
             var createCheckoutURL =
                 '{{ route('bkash.payment.create.order', ['order' => $order, 'price' => $order->order_total]) }}'
@@ -287,6 +286,6 @@
                 });
             }
         </script>
-    @endpush --}}
+    @endpush
 
 </x-my-account.layout>

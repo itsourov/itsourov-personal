@@ -73,6 +73,9 @@
                 </tbody>
             </table>
         </div>
+        <div>
+            {{ $transactions->links('pagination.tailwind') }}
+        </div>
 
     </div>
 </x-admin-layout>

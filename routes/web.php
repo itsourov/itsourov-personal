@@ -84,7 +84,7 @@ Route::prefix('bkash')->middleware(['auth'])->group(function () {
 });
 
 Route::prefix('bkash-tokenized')->name('bkash-tokenized.')->middleware(['auth'])->group(function () {
-    Route::get('payment/create/order/{order}/{price}', [BkashTokenizedController::class, 'order_create_payment'])->name('payment.create.order');
+    Route::get('payment/create/order/{order}', [BkashTokenizedController::class, 'order_create_payment'])->name('payment.create.order');
     Route::get('callback/order', [BkashTokenizedController::class, 'order_callback'])->name('callback.order');
 });
 
