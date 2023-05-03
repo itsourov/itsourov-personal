@@ -20,7 +20,7 @@ class BkashController extends Controller
     }
     public function refresh_token()
     {
-        return Bkash::refresh_token();
+        return Bkash::grant_token();
     }
 
     public function order_create_payment(Request $request, Order $order, $frontEndprice)
@@ -92,8 +92,8 @@ class BkashController extends Controller
             $response = Http::withHeaders([
                 'Content-Type' => 'application/json',
                 'authorization' => $this->token(),
-                'x-app-key' => config('services.bkash.app_key'),
-            ])->post(config('services.bkash.executeURL') . $paymentID);
+                'x-app-key' => config('bkash.bkash.checkout.app_key'),
+            ])->post(config('bkash.bkash.checkout.executeURL') . $paymentID);
 
             if ($response->json('paymentID') && $response->json('transactionStatus') == 'Completed') {
                 $bkashTransaction->update(array_merge($response->json()));

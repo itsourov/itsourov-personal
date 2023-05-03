@@ -3,7 +3,7 @@
 namespace App\Http\Helpers;
 
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cache;
 
 class Bkash
 {
@@ -11,31 +11,35 @@ class Bkash
     public static function getToken()
     {
 
-        if (Session::get('id_token')) {
-            return Session::get('id_token');
+
+        if (Cache::get('bkash_checkout_id_token')) {
+            return Cache::get('bkash_checkout_id_token');
         } else {
-            return self::refresh_token();
+            return self::grant_token();
         }
     }
 
-    public static function refresh_token()
+    public static function grant_token()
     {
 
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
-            'password' => config('services.bkash.password'),
-            'username' => config('services.bkash.username'),
-        ])->post(config('services.bkash.tokenURL'), [
-                'app_key' => config('services.bkash.app_key'),
-                'app_secret' => config('services.bkash.app_secret'),
+            'password' => config('bkash.bkash.checkout.password'),
+            'username' => config('bkash.bkash.checkout.username'),
+        ])->post(config('bkash.bkash.checkout.tokenURL'), [
+                'app_key' => config('bkash.bkash.checkout.app_key'),
+                'app_secret' => config('bkash.bkash.checkout.app_secret'),
             ]);
 
+
         if ($response->json('id_token')) {
-            Session::put('id_token', $response->json('id_token'));
+            Cache::put('bkash_checkout_id_token', $response->json('id_token'), now()->addMinutes(50));
+            Cache::put('bkash_checkout_refresh_token', $response->json('refresh_token'), now()->addMinutes(50));
             return $response->json('id_token');
         } else {
-            Session::forget('id_token');
-            return 'error';
+            Cache::forget('bkash_checkout_id_token');
+            Cache::forget('bkash_checkout_refresh_token');
+            return $response;
         }
     }
 
@@ -47,8 +51,10 @@ class Bkash
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
             'authorization' => self::getToken(),
-            'x-app-key' => config('services.bkash.app_key'),
-        ])->post(config('services.bkash.createURL'), [
+            'x-app-key' => config('bkash.bkash.checkout.app_key'),
+
+
+        ])->post(config('bkash.bkash.checkout.createURL'), [
                 'amount' => $amount,
                 'currency' => 'BDT',
                 'merchantInvoiceNumber' => $invoice,
@@ -60,13 +66,13 @@ class Bkash
 
     public static function refundPayment($paymentID, $trxID, $amount, $sku, $reason)
     {
-
+        dd($paymentID);
 
 
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
             'authorization' => self::getToken(),
-            'x-app-key' => config('services.bkash.app_key'),
+            'x-app-key' => config('services.bkash.checkout.app_key'),
         ])->post(config('services.bkash.refundURL'), [
                 'amount' => $amount,
                 'paymentID' => $paymentID,
