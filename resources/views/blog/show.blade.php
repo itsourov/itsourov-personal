@@ -57,7 +57,8 @@
 
                     <hr class="mt-6 mb-6 border-gray-200 dark:border-gray-700">
                     <article>
-                        <div class="format md:format-lg  dark:format-invert max-w-none format-a:text-blue-600 ">
+                        <div
+                            class="format md:format-lg text-black dark:text-gray-50  dark:format-invert max-w-none format-a:text-blue-600 ">
                             {!! $post->content !!}
                         </div>
                     </article>

@@ -52,7 +52,11 @@ class AppServiceProvider extends ServiceProvider
 
 
         View::share('siteSettings', cache()->remember('siteSettings', 60 * 60 * 24, function () {
-            return app(SiteSettings::class);
+            try {
+                return app(SiteSettings::class);
+            } catch (\Throwable $th) {
+                return $th;
+            }
         }));
     }
 }
