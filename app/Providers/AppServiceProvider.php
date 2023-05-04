@@ -3,11 +3,13 @@
 namespace App\Providers;
 
 use App\Enums\UserRole;
+
+use App\Settings\SiteSettings;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Builder;
-use Livewire\Component;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -47,5 +49,10 @@ class AppServiceProvider extends ServiceProvider
 
             return $values->implode("\n");
         });
+
+
+        View::share('siteSettings', cache()->remember('siteSettings', 60 * 60 * 24, function () {
+            return app(SiteSettings::class);
+        }));
     }
 }
