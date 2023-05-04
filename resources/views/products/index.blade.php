@@ -1,8 +1,6 @@
 <x-app-layout>
     {{ Breadcrumbs::render('shop') }}
-    @section('seo')
-        {!! seo() !!}
-    @endsection
+
     <div class="container mx-auto px-2 my-10">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-5">
             @foreach ($products as $product)
