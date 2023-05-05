@@ -65,7 +65,7 @@ class DashboardController extends Controller
             $fileId = $downloadItem->content;
 
             $workerUrl = "https://download.itsourov.workers.dev/";
-            $expires = now()->addMinutes(1)->getTimestamp();
+            $expires = now()->addMinutes(30)->getTimestamp();
             $signature = md5("{$fileId}::{$expires}::itsourov");
             $url = $workerUrl . '?' . http_build_query([
                 'id' => $fileId,
