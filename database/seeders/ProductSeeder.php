@@ -27,7 +27,7 @@ class ProductSeeder extends Seeder
             // $product->addMedia(fake()->image())
             //     ->toMediaCollection('product-images', 'product-images');
 
-            for ($i = 0; $i < 30; $i++) {
+            for ($i = 0; $i < 3; $i++) {
 
                 $product->downloadItems()->create([
                     'type' => DownloadLinkType::toArray()[rand(0, 2)],

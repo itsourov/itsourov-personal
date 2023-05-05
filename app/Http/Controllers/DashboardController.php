@@ -11,7 +11,6 @@ use App\Models\Downloadable;
 use Illuminate\Http\Request;
 use App\Enums\DownloadLinkType;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Http;
 
 
 class DashboardController extends Controller
@@ -63,25 +62,19 @@ class DashboardController extends Controller
 
         Gate::authorize('view', $downloadItem);
         if ($downloadItem->type == DownloadLinkType::googleDriveId) {
-            $url = 'https://www.googleapis.com/drive/v3/files/' . $downloadItem->content . '/?key=' . env('GOOGLE_API_KAY');
+            $fileId = $downloadItem->content;
 
-            $response = Http::get($url);
-
-            $jsonRes = $response->json();
-
-
-            if (isset($jsonRes['name'])) {
-                $filename = $jsonRes['name'];
-                $mimeType = $jsonRes['mimeType'];
-
-                header('Content-Type: ' . $mimeType);
-                header('Content-Disposition: attachment; filename="' . $filename . '"');
-                readfile($url . '&alt=media');
-            } else {
-                return back()->with('message', 'File not found');
-            }
+            $workerUrl = "https://download.itsourov.workers.dev/";
+            $expires = now()->addMinutes(1)->getTimestamp();
+            $signature = md5("{$fileId}::{$expires}::itsourov");
+            $url = $workerUrl . '?' . http_build_query([
+                'id' => $fileId,
+                'signature' => $signature,
+                'expires' => $expires,
+            ]);
 
 
+            return redirect($url);
 
         } else if ($downloadItem->type == DownloadLinkType::localPath) {
 

@@ -16,7 +16,7 @@
                             </div>
                             <div class="flex gap-2">
                                 <p class=" flex-shrink-0 text-gray-500">File Size:</p>
-                                <p class="truncate">238 MB</p>
+                                <p class="truncate">{{ $downloadable->size }}</p>
                             </div>
                             <div class="text-center">
                                 <a href="{{ route('my-account.downloads.show', $downloadable) }}">
