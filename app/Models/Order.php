@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\User;
 use App\Models\Activity;
 use App\Enums\PaymentStatus;
 use Illuminate\Database\Eloquent\Model;
@@ -28,11 +27,6 @@ class Order extends Model
         'email',
         'phone',
     ];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 
     public function products()
     {

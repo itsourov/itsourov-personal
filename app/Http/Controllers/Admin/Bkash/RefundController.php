@@ -21,7 +21,7 @@ class RefundController extends Controller
         // new start
         $validated = $request->validate([
             'reason' => 'max:255',
-
+            'cancel_order' => 'boolean',
             'amount' => 'required|numeric',
 
         ]);
@@ -35,25 +35,33 @@ class RefundController extends Controller
                 return back()->with('message', 'The order was not found for this transaction');
             }
 
-            $order->update([
-                'order_status' => OrderStatus::Cancled,
-                'payment_status' => PaymentStatus::Refunded,
-            ]);
+            if ($request->has('cancel_order')) {
+                auth()->user()->purchasedItems()->detach($order->products->pluck('id'));
+                $order->update([
+                    'order_status' => OrderStatus::Cancled,
+                    'payment_status' => PaymentStatus::Refunded,
+                ]);
 
-            $order->activities()->create([
-                'action_by' => 'admin',
-                'content' => 'Bkash payment was refunded, Order Status: ' . OrderStatus::Cancled . ', and Payment status: ' . PaymentStatus::Refunded . ' .',
-            ]);
+                $order->activities()->create([
+                    'action_by' => 'admin',
+                    'content' => 'Bkash payment was refunded, Order Status: ' . OrderStatus::Cancled . ', and Payment status: ' . PaymentStatus::Refunded . ' .',
+                ]);
+            } else {
+                $order->activities()->create([
+                    'action_by' => 'admin',
+                    'content' => 'Bkash payment was refunded but the order status was unchanged, Payment status: ' . PaymentStatus::Refunded . ' .',
+                ]);
+            }
 
         } else {
             return 'This situation is Unhandled. This Payment was for this model : ' . $bkashTransaction->bkash_transactionable_type;
         }
         $refundResponse = BkashTokenized::refundPayment(
-            paymentID: $bkashTransaction->paymentID,
-            trxID: $bkashTransaction->trxID,
-            amount: $validated['amount'],
-            reason: $validated['reason'],
-            sku: $bkashTransaction->bkash_transactionable_type . "-" . $bkashTransaction->bkash_transactionable_id
+        paymentID: $bkashTransaction->paymentID,
+        trxID: $bkashTransaction->trxID,
+        amount: $validated['amount'],
+        reason: $validated['reason'],
+        sku: $bkashTransaction->bkash_transactionable_type . "-" . $bkashTransaction->bkash_transactionable_id
         );
 
 
@@ -62,11 +70,11 @@ class RefundController extends Controller
             BkashTokenized::grant_token();
 
             $refundResponse = BkashTokenized::refundPayment(
-                paymentID: $bkashTransaction->paymentID,
-                trxID: $bkashTransaction->trxID,
-                amount: $validated['amount'],
-                reason: $validated['reason'],
-                sku: $bkashTransaction->bkash_transactionable_type . "-" . $bkashTransaction->bkash_transactionable_id
+            paymentID: $bkashTransaction->paymentID,
+            trxID: $bkashTransaction->trxID,
+            amount: $validated['amount'],
+            reason: $validated['reason'],
+            sku: $bkashTransaction->bkash_transactionable_type . "-" . $bkashTransaction->bkash_transactionable_id
             );
         }
 
