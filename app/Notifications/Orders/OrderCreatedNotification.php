@@ -1,28 +1,28 @@
 <?php
 
-namespace App\Notifications;
+namespace App\Notifications\Orders;
 
+use App\Mail\Orders\OrderCreatedMail;
 use App\Models\Order;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
-class OrderUpdatedNotification extends Notification implements ShouldQueue
+class OrderCreatedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
     private Order $order;
-
     /**
      * Create a new notification instance.
      */
     public function __construct(Order $order)
     {
         $this->afterCommit();
-        $this->order = $order;
-    }
+        $this->order = $order->loadMissing('products');
 
+    }
 
     /**
      * Get the notification's delivery channels.
@@ -37,14 +37,9 @@ class OrderUpdatedNotification extends Notification implements ShouldQueue
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): MailMessage
+    public function toMail(object $notifiable): OrderCreatedMail
     {
-        return (new MailMessage)
-            ->line('Your Order was updated')
-            ->line("payment_status: {$this->order->payment_status}")
-            ->line("order_status: {$this->order->order_status}")
-            ->action('View Order', route('my-account.orders.show', $this->order))
-            ->line('Thank you for using our application!');
+        return (new OrderCreatedMail($this->order, $notifiable));
     }
 
     /**

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use App\Models\OrderActivity;
+use App\Enums\PaymentStatus;
 use Illuminate\Http\Request;
+use App\Models\OrderActivity;
+use App\Events\Order\OrderCreated;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
@@ -24,8 +26,7 @@ class OrderController extends Controller
         $user = auth()->user();
         $products = $user->cartItems;
 
-        // return $qtys;
-        $user->update(['phone' => $validated['phone']]);
+
 
         if (!count($products) > 0) {
             return back()->with('messaeg', 'Cart is empty');
@@ -46,6 +47,9 @@ class OrderController extends Controller
         $user->cartItems()->detach();
 
         $newOrder->activities()->create(['action_by' => 'customer', 'content' => 'Order created']);
+
+        event(new OrderCreated($newOrder));
+
         DB::commit();
         return redirect(route('my-account.orders.show', $newOrder->id));
     }

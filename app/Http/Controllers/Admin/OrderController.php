@@ -49,6 +49,12 @@ class OrderController extends Controller
             ]);
         }
 
+        // if ($newOrder->payment_status == PaymentStatus::Paid) {
+        //     $newOrder->user->purchasedItems()->syncWithoutDetaching($newOrder->products->pluck('id'));
+        // } else {
+        //     $newOrder->user->purchasedItems()->detach($newOrder->products->pluck('id'));
+        // }
+
 
         $order->update($validated);
 
