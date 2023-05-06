@@ -25,6 +25,14 @@
                             </div>
                         </div>
 
+                        @if ($bkashTransaction->bkash_transactionable_type == App\Models\Order::class)
+                            <div>
+                                <input type="checkbox" name="cancel_order" id="cancel_order" checked value="1">
+                                <x-input.label :value="__('Cancel Order')" for="cancel_order" />
+
+                            </div>
+                            <x-input.error :messages="$errors->get('cancel_order')" />
+                        @endif
                         <x-button.primary>Refund</x-button.primary>
                     </form>
                 @endif

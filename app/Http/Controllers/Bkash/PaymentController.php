@@ -73,7 +73,7 @@ class PaymentController extends Controller
                     'order_status' => OrderStatus::processing,
                     'payment_status' => PaymentStatus::Paid,
                 ]);
-
+                auth()->user()->purchasedItems()->syncWithoutDetaching($order->products->pluck('id'));
 
                 $order->activities()->create([
                     'action_by' => 'customer',

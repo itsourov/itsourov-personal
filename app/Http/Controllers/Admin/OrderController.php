@@ -52,6 +52,11 @@ class OrderController extends Controller
 
         $order->update($validated);
 
+        if ($request->payment_status == PaymentStatus::Paid) {
+            auth()->user()->purchasedItems()->syncWithoutDetaching($order->products->pluck('id'));
+        } else {
+            auth()->user()->purchasedItems()->detach($order->products->pluck('id'));
+        }
 
 
         DB::commit();
