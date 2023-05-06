@@ -4,7 +4,7 @@
         this.messages.splice(this.messages.map((message) => message.message).indexOf(message), 1)
     },
 }"
-    @notify.window="let type = $event.detail.type; let message = $event.detail.message; messages.push({'message': message, 'type': type}); setTimeout(() => { remove(message) }, 30000)"
+    @notify.window="let type = $event.detail.type; let message = $event.detail.message; messages.push({'message': message, 'type': type}); setTimeout(() => { remove(message) }, 3000)"
     class="fixed inset-0 flex flex-col items-end justify-end px-4 py-6 pointer-events-none sm:p-6 sm:justify-start space-y-4 ">
     <template x-for="(message, messageIndex) in messages" :key="messageIndex">
         <div x-transition:enter="transform ease-out duration-300 transition"

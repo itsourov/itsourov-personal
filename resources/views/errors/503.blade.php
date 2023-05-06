@@ -57,6 +57,9 @@
     </div>
     <!-- partial -->
 
+    <script>
+        setTimeout("location.reload(true);", 15000);
+    </script>
 </body>
 
 </html>
