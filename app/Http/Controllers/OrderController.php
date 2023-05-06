@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderActivity;
+use App\Notifications\Order\OrderCreatedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -46,7 +47,10 @@ class OrderController extends Controller
         $user->cartItems()->detach();
 
         $newOrder->activities()->create(['action_by' => 'customer', 'content' => 'Order created']);
+        $user->notify(new OrderCreatedNotification($newOrder));
         DB::commit();
+
+
         return redirect(route('my-account.orders.show', $newOrder->id));
     }
 

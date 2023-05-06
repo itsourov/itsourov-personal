@@ -9,7 +9,7 @@ class CheckoutController extends Controller
     public function checkout()
     {
         $user = auth()->user();
-        $products = $user->cartItems;
+        $products = $user->cartItems->loadMissing('media');
 
 
         if (!count($products) > 0) {
