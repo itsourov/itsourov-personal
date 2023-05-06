@@ -24,19 +24,18 @@ class CartController extends Controller
         return view('shop.cart', compact('products', 'order_total', 'productCount'));
     }
 
-    public function create(Request $request, Product $product)
-    {
+    //TODO: delete this if livewire working fine
+    // public function create(Request $request, Product $product)
+    // {
 
-        $oldCartItem = CartItem::where(['user_id' => auth()->user()->id, 'product_id' => $product->id])->first();
-        if (!$oldCartItem) {
-
-            auth()->user()->cartItems()->attach($product->id);
-
-            return back()->with('cartPreview', 'Keep cartPreview open');
-        } else {
-            return back()->with('message', "Item already exists in cart");
-        }
-    }
+    //     $oldCartItem = CartItem::where(['user_id' => auth()->user()->id, 'product_id' => $product->id])->first();
+    //     if (!$oldCartItem) {
+    //         auth()->user()->cartItems()->attach($product->id);
+    //         return back()->with('cartPreview', 'Keep cartPreview open');
+    //     } else {
+    //         return back()->with('message', "Item already exists in cart");
+    //     }
+    // }
 
     /**
      * Remove the specified resource from storage.

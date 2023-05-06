@@ -3,20 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
+
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::latest()->with('media')->withCount('reviews')->withAvg('reviews', 'rating')->paginate(12);
 
-        // return $products;
-
-        return view('products.index', [
-            'products' => $products,
-        ]);
+        return view('products.index');
     }
     public function show(Product $product)
     {

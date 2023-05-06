@@ -32,6 +32,7 @@
     </main>
     @include('inc.footer')
     @include('inc.notification')
+    @include('inc.livewire-notification')
 
     @livewireScripts
 
