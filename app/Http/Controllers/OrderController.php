@@ -24,9 +24,9 @@ class OrderController extends Controller
         DB::beginTransaction();
         $user = auth()->user();
         $products = $user->cartItems;
-
-        // return $qtys;
-        $user->update(['phone' => $validated['phone']]);
+        if (!$user->phone) {
+            $user->update(['phone' => $validated['phone']]);
+        }
 
         if (!count($products) > 0) {
             return back()->with('messaeg', 'Cart is empty');

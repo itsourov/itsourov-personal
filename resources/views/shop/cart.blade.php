@@ -13,7 +13,11 @@
                         <div class="grid grid-cols-4 gap-3 py-4">
                             <div class=" self-center">
                                 <div class="aspect-w-16 aspect-h-9 rounded overflow-hidden">
-                                    {{ $product->getMedia('product-thumbnails')->last() }}
+                                    @if ($product->getMedia('product-thumbnails')->last())
+                                        {{ $product->getMedia('product-thumbnails')->last() }}
+                                    @else
+                                        {!! $product->getFallbackImage() !!}
+                                    @endif
 
                                 </div>
                             </div>
