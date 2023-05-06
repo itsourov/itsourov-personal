@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>CodePen - Maintenance Page</title>
+    <title>Itsourov - Maintenance Page</title>
 
     <style>
         body {

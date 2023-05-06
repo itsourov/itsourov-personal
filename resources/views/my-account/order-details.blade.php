@@ -4,8 +4,8 @@
             <h2 class="text-xl font-bold mb-4">Order #{{ $order->id }}</h2>
             <div class="text-end space-y-1">
                 <img class="w-24 ml-auto" src="{{ asset('images/logo.png') }}" alt="">
-                <h2 class=" font-bold">{{ config('app.name') }}</h2>
-                <p class=" text-sm">291 N 4th St, San Jose, CA 95112, USA</p>
+                <h2 class=" font-bold">{{ $siteSettings->site_title }}</h2>
+                <p class=" text-sm">{{ $siteSettings->site_tagline }}</p>
             </div>
         </div>
 
