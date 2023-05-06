@@ -23,6 +23,9 @@ class ProductList extends Component
     }
     public function addToCart($product_id)
     {
+        if (!auth()->user()) {
+            return redirect(route('login'));
+        }
 
         $oldCartItem = CartItem::where(['user_id' => auth()->user()->id, 'product_id' => $product_id])->first();
         if (!$oldCartItem) {
