@@ -32,6 +32,7 @@ class ProductList extends Component
         if (!$oldCartItem) {
             auth()->user()->cartItems()->syncWithoutDetaching($product_id);
             $this->notify(__("Product Was added to the cart"), 'success');
+            $this->emit('cartItemtAdeed');
         } else {
 
             $this->notify(__("Item already exists in cart"), 'warning');

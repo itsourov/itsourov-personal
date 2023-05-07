@@ -37,16 +37,16 @@ class CartController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Product $product)
-    {
-        auth()->user()->cartItems()->detach($product->id);
-        if (request('cartPreview')) {
-            return back()->withNotification('Item Removed from cart')->with('cartPreview', 'Keep cartPreview open');
-        }
-        return back()->withNotification('Item Removed from cart');
+// /**
+//  * Remove the specified resource from storage.
+//  */
+// public function destroy(Product $product)
+// {
+//     auth()->user()->cartItems()->detach($product->id);
+//     if (request('cartPreview')) {
+//         return back()->withNotification('Item Removed from cart')->with('cartPreview', 'Keep cartPreview open');
+//     }
+//     return back()->withNotification('Item Removed from cart');
 
-    }
+// }
 }

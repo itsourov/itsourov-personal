@@ -1,4 +1,4 @@
-<div class="" x-data="{ offCanvasMenu: false, cartPreview: {{ session()->has('cartPreview') ? 'true' : 'false' }} }">
+<div class="" x-data="{ offCanvasMenu: false }">
 
     <div class="fixed inset-0 flex z-40 lg:hidden" x-cloak x-show="offCanvasMenu" role="dialog" aria-modal="true">
 
@@ -246,25 +246,12 @@
                             <div class="tooltip-arrow" data-popper-arrow></div>
                         </div>
                         <!-- Cart -->
-                        <div class=" flow-root ">
-                            <button x-on:click="cartPreview = !cartPreview" class="group -m-2 p-2 flex items-center">
-                                <!-- Heroicon name: outline/shopping-bag -->
-                                <svg class="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                                </svg>
-                                <span
-                                    class="ml-1 text-sm font-medium text-gray-500">{{ App\Http\Helpers\Cart::getCartItemsCount() }}</span>
-                                <span class="sr-only">items in cart, view bag</span>
-                            </button>
-                        </div>
+                        <livewire:shop.cart-preview />
                     </div>
                 </div>
             </div>
         </nav>
     </header>
-    <x-cart-menu />
+
 
 </div>
