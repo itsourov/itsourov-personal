@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Http\Livewire\Admin\Posts;
 
 use App\Models\Post;
+use App\Models\PostCategory;
 use Livewire\Component;
-use App\Models\Category;
-use App\Enums\CategoryType;
 use Livewire\WithFileUploads;
 
 class PostEdit extends Component
@@ -34,10 +33,10 @@ class PostEdit extends Component
 
     public function render()
     {
-        $categories = Category::where('type', CategoryType::postCategory)->get();
+        $categories = PostCategory::get();
         $this->categories = $categories;
 
-        return view('livewire.admin.post-edit');
+        return view('livewire.admin.posts.post-edit');
     }
     public function mount(Post $post)
     {

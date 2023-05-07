@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
-use App\Models\Category;
+use App\Models\PostCategory;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
@@ -79,7 +79,7 @@ class Post extends Model implements HasMedia
     }
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(PostCategory::class);
     }
 
 

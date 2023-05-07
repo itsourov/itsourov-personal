@@ -23,4 +23,9 @@ class PostController extends Controller
     {
         return view('admin.posts.create');
     }
+    public function manageCategories()
+    {
+        return view('admin.posts.categories');
+    }
+
 }

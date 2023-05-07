@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\DownloadItem;
+use App\Models\ProductCategory;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
@@ -58,7 +59,7 @@ class Product extends Model implements HasMedia
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(ProductCategory::class);
     }
 
 

@@ -28,8 +28,6 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         'email',
         'role',
         'password',
-        'access_token',
-        'refresh_token',
     ];
 
     /**

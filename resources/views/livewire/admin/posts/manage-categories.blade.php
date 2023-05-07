@@ -98,17 +98,7 @@
                         <x-input.text placeholder="{{ __('Category slug...') }}" wire:model.lazy="editing.slug" />
                     </div>
 
-                    <div>
-                        <x-input.label :value="__('Category Type')" required="true" />
-                        <x-input.select wire:model="editing.type" class="mt-1 block w-full">
-                            <option value="" disabled>Select an option</option>
-                            @foreach (\App\Enums\CategoryType::toArray() as $type)
-                                <option value="{{ $type }}">{{ $type }}</option>
-                            @endforeach
-                        </x-input.select>
 
-
-                    </div>
                 </div>
 
             </x-slot>

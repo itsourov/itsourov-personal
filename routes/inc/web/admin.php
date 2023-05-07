@@ -23,6 +23,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::get('/', [PostController::class, 'index'])->name('index');
         Route::get('/create', [PostController::class, 'create'])->name('create');
         Route::get('/{post}', [PostController::class, 'edit'])->name('edit');
+        Route::get('/categories/manage', [PostController::class, 'manageCategories'])->name('categories');
+
     });
 
     Route::prefix('products')->name('products.')->group(function () {
@@ -30,14 +32,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::get('/', [ProductController::class, 'index'])->name('index');
         Route::get('/create', [ProductController::class, 'create'])->name('create');
         Route::get('/{product:slug}', [ProductController::class, 'edit'])->name('edit');
+        Route::get('/categories/manage', [ProductController::class, 'manageCategories'])->name('categories');
         Route::get('/downloadable/{product:slug}/manage', [DownloadItemController::class, 'index'])->name('manage-downloadables');
     });
 
-    Route::prefix('categories')->name('categories.')->group(function () {
 
-        Route::get('/', [CategoryController::class, 'index'])->name('index');
-        Route::post('/', [CategoryController::class, 'store'])->name('store');
-    });
 
     Route::prefix('orders')->name('orders.')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('index');

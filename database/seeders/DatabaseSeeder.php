@@ -8,8 +8,11 @@ use Database\Seeders\PostSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\OrderSeeder;
 use Database\Seeders\CommentSeeder;
+use Database\Seeders\ProductSeeder;
 use Database\Seeders\CategorySeeder;
 use Illuminate\Support\Facades\Storage;
+use Database\Seeders\PostCategorySeeder;
+use Database\Seeders\ProductCategorySeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,8 +27,11 @@ class DatabaseSeeder extends Seeder
 
 
 
+
+        $this->call(PostCategorySeeder::class);
+        $this->call(ProductCategorySeeder::class);
+
         $this->call(UserSeeder::class);
-        $this->call(CategorySeeder::class);
         $this->call(PostSeeder::class);
         $this->call(ProductSeeder::class);
         $this->call(CommentSeeder::class);

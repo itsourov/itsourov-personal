@@ -67,4 +67,9 @@ class ProductController extends Controller
     {
         //
     }
+
+    public function manageCategories()
+    {
+        return view('admin.products.categories');
+    }
 }

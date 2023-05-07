@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\DownloadLinkType;
+use App\Models\ProductCategory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -35,6 +36,7 @@ class ProductSeeder extends Seeder
                     'content' => fake()->url(),
                     'size' => random_int(1, 50) . ' MB',
                 ]);
+                $product->categories()->syncWithoutDetaching(ProductCategory::get()->random()->id);
             }
         }
     }

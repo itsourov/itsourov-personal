@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Http\Livewire\Admin\Products;
+
 
 use App\Models\Product;
 use Livewire\Component;
 use App\Models\Category;
 use App\Enums\CategoryType;
 use Livewire\WithFileUploads;
+use App\Models\ProductCategory;
+
 
 class ProductEdit extends Component
 {
@@ -38,8 +41,8 @@ class ProductEdit extends Component
 
     public function render()
     {
-        $categories = Category::where('type', CategoryType::productCategory)->get();
-        return view('livewire.admin.product-edit', [
+        $categories = ProductCategory::get();
+        return view('livewire.admin.products.product-edit', [
             'categories' => $categories,
         ]);
     }

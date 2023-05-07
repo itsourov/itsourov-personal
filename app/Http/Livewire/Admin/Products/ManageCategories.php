@@ -1,19 +1,17 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Http\Livewire\Admin\Products;
 
-use App\Enums\CategoryType;
 use Livewire\Component;
-use App\Models\Category;
 use Livewire\WithPagination;
-use Illuminate\Validation\Rule;
+use App\Models\ProductCategory;
 
 class ManageCategories extends Component
 {
     use WithPagination;
 
     public $showEditModal = false;
-    public Category $editing;
+    public ProductCategory $editing;
     public $selectedCategories = [];
     public $selectAllInPage = false;
 
@@ -27,25 +25,25 @@ class ManageCategories extends Component
         return [
 
             'editing.title' => 'required',
-            'editing.slug' => 'required | unique:categories,slug,' . $this->editing->id,
-            'editing.type' => ['required', Rule::in(CategoryType::toArray())],
+            'editing.slug' => 'required | unique:post_categories,slug,' . $this->editing->id,
+
 
 
         ];
     }
     public function mount()
     {
-        $this->editing = new Category(['type' => '']);
+        $this->editing = new ProductCategory();
     }
 
     public function render()
     {
-        return view('livewire.admin.manage-categories', [
-            'categories' => Category::latest()->paginate(10)
+        return view('livewire.admin.products.manage-categories', [
+            'categories' => ProductCategory::latest()->paginate(10)
         ]);
     }
 
-    public function edit(Category $category)
+    public function edit(ProductCategory $category)
     {
         if ($this->editing->isNot($category)) {
             $this->resetErrorBag();
@@ -57,7 +55,7 @@ class ManageCategories extends Component
     {
 
         if ($this->editing->getKey()) {
-            $this->editing = new Category(['type' => '']);
+            $this->editing = new ProductCategory();
             $this->resetErrorBag();
         }
         $this->showEditModal = true;
@@ -70,14 +68,14 @@ class ManageCategories extends Component
     }
     public function deleteSelected()
     {
-        $selectedCategories = Category::whereKey($this->selectedCategories);
+        $selectedCategories = ProductCategory::whereKey($this->selectedCategories);
         $selectedCategories->delete();
         $this->selectedCategories = [];
     }
     public function exportSelected()
     {
         return response()->streamDownload(function () {
-            $csv = Category::whereKey($this->selectedCategories)->toCsv();
+            $csv = ProductCategory::whereKey($this->selectedCategories)->toCsv();
             echo $csv;
         }, 'categories.csv');
 

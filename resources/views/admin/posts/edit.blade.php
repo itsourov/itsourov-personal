@@ -1,5 +1,5 @@
 <x-admin-layout>
 
-    @livewire('admin.post-edit', ['post' => $post])
+    @livewire('admin.posts.post-edit', ['post' => $post])
 
 </x-admin-layout>
