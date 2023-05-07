@@ -13,15 +13,15 @@ class GoogleDriveController extends Controller
     {
 
 
-        return view('admin/google-drive.index');
+        return view('admin.google-drive.index');
     }
 
     public function redirect()
     {
 
         $client = new \Google\Client();
-        $client->setClientId(config('services.google.client_id'));
-        $client->setClientSecret(config('services.google.client_secret'));
+        $client->setClientId(config('services.google-admin.client_id'));
+        $client->setClientSecret(config('services.google-admin.client_secret'));
         $client->setAccessType('offline');
         $client->setPrompt('consent');
         $client->addScope(\Google\Service\Drive::DRIVE);
@@ -33,9 +33,10 @@ class GoogleDriveController extends Controller
     public function callback(Request $request)
     {
 
+
         $client = new \Google\Client();
-        $client->setClientId(config('services.google.client_id'));
-        $client->setClientSecret(config('services.google.client_secret'));
+        $client->setClientId(config('services.google-admin.client_id'));
+        $client->setClientSecret(config('services.google-admin.client_secret'));
         $client->setAccessType('offline');
         $client->setPrompt('consent');
         $client->addScope(\Google\Service\Drive::DRIVE);
@@ -44,19 +45,11 @@ class GoogleDriveController extends Controller
         if (request('error')) {
             return "there was an error";
         } else {
-            $client->fetchAccessTokenWithAuthCode(request('code'));
+            $code = $client->fetchAccessTokenWithAuthCode(request('code'));
             $accessToken = $client->getAccessToken();
             $refreshToken = $client->getRefreshToken();
 
-            // Save the access token and refresh token to your database.
-
-            auth()->user()->update([
-                'refresh_token' => $refreshToken,
-                'access_token' => $accessToken,
-            ]);
-
-            return redirect(route('admin.google-drive.index'))->withNotification("Authenticated! token was saved to database");
-
+            return $code;
         }
 
     }

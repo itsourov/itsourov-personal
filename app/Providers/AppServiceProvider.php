@@ -5,8 +5,6 @@ namespace App\Providers;
 use App\Enums\UserRole;
 
 use Livewire\Component;
-use App\Settings\SiteSettings;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
@@ -52,13 +50,6 @@ class AppServiceProvider extends ServiceProvider
         });
 
 
-        View::share('siteSettings', cache()->remember('siteSettings', 60 * 60 * 24, function () {
-            try {
-                return app(SiteSettings::class);
-            } catch (\Throwable $th) {
-                return $th;
-            }
-        }));
 
         Component::macro('notify', function ($message, $type = 'info') {
             $this->dispatchBrowserEvent('notify', ['message' => $message, 'type' => $type]);

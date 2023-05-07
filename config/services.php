@@ -37,6 +37,12 @@ return [
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => config('app.url') . '/auth/google/callback',
     ],
+    'google-admin' => [
+        'client_id' => env('ADMIN_GOOGLE_CLIENT_ID'),
+        'client_secret' => env('ADMIN_GOOGLE_CLIENT_SECRET'),
+        'refresh_token' => env('ADMIN_GOOGLE_REFRESH_TOKEN'),
+        'redirect' => config('app.url') . '/admin/google-drive/callback',
+    ],
     'facebook' => [
         'client_id' => env('FACEBOOK_CLIENT_ID'),
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),

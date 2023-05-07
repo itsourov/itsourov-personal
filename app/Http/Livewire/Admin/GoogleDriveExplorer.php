@@ -49,9 +49,7 @@ class GoogleDriveExplorer extends Component
 
     public function mount()
     {
-        if (!auth()->user()?->access_token) {
-            return $this->unAuthorized = true;
-        }
+
         $this->nextPageToken = null;
 
         $this->initGoogleDrive();
@@ -63,10 +61,10 @@ class GoogleDriveExplorer extends Component
     public function initGoogleDrive()
     {
         $client = new \Google\Client();
-        $client->setClientId(config('services.google.client_id'));
-        $client->setClientSecret(config('services.google.client_secret'));
+        $client->setClientId(config('services.google-admin.client_id'));
+        $client->setClientSecret(config('services.google-admin.client_secret'));
+        $client->refreshToken(config('services.google-admin.refresh_token'));
 
-        $client->setAccessToken(auth()->user()->access_token);
         // Set up the Drive API service
         $this->service = new \Google_Service_Drive($client);
 

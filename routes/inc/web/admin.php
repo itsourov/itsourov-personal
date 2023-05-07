@@ -52,10 +52,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::get('/refund-status', [TransactionController::class, 'refundStatus'])->name('refundStatus');
 
     });
-    Route::prefix('settings')->name('settings.')->group(function () {
-        Route::get('/settings', [SettingController::class, 'index'])->name('index');
-
-    });
 
     Route::middleware([])->group(function () {
         Route::get('/google-drive', [GoogleDriveController::class, 'index'])->name('google-drive.index');
