@@ -55,7 +55,7 @@ class GoogleDriveController extends Controller
                 'access_token' => $accessToken,
             ]);
 
-            return redirect(route('admin.google-drive.index'))->with('message', "Authenticated! token was saved to database");
+            return redirect(route('admin.google-drive.index'))->withNotification("Authenticated! token was saved to database");
 
         }
 

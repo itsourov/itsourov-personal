@@ -39,7 +39,7 @@ class GoogleLoginController extends Controller
                     ->usingFileName($googleUser->name . '.png')
                     ->toMediaCollection('profile-images', 'profile-images');
 
-                return redirect()->intended(RouteServiceProvider::HOME)->with('message', 'You are now logged in!');
+                return redirect()->intended(RouteServiceProvider::HOME)->withNotification('You are now logged in!');
             } else {
                 Auth::login($user);
                 $user->update(['token' => $googleUser->token]);
@@ -47,7 +47,7 @@ class GoogleLoginController extends Controller
                     $user->markEmailAsVerified();
                 }
 
-                return redirect()->intended(RouteServiceProvider::HOME)->with('message', 'You are now logged in!');
+                return redirect()->intended(RouteServiceProvider::HOME)->withNotification('You are now logged in!');
             }
         } catch (\Throwable $th) {
             dd($th);

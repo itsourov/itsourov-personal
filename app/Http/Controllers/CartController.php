@@ -33,7 +33,7 @@ class CartController extends Controller
     //         auth()->user()->cartItems()->attach($product->id);
     //         return back()->with('cartPreview', 'Keep cartPreview open');
     //     } else {
-    //         return back()->with('message', "Item already exists in cart");
+    //         return back()->withNotification( "Item already exists in cart");
     //     }
     // }
 
@@ -44,9 +44,9 @@ class CartController extends Controller
     {
         auth()->user()->cartItems()->detach($product->id);
         if (request('cartPreview')) {
-            return back()->with('message', 'Item Removed from cart')->with('cartPreview', 'Keep cartPreview open');
+            return back()->withNotification('Item Removed from cart')->with('cartPreview', 'Keep cartPreview open');
         }
-        return back()->with('message', 'Item Removed from cart');
+        return back()->withNotification('Item Removed from cart');
 
     }
 }

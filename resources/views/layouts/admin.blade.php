@@ -52,7 +52,7 @@
 
 
     @livewireScripts
-    @include('inc.notification')
+
 
     <script src="{{ asset('js/jquery-min.js') }}"></script>
     <script src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>

@@ -32,7 +32,7 @@ class RefundController extends Controller
 
             $order = $bkashTransaction->bkashTransactionable;
             if (!$order) {
-                return back()->with('message', 'The order was not found for this transaction');
+                return back()->withNotification('The order was not found for this transaction');
             }
 
             if ($request->has('cancel_order')) {
@@ -57,11 +57,11 @@ class RefundController extends Controller
             return 'This situation is Unhandled. This Payment was for this model : ' . $bkashTransaction->bkash_transactionable_type;
         }
         $refundResponse = BkashTokenized::refundPayment(
-        paymentID: $bkashTransaction->paymentID,
-        trxID: $bkashTransaction->trxID,
-        amount: $validated['amount'],
-        reason: $validated['reason'],
-        sku: $bkashTransaction->bkash_transactionable_type . "-" . $bkashTransaction->bkash_transactionable_id
+            paymentID: $bkashTransaction->paymentID,
+            trxID: $bkashTransaction->trxID,
+            amount: $validated['amount'],
+            reason: $validated['reason'],
+            sku: $bkashTransaction->bkash_transactionable_type . "-" . $bkashTransaction->bkash_transactionable_id
         );
 
 
@@ -70,11 +70,11 @@ class RefundController extends Controller
             BkashTokenized::grant_token();
 
             $refundResponse = BkashTokenized::refundPayment(
-            paymentID: $bkashTransaction->paymentID,
-            trxID: $bkashTransaction->trxID,
-            amount: $validated['amount'],
-            reason: $validated['reason'],
-            sku: $bkashTransaction->bkash_transactionable_type . "-" . $bkashTransaction->bkash_transactionable_id
+                paymentID: $bkashTransaction->paymentID,
+                trxID: $bkashTransaction->trxID,
+                amount: $validated['amount'],
+                reason: $validated['reason'],
+                sku: $bkashTransaction->bkash_transactionable_type . "-" . $bkashTransaction->bkash_transactionable_id
             );
         }
 
@@ -86,7 +86,7 @@ class RefundController extends Controller
             $bkashTransaction->update(array_merge($refundResponse->json(), ['transactionStatus' => 'Refunded', 'refundTime' => $refundResponse->json('completedTime')]));
 
             DB::commit();
-            return back()->with('message', "Refunded to customer complite");
+            return back()->withNotification("Refunded to customer complite");
         } else {
             return "error:" . $refundResponse;
         }

@@ -139,5 +139,5 @@
     </div>
 
 
-    @include('inc.notification')
+
 </div>

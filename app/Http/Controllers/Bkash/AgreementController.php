@@ -17,7 +17,7 @@ class AgreementController extends Controller
         Redirect::setIntendedUrl(url()->previous());
 
         $createAgreementResponse = BkashTokenized::createAgreement(
-        callbackUrl: route('bkash-tokenized.agreement.callback'), payerReference: auth()->user()->email
+            callbackUrl: route('bkash-tokenized.agreement.callback'), payerReference: auth()->user()->email
         );
 
         if ($createAgreementResponse->status() == 200) {
@@ -43,24 +43,24 @@ class AgreementController extends Controller
             $executeAgreementResponse = BkashTokenized::execute_agreement(paymentID: $paymentID);
             if ($executeAgreementResponse->json('agreementID') && $executeAgreementResponse->json('agreementStatus') == 'Completed') {
                 $bkashAgreement->update($executeAgreementResponse->json());
-                return redirect()->intended(RouteServiceProvider::HOME)->with('message', "Agreement complited");
+                return redirect()->intended(RouteServiceProvider::HOME)->withNotification("Agreement complited");
             } else {
-                return redirect()->intended(RouteServiceProvider::HOME)->with('message', "Agreement failed");
+                return redirect()->intended(RouteServiceProvider::HOME)->withNotification("Agreement failed");
             }
 
         } else {
-            return redirect()->intended(RouteServiceProvider::HOME)->with('message', "Agreement failed");
+            return redirect()->intended(RouteServiceProvider::HOME)->withNotification("Agreement failed");
         }
     }
     public function create_order_payment(Request $request, Order $order)
     {
         Redirect::setIntendedUrl(url()->previous());
         if (!auth()->user()->bkashAgreement?->agreementID) {
-            return redirect()->intended(RouteServiceProvider::HOME)->with('message', "No agreement was found");
+            return redirect()->intended(RouteServiceProvider::HOME)->withNotification("No agreement was found");
         }
 
         if ($order->is_paid) {
-            return back()->with('message', __('Order is alredy paid'));
+            return back()->withNotification(__('Order is alredy paid'));
         }
         $calculated_order_total = 0;
         foreach ($order->products as $product) {

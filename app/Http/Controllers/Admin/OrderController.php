@@ -60,6 +60,6 @@ class OrderController extends Controller
 
 
         DB::commit();
-        return back()->with('message', 'Order updated');
+        return back()->withNotification('Order updated');
     }
 }

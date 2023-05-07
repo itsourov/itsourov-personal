@@ -63,5 +63,13 @@ class AppServiceProvider extends ServiceProvider
         Component::macro('notify', function ($message, $type = 'info') {
             $this->dispatchBrowserEvent('notify', ['message' => $message, 'type' => $type]);
         });
+        Component::macro('flash', function ($message, $type = 'info') {
+            session()->flash('notify', ['message' => $message, 'type' => $type]);
+        });
+
+        /* additional macro for easy accessing flash sessions */
+        \Illuminate\Http\RedirectResponse::macro('withNotification', function ($message, $type = 'info') {
+            return $this->with('notify', ['message' => $message, 'type' => $type]);
+        });
     }
 }

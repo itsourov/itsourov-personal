@@ -31,7 +31,7 @@
         {{ $slot }}
     </main>
     @include('inc.footer')
-    @include('inc.notification')
+
     @include('inc.livewire-notification')
 
     @livewireScripts
@@ -39,6 +39,18 @@
     <script src="{{ asset('js/jquery-min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     @stack('scripts')
+    @if (session()->has('notify'))
+        <script>
+            window.onload = function() {
+                window.dispatchEvent(new CustomEvent('notify', {
+                    detail: {
+                        message: '{{ session('notify')['message'] }}',
+                        type: '{{ session('notify')['type'] }}'
+                    }
+                }));
+            }
+        </script>
+    @endif
 </body>
 
 </html>

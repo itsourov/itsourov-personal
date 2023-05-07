@@ -18,7 +18,7 @@ class PaymentController extends Controller
 
 
         if ($order->is_paid) {
-            return back()->with('message', __('Order is alredy paid'));
+            return back()->withNotification(__('Order is alredy paid'));
         }
         $calculated_order_total = 0;
         foreach ($order->products as $product) {
@@ -83,13 +83,13 @@ class PaymentController extends Controller
                 if ($response->json('paymentID') && $response->json('transactionStatus') == 'Completed') {
                     $bkashTransaction->update(array_merge($response->json()));
                     DB::commit();
-                    return redirect(route('my-account.orders.show', $order))->with('message', "payment successful");
+                    return redirect(route('my-account.orders.show', $order))->withNotification("payment successful");
                 }
                 return $response->json();
             }
 
         } else {
-            return redirect(route('my-account.orders'))->with('message', "payment failed");
+            return redirect(route('my-account.orders'))->withNotification("payment failed");
         }
     }
 }

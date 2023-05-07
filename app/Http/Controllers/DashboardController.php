@@ -42,7 +42,7 @@ class DashboardController extends Controller
             }
             if ($order->order_total != $calculated_order_total) {
                 $order->update(['order_total' => $calculated_order_total]);
-                return back()->with('message', 'Price updated');
+                return back()->withNotification('Price updated');
             }
 
         }
@@ -83,7 +83,7 @@ class DashboardController extends Controller
             if (file_exists($path)) {
                 return response()->download($path);
             } else {
-                return back()->with('message', 'File not found');
+                return back()->withNotification('File not found');
             }
 
         } else if ($downloadItem->type == DownloadLinkType::directLink) {

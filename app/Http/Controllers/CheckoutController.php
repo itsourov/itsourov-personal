@@ -13,7 +13,7 @@ class CheckoutController extends Controller
 
 
         if (!count($products) > 0) {
-            return redirect(route('shop.cart.index'))->with('message', 'No Product found in the cart.');
+            return redirect(route('shop.cart.index'))->withNotification('No Product found in the cart.');
         }
 
         $order_total = 0;

@@ -24,6 +24,6 @@ class CategoryController extends Controller
             'slug' => 'required|unique:categories,slug',
         ]);
         Category::create($validated);
-        return redirect(route('admin.categories.index'))->with('message', 'Category added');
+        return redirect(route('admin.categories.index'))->withNotification('Category added');
     }
 }

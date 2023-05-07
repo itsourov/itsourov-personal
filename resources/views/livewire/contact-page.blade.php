@@ -95,5 +95,5 @@
             </div>
         </div>
     </section>
-    @include('inc.notification')
+
 </div>

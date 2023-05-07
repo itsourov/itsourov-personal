@@ -58,6 +58,6 @@ class ContactPage extends Component
         ContactFormSubmission::create($this->validate());
 
         $this->reset(['message']);
-        session()->flash('message', 'Contact form Submitted');
+        $this->notify('Contact form Submitted', 'success');
     }
 }

@@ -66,7 +66,7 @@ class CommentSection extends Component
         $this->resetPage();
         $this->commentBoxText = "";
 
-        session()->flash('message', 'Comment Submitted');
+        $this->notify('Comment Submitted', 'success');
     }
     public function addReply($parentId)
     {
@@ -92,7 +92,8 @@ class CommentSection extends Component
             'parent_id' => $parentId,
             'comment' => $this->replyBoxTexts[$parentId],
         ]);
-        session()->flash('message', 'Reply Submitted');
+
+        $this->notify('Reply Submitted', 'success');
 
         $this->replyBoxTexts[$parentId] = "";
         $this->dispatchBrowserEvent('scroll-to-element', ['elementId' => 'reply-' . $newReply->id]);
@@ -109,5 +110,6 @@ class CommentSection extends Component
         Gate::authorize('delete', $comment);
 
         $comment->delete();
+        $this->notify('Comment Deleted', 'success');
     }
 }

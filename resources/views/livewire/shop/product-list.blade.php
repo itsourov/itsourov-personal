@@ -45,11 +45,11 @@
                         <div class="">
                             <button wire:click="addToCart({{ $product->id }})"
                                 class=" border border-primary-600 rounded py-1.5 px-3 hover:bg-primary-600 hover:text-gray-100 transition-all flex items-center gap-1">
-                                <span wire:loading.remove wire:target="addToCart">
+                                <span wire:loading.remove wire:target="addToCart({{ $product->id }})">
                                     <x-svg.cart class="w-4 h-4 inline" />
                                     {{ __('Add to cart') }}
                                 </span>
-                                <span wire:loading wire:target="addToCart">
+                                <span wire:loading wire:target="addToCart({{ $product->id }})">
                                     <x-svg.spinner class="w-4 h-4 inline animate-spin" />
                                     {{ __('Adding to cart') }}
                                 </span>

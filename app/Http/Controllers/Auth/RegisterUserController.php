@@ -48,6 +48,6 @@ class RegisterUserController extends Controller
 
         Auth::login($user);
 
-        return redirect()->intended(RouteServiceProvider::HOME)->with('message', __('User created and logged in'));
+        return redirect()->intended(RouteServiceProvider::HOME)->withNotification(__('User created and logged in'));
     }
 }

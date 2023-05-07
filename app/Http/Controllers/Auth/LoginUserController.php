@@ -31,7 +31,7 @@ class LoginUserController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME)->with('message', 'You are now logged in!');
+        return redirect()->intended(RouteServiceProvider::HOME)->withNotification('You are now logged in!');
     }
 
     /**
@@ -46,6 +46,6 @@ class LoginUserController extends Controller
         $request->session()->regenerateToken();
 
         Redirect::setIntendedUrl(url()->previous());
-        return redirect()->intended(RouteServiceProvider::HOME)->with('message', 'You have been logged out!');
+        return redirect()->intended(RouteServiceProvider::HOME)->withNotification('You have been logged out!');
     }
 }
