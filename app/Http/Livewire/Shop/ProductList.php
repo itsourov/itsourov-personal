@@ -23,6 +23,7 @@ class ProductList extends Component
     }
     public function addToCart($product_id)
     {
+
         if (!auth()->user()) {
             $this->flash(__("Please log in first"), 'warning');
             return redirect(route('login'));

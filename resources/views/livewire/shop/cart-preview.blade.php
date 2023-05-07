@@ -9,7 +9,7 @@
         <span class="ml-1 text-sm font-medium text-gray-500">{{ App\Http\Helpers\Cart::getCartItemsCount() }}</span>
         <span class="sr-only">items in cart, view bag</span>
     </button>
-    <div x-show="cartPreview" x-cloak class="fixed inset-0 overflow-hidden z-40" aria-labelledby="slide-over-title"
+    <div x-show="cartPreview" x-cloak class="fixed inset-0 overflow-hidden z-30" aria-labelledby="slide-over-title"
         role="dialog" aria-modal="true">
         <div class="absolute inset-0 overflow-hidden">
 

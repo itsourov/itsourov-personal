@@ -43,7 +43,7 @@
 
                         </div>
                         <div class="">
-                            <button wire:click="addToCart({{ $product->id }})"
+                            <button wire:click="addToCart({{ $product->id }})" wire:loading.attr="disabled"
                                 class=" border border-primary-600 rounded py-1.5 px-3 hover:bg-primary-600 hover:text-gray-100 transition-all flex items-center gap-1">
                                 <span wire:loading.remove wire:target="addToCart({{ $product->id }})">
                                     <x-svg.cart class="w-4 h-4 inline" />
