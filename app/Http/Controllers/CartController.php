@@ -25,17 +25,17 @@ class CartController extends Controller
     }
 
     //TODO: delete this if livewire working fine
-    // public function create(Request $request, Product $product)
-    // {
+    public function create(Request $request, Product $product)
+    {
 
-    //     $oldCartItem = CartItem::where(['user_id' => auth()->user()->id, 'product_id' => $product->id])->first();
-    //     if (!$oldCartItem) {
-    //         auth()->user()->cartItems()->attach($product->id);
-    //         return back()->with('cartPreview', 'Keep cartPreview open');
-    //     } else {
-    //         return back()->withNotification( "Item already exists in cart");
-    //     }
-    // }
+        $oldCartItem = CartItem::where(['user_id' => auth()->user()->id, 'product_id' => $product->id])->first();
+        if (!$oldCartItem) {
+            auth()->user()->cartItems()->attach($product->id);
+            return back()->with('cartPreview', 'Keep cartPreview open');
+        } else {
+            return back()->withNotification("Item already exists in cart");
+        }
+    }
 
     /**
      * Remove the specified resource from storage.
