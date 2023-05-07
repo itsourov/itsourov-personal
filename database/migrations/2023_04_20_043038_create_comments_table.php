@@ -14,8 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->integer('parent_id')->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->integer('commentable_id')->unsigned();
-            $table->string('commentable_type');
+            $table->morphs('commentable');
             $table->text('comment');
             $table->enum('rating', [1, 2, 3, 4, 5])->default(5);
             $table->softDeletes();
