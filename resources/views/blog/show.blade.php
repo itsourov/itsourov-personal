@@ -49,7 +49,7 @@
                     </div>
 
                     @if ($post->getMedia('post-thumbnails')->last())
-                        <div class="rounded overflow-hidden">
+                        <div class="rounded overflow-hidden shadow">
                             <a class="spotlight  " href="{{ $post->getMedia('post-thumbnails')->last()->getUrl() }}">
                                 {{ $post->getMedia('post-thumbnails')->last() }}
                             </a>
@@ -84,6 +84,5 @@
                 </div>
 
             </div>
-
 
 </x-app-layout>
