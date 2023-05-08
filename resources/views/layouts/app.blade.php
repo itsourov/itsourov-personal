@@ -7,7 +7,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta property="fb:app_id" content="550300976942417" />
 
-    {!! seo() !!}
+    @hasSection('seo')
+        @yield('seo')
+    @else
+        {!! seo() !!}
+    @endif
+
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
