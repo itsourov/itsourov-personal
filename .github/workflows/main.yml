@@ -30,15 +30,15 @@ jobs:
         password: ${{ secrets.ftp_password }}
         port: 65002
         script: |
-          cd /home/u440599207/domains/itsourov.com/public_html
-          php artisan down
-          # cp .env.example .env
-          # php artisan key:generate
-          php -r "readfile('https://getcomposer.org/installer');" | php -c php.ini
-          php composer.phar install --no-interaction --prefer-dist --optimize-autoloader
-          php artisan cache:clear
-          php artisan migrate
-          php artisan storage:link
-          php artisan config:clear
-          php artisan optimize:clear
-          php artisan up
+          # cd /home/u440599207/domains/itsourov.com/public_html
+          # php artisan down
+          # # cp .env.example .env
+          # # php artisan key:generate
+          # php -r "readfile('https://getcomposer.org/installer');" | php -c php.ini
+          # php composer.phar install --no-interaction --prefer-dist --optimize-autoloader
+          # php artisan cache:clear
+          # php artisan migrate
+          # php artisan storage:link
+          # php artisan config:clear
+          # php artisan optimize:clear
+          # php artisan up
