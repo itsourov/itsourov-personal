@@ -90,7 +90,7 @@
         </div>
         @if (!$order->isPaid)
             <div class="space-y-2">
-                @if (auth()->user()->bkashAgreement?->agreementID)
+                {{-- @if (auth()->user()->bkashAgreement?->agreementID)
                     <div>
                         <a href="{{ route('bkash-tokenized.agreement.payment.create.order', $order) }}">
                             <x-button.primary class="w-full text-sm">Pay With Bkash
@@ -106,12 +106,12 @@
                             </x-button.primary>
                         </a>
                     </div>
-                @endif
-                {{-- <div>
+                @endif --}}
+                <div>
                     <a href="{{ route('bkash-tokenized.payment.create.order', $order) }}">
                         <x-button.secondary class="w-full text-sm">Pay With Bkash</x-button.secondary>
                     </a>
-                </div> --}}
+                </div>
             </div>
         @endif
 
