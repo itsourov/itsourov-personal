@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\OrderController;
@@ -50,6 +51,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 
         Route::get('/searchTransaction', [TransactionController::class, 'searchTransaction'])->name('searchTransaction');
         Route::get('/refund-status', [TransactionController::class, 'refundStatus'])->name('refundStatus');
+
+    });
+    Route::prefix('users')->name('users.')->group(function () {
+        Route::get('/users', [UserController::class, 'index'])->name('index');
+
 
     });
 
