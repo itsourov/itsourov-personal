@@ -7,7 +7,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 ">
             <div class=" md:col-span-2">
                 <x-card class="space-y-4 md:p-4">
-                    <h2 class="font-bold text-xl md:text-3xl">
+                    <h2 class="font-bold text-2xl md:text-3xl">
                         {{ $post->title }}</h2>
                     <div class="flex flex-wrap justify-between text-xs text-gray-700 dark:text-gray-300">
                         <p class="">By <span class=" font-bold">{{ $post->user->name }}</span> -
@@ -60,7 +60,7 @@
                     <hr class="mt-6 mb-6 border-gray-200 dark:border-gray-700">
                     <article>
                         <div
-                            class="format md:format-lg text-black dark:text-gray-50  dark:format-invert max-w-none format-a:text-blue-600 ">
+                            class="format format-lg text-black dark:text-gray-50  dark:format-invert max-w-none format-a:text-blue-600 ">
                             {!! $post->content !!}
                         </div>
                     </article>
