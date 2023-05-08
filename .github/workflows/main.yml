@@ -34,7 +34,7 @@ jobs:
           php artisan down
           # cp .env.example .env
           # php artisan key:generate
-          # php -r "readfile('https://getcomposer.org/installer');" | php -c php.ini
+          php -r "readfile('https://getcomposer.org/installer');" | php -c php.ini
           php composer.phar install --no-interaction --prefer-dist --optimize-autoloader
           php artisan cache:clear
           php artisan migrate
