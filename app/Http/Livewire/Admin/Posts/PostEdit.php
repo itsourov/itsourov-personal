@@ -76,7 +76,8 @@ class PostEdit extends Component
         // $this->product->categories()->sync($this->categoryIds);
 
 
-        return redirect(route('admin.posts.index'));
+        $this->flash(__("Post Saved"), 'success');
+        return redirect(route('admin.posts.edit', $this->post));
 
     }
 }
