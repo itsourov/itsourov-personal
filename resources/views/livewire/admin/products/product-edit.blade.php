@@ -1,50 +1,52 @@
 <div>
     <h2 class="text-lg font-bold">{{ $title }}</h2>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-3 mt-5">
-        <x-card class="lg:col-span-2">
-            <h2 class="py-2">Product Info</h2>
-            <hr class="dark:border-gray-700">
-            <div class="form mt-4 space-y-3">
-                <div>
-                    <x-input.label :value="__('Title')" required="true" />
-                    <x-input.text wire:model.lazy="product.title" type="text" class="mt-1" />
-                </div>
-                <div>
-                    <x-input.label :value="__('Slug')" required="true" />
-                    <x-input.text wire:model.lazy="product.slug" type="text" class="mt-1" />
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div class="lg:col-span-2">
+            <x-card>
+                <h2 class="py-2">Product Info</h2>
+                <hr class="dark:border-gray-700">
+                <div class="form mt-4 space-y-3">
                     <div>
-                        <x-input.label :value="__('Selling price')" required="true" />
-                        <x-input.text wire:model.lazy="product.selling_price" type="number" class="mt-1" />
+                        <x-input.label :value="__('Title')" required="true" />
+                        <x-input.text wire:model.lazy="product.title" type="text" class="mt-1" />
+                    </div>
+                    <div>
+                        <x-input.label :value="__('Slug')" required="true" />
+                        <x-input.text wire:model.lazy="product.slug" type="text" class="mt-1" />
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <x-input.label :value="__('Selling price')" required="true" />
+                            <x-input.text wire:model.lazy="product.selling_price" type="number" class="mt-1" />
+                        </div>
+
+                        <div>
+                            <x-input.label :value="__('Regular Price')" required="false" />
+                            <x-input.text wire:model.lazy="product.original_price" type="number" class="mt-1" />
+                        </div>
                     </div>
 
                     <div>
-                        <x-input.label :value="__('Regular Price')" required="false" />
-                        <x-input.text wire:model.lazy="product.original_price" type="number" class="mt-1" />
+                        <x-input.label :value="__('Short Description')" required="true" />
+                        <x-input.textarea wire:model.lazy="product.short_description" type="text" class="mt-1"
+                            rows="4">
+                        </x-input.textarea>
                     </div>
-                </div>
+                    <div wire:ignore class="space-y-1">
+                        <x-input.label :value="__('Long Description')" required="true" />
+                        <x-input.textarea wire:model="product.long_description" class=" mt-1" id="long_description"
+                            rows="6">
+                            {{ $product['long_description'] }}</x-input.textarea>
 
-                <div>
-                    <x-input.label :value="__('Short Description')" required="true" />
-                    <x-input.textarea wire:model.lazy="product.short_description" type="text" class="mt-1"
-                        rows="4">
-                    </x-input.textarea>
-                </div>
-                <div wire:ignore class="space-y-1">
-                    <x-input.label :value="__('Long Description')" required="true" />
-                    <x-input.textarea wire:model="product.long_description" class=" mt-1" id="long_description"
-                        rows="6">
-                        {{ $product['long_description'] }}</x-input.textarea>
+                    </div>
+                    <div>
+                        <x-error-list :errors="$errors->get('product.*')" />
+                    </div>
+                    <x-button.primary wire:click="update">Update</x-button.primary>
 
                 </div>
-                <div>
-                    <x-error-list :errors="$errors->get('product.*')" />
-                </div>
-                <x-button.primary wire:click="update">Update</x-button.primary>
-
-            </div>
-        </x-card>
+            </x-card>
+        </div>
         <div class="space-y-4">
             <x-card>
                 <h2 class="py-2">Product Image</h2>
@@ -75,8 +77,16 @@
                         <x-input.label :value="__('Product image Gellery')" />
                         <div class="flex flex-wrap gap-3">
                             @foreach ($product->getMedia('product-images') as $productImage)
-                                <img class=" w-20 flex-grow" src="{{ $productImage->getUrl('preview') }}"
-                                    alt="">
+                                <div class="w-20 flex-grow relative" wire:key="item-{{ $productImage->uuid }}">
+                                    <img class=" " src="{{ $productImage->getUrl('preview') }}" alt=""
+                                        wire:key="image-{{ $productImage->uuid }}">
+                                    <button wire:click="removeImage({{ $productImage->id }})"
+                                        class=" absolute top-0 right-0 bg-gray-500 p-1 rounded">
+                                        <x-svg.trash class="w-5 h-5" />
+                                        <span wire:loading
+                                            wire:target="removeImage({{ $productImage->id }})">Deleting</span>
+                                    </button>
+                                </div>
                             @endforeach
 
                         </div>

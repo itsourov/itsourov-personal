@@ -84,8 +84,11 @@ class ProductEdit extends Component
         return redirect(route('admin.products.edit', $this->product));
 
     }
-    public function dismiss()
+    public function removeImage($image_id)
     {
+        $this->product->deleteMedia($image_id);
+        return $this->notify(__("Image Deleted"));
 
     }
+
 }
