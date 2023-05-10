@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Livewire\Admin\MediaLibrary;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\OrderController;
@@ -63,6 +64,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::get('/google-drive', [GoogleDriveController::class, 'index'])->name('google-drive.index');
         Route::get('/google-drive/redirect', [GoogleDriveController::class, 'redirect'])->name('google-drive.redirect');
         Route::get('/google-drive/callback', [GoogleDriveController::class, 'callback'])->name('google-drive.callback');
+
+    });
+    Route::middleware([])->group(function () {
+        Route::get('/media', MediaLibrary::class)->name('media-library');
+
 
     });
 });

@@ -15,6 +15,7 @@ class PostController extends Controller
     }
     public function show(Request $request, Post $post)
     {
+        // return $post->getMedia('post-thumbnails')[0]->getSrcset();
         $post = $post->loadMissing(['media', 'user.media'])->loadCount('comments');
         $post->update(['count' => $post->count + 1]);
 
