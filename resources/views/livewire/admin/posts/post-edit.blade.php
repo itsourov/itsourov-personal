@@ -132,6 +132,7 @@
                         if (e.command === 'mceUpdateImage') {
                             const img = editor.selection.getNode();
                             img.setAttribute('srcset', img.title)
+                            img.setAttribute('src', img.src)
                             img.setAttribute('title', img.alt)
                             img.setAttribute('onload',
                                 "window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});"
@@ -145,7 +146,7 @@
                 },
                 file_picker_callback: elFinderBrowser,
                 image_title: true,
-                extended_valid_elements: 'img[class|src|alt|srcset|title|width|sizes=50px|onload]',
+                extended_valid_elements: 'img[srcset|class|src|alt|title|width|sizes=50px|onload]',
 
             });
 
