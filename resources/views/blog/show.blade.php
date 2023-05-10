@@ -1,12 +1,13 @@
 <x-app-layout>
-    @section('seo')
+    {{-- @section('seo')
         {!! seo($SEOData) !!}
-    @endsection
+    @endsection --}}
     {{ Breadcrumbs::render('blog.article', $post->title) }}
     <div class="container my-6  mx-auto gap-5 px-2  ">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 ">
             <div class=" md:col-span-2">
                 <x-card class="space-y-4 md:p-4">
+
                     <h2 class="font-bold text-2xl md:text-3xl">
                         {{ $post->title }}</h2>
                     <div class="flex flex-wrap justify-between text-xs text-gray-700 dark:text-gray-300">
@@ -64,6 +65,7 @@
                             {!! $post->content !!}
                         </div>
                     </article>
+
                 </x-card>
 
                 @livewire('post.comment-section', ['post' => $post])

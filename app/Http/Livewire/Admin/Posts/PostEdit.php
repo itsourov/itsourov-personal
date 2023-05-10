@@ -61,6 +61,12 @@ class PostEdit extends Component
         if (!$this->post->user_id) {
             $this->post->user_id = auth()->user()->id;
         }
+
+        $pattern = '/(sizes=")([^"]*)(")/i';
+        $fixed_size = '50px';
+        $replacement = '${1}' . $fixed_size . '${3}';
+        $this->post->content = preg_replace($pattern, $replacement, $this->post->content);
+
         $this->post->save();
         $this->post->categories()->sync($this->categoryIds);
         if ($this->featuredImage) {

@@ -13,7 +13,7 @@
         {!! seo() !!}
     @endif
 
-    <!-- Google tag (gtag.js) -->
+    {{-- <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-PEMFVSS2FG"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -26,7 +26,7 @@
         gtag('config', 'G-PEMFVSS2FG');
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8543356494981112"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script> --}}
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])

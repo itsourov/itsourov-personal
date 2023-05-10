@@ -118,11 +118,6 @@
     @push('scripts')
         <script>
             tinymce.init({
-
-                force_br_newlines: false,
-                force_p_newlines: false,
-                forced_root_block: 'div',
-
                 selector: '#post_content',
                 plugins: 'anchor  code autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
                 toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
@@ -135,23 +130,34 @@
                     });
                     editor.on('ExecCommand', function(e) {
                         if (e.command === 'mceUpdateImage') {
-                            const img = editor.selection.getNode();
-                            img.setAttribute('srcset', img.title)
+                            var img = editor.selection.getNode();
                             img.setAttribute('src', img.src)
+                            img.setAttribute('srcset', img.title)
                             img.setAttribute('title', img.alt)
+                            img.setAttribute('class', 'w-full h-full object-cover')
                             img.setAttribute('onload',
                                 "window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});"
                             )
 
+                            var link = document.createElement("a");
+                            link.href = img.src;
+                            link.className = 'spotlight';
+                            img.parentNode.insertBefore(link, img);
 
-
+                            // Move the image inside the link element
+                            link.appendChild(img);
                         }
                     });
+
+
 
                 },
                 file_picker_callback: elFinderBrowser,
                 image_title: true,
-                extended_valid_elements: 'img[srcset|class|src|alt|title|width|sizes=50px|onload]',
+                // forced_root_block: 'p',
+                convert_urls: false,
+                extended_valid_elements: 'img[srcset|onload|sizes=50px|src|width|height|class|alt|title]',
+
 
             });
 
