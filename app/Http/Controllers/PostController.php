@@ -10,7 +10,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::latest()->search(request('search'))->with('media')->paginate(10);
+        $posts = Post::public ()->latest()->search(request('search'))->with('media')->paginate(10);
         return view('blog.index', compact('posts'));
     }
     public function show(Request $request, Post $post)

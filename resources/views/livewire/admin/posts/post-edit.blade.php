@@ -1,110 +1,96 @@
-<div class="container px-2 mx-auto">
-
-    <x-card>
-
-        <div class="space-y-5 md:p-3">
-            <div class="heading  py-4 ">
-                <h3 class=" font-medium text-lg">{{ $title }}</h3>
-            </div>
-            <div>
-                <x-error-list :errors="$errors->get('post.*')" />
-            </div>
-
-
-
-            <div class=" border-t border-b dark:border-gray-700 py-2">
-                <div class="grid grid-cols-2 gap-1 md:block md:space-y-1">
-                    <x-admin.tab-button :tabItem='$tabItem' name="info">Info</x-admin.tab-button>
-                    <x-admin.tab-button :tabItem='$tabItem' name="content">Content</x-admin.tab-button>
-                    <x-admin.tab-button :tabItem='$tabItem' name="categories">Categories</x-admin.tab-button>
-
-
-
-                </div>
-
-            </div>
-            <div class="content relative">
-                <div wire:loading wire:target="setTab" class=" absolute w-full h-full z-30">
-
-                    <div
-                        class="bg-gray-500 text-primary-500 w-full h-full  flex items-center justify-center bg-opacity-25 z-30">
-                        <div class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-                            role="status">
-                            <span
-                                class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div id="info-container" class=" space-y-5" {!! $tabItem == 'info' ? '' : 'style="display: none"' !!}>
-
-
+<div>
+    <h2 class="text-lg font-bold">{{ $title }}</h2>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-3 mt-5">
+        <div class="lg:col-span-2">
+            <x-card>
+                <h2 class="py-2">Post Info</h2>
+                <hr class="dark:border-gray-700">
+                <div class="form mt-4 space-y-3">
                     <div>
                         <x-input.label :value="__('Title')" required="true" />
-                        <x-input.text wire:model="post.title" type="text" class="mt-1 block w-full" />
+                        <x-input.text wire:model.lazy="post.title" type="text" class="mt-1" />
                     </div>
                     <div>
                         <x-input.label :value="__('Slug')" required="true" />
-                        <x-input.text wire:model="post.slug" type="text" class="mt-1 block w-full" />
+                        <x-input.text wire:model.lazy="post.slug" type="text" class="mt-1" />
                     </div>
 
 
+                    <div wire:ignore class="space-y-1">
+                        <x-input.label :value="__('Content')" required="true" />
+                        <x-input.textarea wire:model="post.content" class=" mt-1 block w-full" id="post_content"
+                            rows="6">
+                            {{ $post['content'] }}</x-input.textarea>
+
+                    </div>
                     <div>
-                        <x-input.label :value="__('Featured Image')" required="false" />
-                        <x-input.livewire-filepond wire:model="featuredImage" />
-                        @error('featuredImage')
-                            <x-input.livewire-error>
-                                {{ $message }}
-                            </x-input.livewire-error>
-                        @enderror
+                        <x-error-list :errors="$errors->get('post.*')" />
                     </div>
+                    <x-button.primary wire:click="update">Update</x-button.primary>
 
                 </div>
-                <div id="content-container" class="" {!! $tabItem == 'content' ? '' : 'style="display: none"' !!}>
-                    <div class="space-y-6">
+            </x-card>
+        </div>
+        <div class="space-y-4">
+            <x-card class="space-y-2">
+                <h2 class="">Post Status</h2>
+                <hr class="dark:border-gray-700">
 
+                <div>
 
-                        <div wire:ignore>
-                            <x-input.label :value="__('Content')" required="true" />
-                            <x-input.textarea wire:model="post.content" class=" mt-1 block w-full" id="post_content"
-                                rows="6">
-                                {{ $post['content'] }}</x-input.textarea>
+                    <x-input.select wire:model="post.status" class="mt-1 block w-full">
+                        <option value="" disabled>Select an option</option>
+                        @foreach (\App\Enums\VisibilityStatus::toArray() as $type)
+                            <option value="{{ $type }}">{{ $type }}</option>
+                        @endforeach
+                    </x-input.select>
 
-                        </div>
-                    </div>
                 </div>
-                <div id="categories-container" class="" {!! $tabItem == 'categories' ? '' : 'style="display: none"' !!}>
+            </x-card>
+            <x-card>
+                <h2 class="py-2">Post Image</h2>
+                <hr class="dark:border-gray-700">
 
-                    <div>
+                <div>
 
-                        <h3>Select categories</h3>
-                        <hr class="border-gray-300 dark:border-gray-700 my-2">
-                        <div class="grid grid-cols-4 gap-3">
-                            @foreach ($categories as $index => $category)
-                                <div class="bg-gray-100 dark:bg-gray-700 px-2 rounded flex items-center gap-2">
-                                    <input type="checkbox" wire:model="categoryIds" id="cat-item-{{ $index }}"
-                                        value="{{ $category->id }}">
+                    <div class="py-4">
+                        <x-input.label :value="__('Post Featured image')" />
 
-                                    <label class="block w-full py-3 select-none cursor-pointer"
-                                        for="cat-item-{{ $index }}">{{ $category->title }}</label>
+                        <div class=" space-y-2">
+                            @foreach ($post->getMedia('post-thumbnails') as $media)
+                                <div class="aspect-w-16 aspect-h-9 rounded overflow-hidden">
+                                    {{ $media }}
                                 </div>
                             @endforeach
                         </div>
 
                     </div>
+                    <div>
+                        <x-input.livewire-filepond wire:model="featuredImage" accept="image/*" />
+                    </div>
+                    <div>
+                        <x-error-list :errors="$errors->get('featuredImage')" />
+                    </div>
                 </div>
 
+            </x-card>
+            <x-card class="space-y-2">
+                <h2 class="">Product Category</h2>
+                <hr class="dark:border-gray-700">
 
+                <div>
+                    <x-input.select multiple class="w-full h-60 space-y-2" wire:model.lazy="selectedCategories">
+                        @foreach ($categories as $category)
+                            <option class="p-2 border dark:border-gray-800 rounded" value="{{ $category->id }}">
+                                {{ $category->title }}</option>
+                        @endforeach
+                    </x-input.select>
 
-            </div>
-            <div>
-                <x-error-list :errors="$errors->get('post.*')" />
-            </div>
-            <x-button.primary wire:click="update">Update</x-button.primary>
-
+                </div>
+            </x-card>
         </div>
-    </x-card>
+    </div>
+
     <div wire:loading wire:target="update">
         <div
             class="fixed z-40 flex tems-center justify-center inset-0 bg-gray-700 dark:bg-gray-900 dark:bg-opacity-50 bg-opacity-50 transition-opacity">
@@ -114,7 +100,6 @@
             </div>
         </div>
     </div>
-
     @push('scripts')
         <script>
             tinymce.init({

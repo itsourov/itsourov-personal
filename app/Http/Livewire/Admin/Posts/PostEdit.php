@@ -17,7 +17,7 @@ class PostEdit extends Component
     public $tabItem = 'content';
 
     public $categories;
-    public $categoryIds = [];
+    public $selectedCategories = [];
 
 
     protected function rules()
@@ -27,6 +27,7 @@ class PostEdit extends Component
             'post.title' => 'required',
             'post.slug' => 'required | unique:posts,slug,' . $this->post->id,
             'post.content' => 'required',
+            'post.status' => 'required',
 
         ];
     }
@@ -34,6 +35,7 @@ class PostEdit extends Component
     public function render()
     {
         $categories = PostCategory::get();
+
         $this->categories = $categories;
 
         return view('livewire.admin.posts.post-edit');
@@ -42,7 +44,7 @@ class PostEdit extends Component
     {
 
         $this->post = $post;
-        $this->categoryIds = $post->categories->pluck('id')->toArray();
+        $this->selectedCategories = $post->categories->pluck('id')->toArray();
 
 
 
@@ -68,7 +70,7 @@ class PostEdit extends Component
         $this->post->content = preg_replace($pattern, $replacement, $this->post->content);
 
         $this->post->save();
-        $this->post->categories()->sync($this->categoryIds);
+        $this->post->categories()->sync($this->selectedCategories);
         if ($this->featuredImage) {
             $validatedImage = $this->validate([
                 'featuredImage' => 'image|max:1500'

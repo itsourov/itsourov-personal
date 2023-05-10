@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\VisibilityStatus;
 use App\Models\User;
 use App\Models\PostCategory;
 use Spatie\Image\Manipulations;
@@ -11,6 +12,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Illuminate\Database\Eloquent\Builder;
 
 class Post extends Model implements HasMedia
 {
@@ -32,6 +34,12 @@ class Post extends Model implements HasMedia
     ];
 
 
+    protected static function boot()
+    {
+        parent::boot();
+
+    }
+
     public function scopeSearch($query, $searchQuery)
     {
 
@@ -42,6 +50,14 @@ class Post extends Model implements HasMedia
         }
 
 
+    }
+    public function scopePublic($query)
+    {
+        return $query->where('status', VisibilityStatus::public );
+    }
+    public function scopeDraft($query)
+    {
+        return $query->where('status', VisibilityStatus::draft);
     }
 
     /**
