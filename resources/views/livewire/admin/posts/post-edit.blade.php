@@ -131,21 +131,21 @@
                     editor.on('ExecCommand', function(e) {
                         if (e.command === 'mceUpdateImage') {
                             const img = editor.selection.getNode();
+                            img.setAttribute('srcset', img.title)
+                            img.setAttribute('title', img.alt)
+                            img.setAttribute('onload',
+                                "window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});"
+                            )
 
-                            var link = document.createElement("a");
-                            link.href = img.src;
-                            link.className = 'spotlight';
-                            img.parentNode.insertBefore(link, img);
 
-                            // Move the image inside the link element
-                            link.appendChild(img);
 
                         }
                     });
 
                 },
                 file_picker_callback: elFinderBrowser,
-                extended_valid_elements: 'img[class|src|alt|title|width|loading=lazy]',
+                image_title: true,
+                extended_valid_elements: 'img[class|src|alt|srcset|title|width|sizes=50px|onload]',
 
             });
 
@@ -155,7 +155,7 @@
             function elFinderBrowser(callback, value, meta) {
                 tinymce.activeEditor.windowManager.openUrl({
                     title: 'File Manager',
-                    url: "{{ route('elfinder.tinymce5') }}",
+                    url: "{{ route('admin.media-library') }}",
                     /**
                      * On message will be triggered by the child window
                      * 
@@ -166,7 +166,7 @@
                     onMessage: function(dialogApi, details) {
                         if (details.mceAction === 'fileSelected') {
                             const file = details.data.file;
-
+                            console.log(file);
                             // Make file info
                             const info = file.name;
 
@@ -181,7 +181,8 @@
                             // Provide image and alt text for the image dialog
                             if (meta.filetype === 'image') {
                                 callback(file.url, {
-                                    alt: info
+                                    alt: info,
+                                    title: file.srcset
                                 });
                             }
 
@@ -194,18 +195,6 @@
                         }
                     }
                 });
-            }
-
-
-            function openFileManager(model) {
-                window.open('{{ route('elfinder.popup', 'a') }}?model=' + model, 'fm', 'width=1280,height=720');
-            }
-
-            // set file link
-            function standAloneFmSetLink($url, model) {
-
-
-                @this.set(model, $url);
             }
         </script>
     @endpush

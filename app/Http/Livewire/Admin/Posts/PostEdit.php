@@ -14,7 +14,7 @@ class PostEdit extends Component
     public $featuredImage;
 
     public $title = 'Edit Post';
-    public $tabItem = 'info';
+    public $tabItem = 'content';
 
     public $categories;
     public $categoryIds = [];
