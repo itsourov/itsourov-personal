@@ -118,6 +118,11 @@
     @push('scripts')
         <script>
             tinymce.init({
+
+                force_br_newlines: false,
+                force_p_newlines: false,
+                forced_root_block: 'div',
+
                 selector: '#post_content',
                 plugins: 'anchor  code autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
                 toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
