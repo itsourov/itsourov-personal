@@ -237,7 +237,7 @@ class GoogleDriveExplorer extends Component
     {
 
         $validateUploadFile = $this->validate([
-            'uploadFile' => 'file|max:1500'
+            'uploadFile' => 'file|max:15000'
         ]);
         $file = $validateUploadFile['uploadFile'];
         $name = $file->getClientOriginalName();
