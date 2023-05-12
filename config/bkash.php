@@ -1,6 +1,6 @@
 <?php
 
-$testMode = true;
+$testMode = false;
 
 if (!$testMode) {
     return [

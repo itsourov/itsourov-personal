@@ -14,10 +14,10 @@ class AgreementController extends Controller
 {
     public function create(Request $request)
     {
-        Redirect::setIntendedUrl(url()->previous());
+        Redirect::setIntendedUrl($request->redirect_to ?? url()->previous());
 
         $createAgreementResponse = BkashTokenized::createAgreement(
-            callbackUrl: route('bkash-tokenized.agreement.callback'), payerReference: auth()->user()->email
+            callbackUrl: route('bkash-tokenized.agreement.callback', ['redirect_to' => $request->redirect_to]), payerReference: auth()->user()->email
         );
 
         if ($createAgreementResponse->status() == 200) {
