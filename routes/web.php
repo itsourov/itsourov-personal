@@ -84,6 +84,8 @@ Route::prefix('bkash-tokenized')->name('bkash-tokenized.')->middleware(['auth'])
     Route::get('agreement/create', [AgreementController::class, 'create'])->name('agreement.create');
     Route::get('agreement/callback', [AgreementController::class, 'callback'])->name('agreement.callback');
 
+    Route::delete('agreement/delete', [AgreementController::class, 'delete'])->name('agreement.delete');
+
     Route::get('agreement/payment/create/order/{order}', [AgreementController::class, 'create_order_payment'])->name('agreement.payment.create.order');
 });
 

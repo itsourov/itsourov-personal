@@ -95,4 +95,10 @@ class AgreementController extends Controller
         return $createPaymentResponse->json();
 
     }
+
+    public function delete()
+    {
+        auth()->user()->bkashAgreement()->delete();
+        return back()->withNotification(__("Agreement Deleted"));
+    }
 }

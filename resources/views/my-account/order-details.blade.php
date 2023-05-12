@@ -88,35 +88,44 @@
             <h3>Payment Method: <span
                     class="bg-gray-200 dark:bg-gray-700 rounded px-2">{{ $order->payment_method }}</span></h3>
         </div>
-        @if (!$order->isPaid)
-            <div class="space-y-2">
-                {{-- @if (auth()->user()->bkashAgreement?->agreementID)
-                    <div>
-                        <a href="{{ route('bkash-tokenized.agreement.payment.create.order', $order) }}">
-                            <x-button.primary class="w-full text-sm">Pay With Bkash
-                                ({{ auth()->user()->bkashAgreement->customerMsisdn }})</x-button.primary>
-                        </a>
-                    </div>
-                @else
-                    <div>
-                        <a
-                            href="{{ route('bkash-tokenized.agreement.create', ['redirect_to' => route('bkash-tokenized.agreement.payment.create.order', $order)]) }}">
-                            <x-button.primary class="w-full text-sm">
-                                <x-svg.bkash class="w-8 h-8" />Save Bkash and pay
-                            </x-button.primary>
-                        </a>
-                    </div>
-                @endif --}}
-                <div>
-                    <a href="{{ route('bkash-tokenized.payment.create.order', $order) }}">
-                        <x-button.secondary class="w-full text-sm">Pay With Bkash</x-button.secondary>
-                    </a>
-                </div>
-            </div>
-        @endif
+
 
     </x-card>
+    @if (!$order->isPaid)
+        <div class="space-y-2 mt-4">
+            @if (auth()->user()->bkashAgreement?->agreementID)
+                <div class="flex gap-4">
+                    <a class=" flex-grow" href="{{ route('bkash-tokenized.agreement.payment.create.order', $order) }}">
+                        <x-button.primary class="w-full text-sm">Instant Pay With Bkash
+                            ({{ auth()->user()->bkashAgreement->customerMsisdn }})</x-button.primary>
+                    </a>
+                    <form action="{{ route('bkash-tokenized.agreement.delete') }}" method="post">
+                        @method('DELETE')
+                        @csrf
 
+                        <x-button.secondary class="w-full text-sm" type="submit">
+                            <p class="sr-only">Removr Bkash Account</p>
+                            <x-svg.trash class="w-5 h-5" />
+                        </x-button.secondary>
+                    </form>
+                </div>
+            @else
+                <div>
+                    <a
+                        href="{{ route('bkash-tokenized.agreement.create', ['redirect_to' => route('bkash-tokenized.agreement.payment.create.order', $order)]) }}">
+                        <x-button.primary class="w-full text-sm">
+                            <x-svg.bkash class="w-8 h-8" />Save Bkash and pay
+                        </x-button.primary>
+                    </a>
+                </div>
+            @endif
+            <div>
+                <a href="{{ route('bkash-tokenized.payment.create.order', $order) }}">
+                    <x-button.secondary class="w-full text-sm">Pay With Bkash</x-button.secondary>
+                </a>
+            </div>
+        </div>
+    @endif
 
 
 </x-my-account.layout>
