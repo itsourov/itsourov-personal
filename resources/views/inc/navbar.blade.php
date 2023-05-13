@@ -255,3 +255,56 @@
 
 
 </div>
+
+@if (auth()->user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail &&
+        !auth()->user()->hasVerifiedEmail())
+    <div>
+
+        <form id="send-verification" method="post" action="{{ route('verification.send') }}">
+            @csrf
+        </form>
+        <div id="alert-1" class=" text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
+            role="alert">
+            <div class="container mx-auto flex p-4">
+
+
+
+                <x-svg.info class="w-5 h-5" class="flex-shrink-0 w-5 h-5" />
+                <span class="sr-only">Info</span>
+                <div class="ml-3 text-sm font-medium">
+                    {{ __('Your email address is unverified.') }}
+                    <button form="send-verification"
+                        class="underline text-sm text-gray-500  hover:  rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ">
+                        {{ __('Click here to re-send the verification email.') }}
+                    </button>
+                </div>
+                <button type="button"
+                    class="ml-auto -mx-1.5 -my-1.5 bg-blue-50 text-blue-500 rounded-lg focus:ring-2 focus:ring-blue-400 p-1.5 hover:bg-blue-200 inline-flex h-8 w-8 dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700"
+                    data-dismiss-target="#alert-1" aria-label="Close">
+                    <span class="sr-only">Close</span>
+                    <x-svg.x class="w-5 h-5" />
+                </button>
+            </div>
+        </div>
+        @if (session('status') === 'verification-link-sent')
+            <div id="alert-3" class=" text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+                role="alert">
+                <div class="container mx-auto flex p-4">
+
+
+                    <x-svg.check-circle class="flex-shrink-0 w-5 h-5" />
+                    <span class="sr-only">Info</span>
+                    <div class="ml-3 text-sm font-medium">
+                        {{ __('A new verification link has been sent to your email address.') }}
+                    </div>
+                    <button type="button"
+                        class="ml-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700"
+                        data-dismiss-target="#alert-3" aria-label="Close">
+                        <span class="sr-only">Close</span>
+                        <x-svg.x class="w-5 h-5" />
+                    </button>
+                </div>
+            </div>
+        @endif
+    </div>
+@endif

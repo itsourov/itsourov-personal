@@ -31,7 +31,7 @@ class CartController extends Controller
         $oldCartItem = CartItem::where(['user_id' => auth()->user()->id, 'product_id' => $product->id])->first();
         if (!$oldCartItem) {
             auth()->user()->cartItems()->attach($product->id);
-            return back()->with('cartPreview', 'Keep cartPreview open');
+            return back()->withNotification("Item was added cart", 'success');
         } else {
             return back()->withNotification("Item already exists in cart");
         }
