@@ -19,7 +19,7 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@4.3.3
       with:
         server: 31.170.160.185
-        username: u440599207.github	
+        username: u440599207.ss	
         password: ${{ secrets.ftp_password }}
 
     - name: Deploy to production
