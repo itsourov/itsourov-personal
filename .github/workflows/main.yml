@@ -30,7 +30,7 @@ jobs:
         password: ${{ secrets.ftp_password }}
         port: 65002
         script: |
-          # cd /home/u440599207/domains/itsourov.com/public_html
+          # cd /home/u440599207/domains/itsourov.com/public_html/subdomain/ss
           # php artisan down
           # # cp .env.example .env
           # # php artisan key:generate
