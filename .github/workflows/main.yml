@@ -18,24 +18,24 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.3.3
       with:
-        server: 31.170.160.185
-        username: u440599207.ss	
+        server: ftp.itsourov.com
+        username: u950298905.git	
         password: ${{ secrets.ftp_password }}
 
     - name: Deploy to production
       uses: appleboy/ssh-action@master
       with:
-        username: u440599207
-        host: 31.170.160.185
+        username: u950298905
+        host: 89.117.9.152
         password: ${{ secrets.ftp_password }}
         port: 65002
         script: |
-          # cd /home/u440599207/domains/itsourov.com/public_html/subdomain/ss
+          cd /home/u950298905/domains/itsourov.com/public_html
           # php artisan down
-          # # cp .env.example .env
-          # # php artisan key:generate
-          # php -r "readfile('https://getcomposer.org/installer');" | php -c php.ini
-          # php composer.phar install --no-interaction --prefer-dist --optimize-autoloader
+          cp .env.example .env
+          php artisan key:generate
+          php -r "readfile('https://getcomposer.org/installer');" | php -c php.ini
+          php composer.phar install --no-interaction --prefer-dist --optimize-autoloader
           # php artisan cache:clear
           # php artisan migrate
           # php artisan storage:link
