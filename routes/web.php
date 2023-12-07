@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\Bkash\AgreementController;
-use App\Http\Controllers\Bkash\PaymentController;
-use App\Http\Controllers\BkashTokenizedController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\PostController;
@@ -13,6 +10,10 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Bkash\PaymentController;
+use App\Http\Controllers\BkashTokenizedController;
+use App\Http\Controllers\Admin\ShortLinkController;
+use App\Http\Controllers\Bkash\AgreementController;
 
 
 /*
@@ -88,6 +89,10 @@ Route::prefix('bkash-tokenized')->name('bkash-tokenized.')->middleware(['auth'])
 
     Route::get('agreement/payment/create/order/{order}', [AgreementController::class, 'create_order_payment'])->name('agreement.payment.create.order');
 });
+
+
+Route::get('/sl/{short_link:short_id}', [ShortLinkController::class, 'show'])->name('shortlink.show');
+
 
 require __DIR__ . '/inc/web/auth.php';
 require __DIR__ . '/inc/web/admin.php';

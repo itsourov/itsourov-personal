@@ -143,6 +143,18 @@
 
                     </x-admin.sidebar-menu-item>
 
+                    <x-admin.sidebar-menu-item :active="request()->routeIs('admin.shortlinks')" :href="route('admin.shortlinks')">
+
+                        <x-slot name="icon">
+                            <x-svg.link class="w-5 h-5" />
+                        </x-slot>
+                        <x-slot name="title">
+                            {{ __('Short Links') }}
+                        </x-slot>
+
+
+                    </x-admin.sidebar-menu-item>
+
                 </ul>
 
             </div>

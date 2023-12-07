@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\ShortLinkController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Livewire\Admin\MediaLibrary;
 use Illuminate\Support\Facades\Route;
@@ -56,9 +57,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     });
     Route::prefix('users')->name('users.')->group(function () {
         Route::get('/users', [UserController::class, 'index'])->name('index');
-
-
     });
+
+    Route::get('/shortlinks', [ShortLinkController::class, 'index'])->name('shortlinks');
 
     Route::middleware([])->group(function () {
         Route::get('/google-drive', [GoogleDriveController::class, 'index'])->name('google-drive.index');
