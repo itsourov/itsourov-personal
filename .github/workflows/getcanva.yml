@@ -18,7 +18,7 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.3.3
       with:
-        server: ftp.getcanva.tech
+        server: 193.203.185.71
         username: u443785549.git	
         password: ${{ secrets.GETCANVA_PASSWORD }}
 
