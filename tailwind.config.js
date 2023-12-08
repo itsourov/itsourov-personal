@@ -10,7 +10,7 @@ module.exports = {
     "./app/Enums/*.php",
   ],
   theme: {
-        screens: {
+    screens: {
       'sm': '640px', // => @media (min-width: 640px) { ... }
       'md': '768px', // => @media (min-width: 768px) { ... }
       'lg': '1024px', // => @media (min-width: 1024px) { ... }
@@ -41,7 +41,6 @@ module.exports = {
         'Noto Color Emoji'
       ],
       'sans': [
-        // 'SolaimanLipi',
         'Inter',
         'ui-sans-serif',
         'system-ui',
@@ -58,8 +57,8 @@ module.exports = {
         'Segoe UI Symbol',
         'Noto Color Emoji'
       ],
-      'sl': [
-        'SolaimanLipi',
+      '': [
+        'ShurjoWeb',
         'Inter',
         'ui-sans-serif',
         'system-ui',

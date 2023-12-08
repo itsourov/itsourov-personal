@@ -44,12 +44,12 @@
 </head>
 
 <body
-    class="bg-white text-gray-900 dark:text-gray-100 dark:bg-gray-900 antialiased flex flex-col min-h-screen {{ App::getLocale() == 'bn' ? 'font-sl' : '' }}">
-    @include('inc.navbar')
+    class="bg-white text-gray-900 dark:text-gray-100 dark:bg-gray-900 antialiased flex flex-col min-h-screen {{ App::getLocale() == 'bn' ? 'font-surjo' : '' }}">
+    {{-- @include('inc.navbar') --}}
     <main>
         {{ $slot }}
     </main>
-    @include('inc.footer')
+    {{-- @include('inc.footer') --}}
 
     @include('inc.livewire-notification')
 

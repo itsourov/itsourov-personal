@@ -27,10 +27,12 @@ use App\Http\Controllers\Bkash\AgreementController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('home');
 
+
+Route::get('/', [ProductController::class, 'getCanva'])->name('home');
 Route::get('/icons', function () {
     return view('icons');
 })->name('icons');

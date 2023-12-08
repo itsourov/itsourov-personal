@@ -1,0 +1,44 @@
+name: CD to getcanva
+ 
+on:
+  push:
+    branches: [ getcanva ]
+ 
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '19.x'
+    - run: npm install
+    - run: npm run build
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.3.3
+      with:
+        server: ftp.getcanva.tech
+        username: u443785549.git	
+        password: ${{ secrets.GETCANVA_PASSWORD }}
+
+    - name: Deploy to production
+      uses: appleboy/ssh-action@master
+      with:
+        username: u443785549
+        host: 193.203.185.71
+        password: ${{ secrets.GETCANVA_PASSWORD }}
+        port: 65002
+        script: |
+          cd /home/u443785549/domains/getcanva.tech/public_html
+          php artisan down
+          cp .env.example .env
+          php artisan key:generate
+          # php -r "readfile('https://getcomposer.org/installer');" | php -c php.ini
+          # php composer.phar install --no-interaction --prefer-dist --optimize-autoloader
+          # php artisan cache:clear
+          # php artisan migrate
+          # php artisan storage:link
+          # php artisan config:clear
+          # php artisan optimize:clear
+          # php artisan up
