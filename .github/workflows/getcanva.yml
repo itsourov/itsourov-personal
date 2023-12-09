@@ -2,7 +2,7 @@ name: CD to getcanva
  
 on:
   push:
-    branches: [ getcanva ]
+    branches: [ develop ]
  
 jobs:
   deploy:
