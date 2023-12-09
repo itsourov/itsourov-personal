@@ -44,7 +44,7 @@
 </head>
 
 <body
-    class="bg-white text-gray-900 dark:text-gray-100 dark:bg-gray-900 antialiased flex flex-col min-h-screen {{ App::getLocale() == 'bn' ? 'font-sl' : '' }}">
+    class=".image1 text-gray-900 dark:text-gray-100 dark:bg-gray-900 antialiased flex flex-col min-h-screen {{ App::getLocale() == 'bn' ? '' : '' }} bg-image-1">
     @include('inc.navbar')
     <main>
         {{ $slot }}

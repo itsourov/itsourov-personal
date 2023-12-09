@@ -22,4 +22,15 @@ class ProductController extends Controller
         return view('products.show', compact('product'));
     }
 
+    public function getCanva()
+    {
+
+
+        $product = Product::find(1)->loadMissing('categories', 'media')->loadAvg('reviews', 'rating')->loadCount('reviews');
+
+        // $links = $product->downloadItems()->paginate(3);
+
+
+        return view('getcanva', compact('product'));
+    }
 }
