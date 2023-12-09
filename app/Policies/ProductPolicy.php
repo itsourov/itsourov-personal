@@ -2,8 +2,9 @@
 
 namespace App\Policies;
 
-use App\Models\Product;
 use App\Models\User;
+use App\Models\Comment;
+use App\Models\Product;
 use Illuminate\Auth\Access\Response;
 
 class ProductPolicy
@@ -68,6 +69,6 @@ class ProductPolicy
      */
     public function giveRating(User $user, Product $product): bool
     {
-        return $user->purchasedItems->contains($product);
+        return $user->purchasedItems->contains($product) && Comment::where(['user_id' => auth()->id(), 'commentable_type' => Product::class, 'commentable_id' => $product->id])->count() == 0;
     }
 }

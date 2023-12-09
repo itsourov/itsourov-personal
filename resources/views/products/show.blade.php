@@ -92,20 +92,20 @@
                             <x-svg.cart class="w-5 h-5 " />{{ __('Add to cart') }}
                         </x-button.primary>
                     </form>
-                    <x-button.primary class="relative flex items-center gap-2"
-                        data-tooltip-target="tooltip-feature-unavailable">
-                        <span class=" absolute  -top-1 -right-1 flex h-3 w-3">
-                            <span
-                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-3 w-3 bg-pink-500"></span>
-                        </span>
-                        <x-svg.bolt class="w-5 h-5 " /></i>{{ __('Buy now') }}
-                    </x-button.primary>
-                    <div id="tooltip-feature-unavailable" role="tooltip"
-                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium  transition-opacity duration-300  rounded-lg shadow-sm opacity-0 tooltip bg-black dark:bg-gray-300 text-gray-100 dark:text-gray-900">
-                        {{ __('This feature is not implemented yet') }}
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div>
+                    <form class=" inline-flex" action="{{ route('shop.cart.create.instant', $product) }}"
+                        method="post">
+                        @csrf
+                        <x-button.primary class="relative flex items-center gap-2">
+                            <span class=" absolute  -top-1 -right-1 flex h-3 w-3">
+                                <span
+                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-3 w-3 bg-pink-500"></span>
+                            </span>
+                            <x-svg.bolt class="w-5 h-5 " /></i>{{ __('Buy now') }}
+                        </x-button.primary>
+                    </form>
+
+
                     <hr class="dark:border-gray-500">
                 </div>
 

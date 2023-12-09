@@ -37,12 +37,14 @@
                             {{ __('Reviews') }}</a>
                     </div>
 
+                    <form class=" inline-flex" action="{{ route('shop.cart.create.instant', $product) }}"
+                        method="post">
+                        @csrf
+                        <button
+                            class="mt-2 border shadow-lg dark:shadow-gray-600  border-primary-500 rounded px-10 py-2 hover:bg-primary-400 hover:text-white inline-flex gap-2">
+                            <x-svg.cart class="w-5 h-5" />{{ __('কিনুন') }}</button>
 
-                    <button
-                        class="mt-2 border shadow-lg dark:shadow-gray-600  border-primary-500 rounded px-10 py-2 hover:bg-primary-400 hover:text-white inline-flex gap-2">
-                        <x-svg.cart class="w-5 h-5" />{{ __('কিনুন') }}</button>
-
-
+                    </form>
 
 
 

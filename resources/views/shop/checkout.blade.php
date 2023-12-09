@@ -18,9 +18,9 @@
                         <x-input.error class="mt-2" :messages="$errors->get('name')" />
                     </div>
                     <div>
-                        <x-input.label :value="__('Email')" required="true" />
+                        <x-input.label :value="__('Email (email to get the services)')" required="true" />
                         <x-input.text name="email" type="email" class="mt-1 block w-full dark:bg-gray-800"
-                            :value="old('email', $user->email)" required autocomplete="email" />
+                            :value="old('email')" required autocomplete="email" />
                         <x-input.error class="mt-2" :messages="$errors->get('email')" />
                     </div>
                     <div>

@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div>
-                    <x-input.label value="{{ __('Rating') }}" required="true" />
+                    <x-input.label value="{{ __('Rating (1-5)') }}" required="true" />
                     <x-input.text placeholder="{{ __('Enter Rating here...') }}" wire:model.lazy="newComment.rating" />
                 </div>
                 <div>

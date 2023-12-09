@@ -52,6 +52,7 @@ Route::prefix('shop')->name('shop.')->middleware([])->group(function () {
     Route::prefix('cart')->middleware(['auth'])->group(function () {
         Route::get('/', [CartController::class, 'index'])->name('cart.index');
         Route::post('create/{product:slug}', [CartController::class, 'create'])->name('cart.create');
+        Route::post('create/{product:slug}/instant', [CartController::class, 'createAndRedirect'])->name('cart.create.instant');
         Route::delete('create/{product:slug}', [CartController::class, 'destroy'])->name('cart.destroy');
     });
     Route::get('checkout', [CheckoutController::class, 'checkout'])->middleware('auth')->name('checkout');

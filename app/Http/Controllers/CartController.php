@@ -37,6 +37,13 @@ class CartController extends Controller
         }
     }
 
+    public function createAndRedirect(Request $request, Product $product)
+    {
+        auth()->user()->cartItems()->sync($product->id);
+        return redirect(route('shop.checkout'));
+
+    }
+
     /**
      * Remove the specified resource from storage.
      */
