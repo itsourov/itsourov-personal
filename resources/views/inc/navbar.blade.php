@@ -98,7 +98,7 @@
     <header class="relative bg-white dark:bg-gray-800 border-b border-gray-200  dark:border-gray-700 ">
         <p
             class="bg-indigo-600 h-10 flex items-center justify-center text-sm font-medium text-white px-4 sm:px-6 lg:px-8">
-            {{ __('Website is in development') }}
+            {{ __('Website is in development :-)') }}
         </p>
 
         <nav aria-label="Top" class="container mx-auto px-2 ">
