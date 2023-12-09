@@ -16,7 +16,7 @@
     font-style: normal;
 }
 
-body {
+.image1 {
     background-image: url('http://localhost:8000/images/s.webp');
     background-size: cover;
     background-repeat: no-repeat;
